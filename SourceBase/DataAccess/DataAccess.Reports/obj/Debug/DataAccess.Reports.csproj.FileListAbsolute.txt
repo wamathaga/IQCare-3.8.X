@@ -1,0 +1,5 @@
+C:\Projects\IQCare 3.8.1\References\DataAccess.Reports.dll
+C:\Projects\IQCare 3.8.1\SourceBase\DataAccess\DataAccess.Reports\obj\Debug\DataAccess.Reports.dll
+C:\Projects\IQCare 3.8.1\SourceBase\DataAccess\DataAccess.Reports\obj\Debug\DataAccess.Reports.pdb
+C:\Projects\IQCare 3.8.1\References\DataAccess.Reports.pdb
+C:\Projects\IQCare 3.8.1\SourceBase\DataAccess\DataAccess.Reports\obj\Debug\DataAccess.Reports.csprojResolveAssemblyReference.cache

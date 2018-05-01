@@ -1,0 +1,9 @@
+C:\IQCare 3.6.0\References\Interface.SCM.dll
+C:\IQCare 3.6.0\References\Interface.SCM.pdb
+C:\IQCare 3.6.0\SourceBase\DataAccess\Interface.SCM\obj\Debug\Interface.SCM.dll
+C:\IQCare 3.6.0\SourceBase\DataAccess\Interface.SCM\obj\Debug\Interface.SCM.pdb
+C:\Projects\IQCare 3.8.1\References\Interface.SCM.dll
+C:\Projects\IQCare 3.8.1\References\Interface.SCM.pdb
+C:\Projects\IQCare 3.8.1\SourceBase\DataAccess\Interface.SCM\obj\Debug\Interface.SCM.csprojResolveAssemblyReference.cache
+C:\Projects\IQCare 3.8.1\SourceBase\DataAccess\Interface.SCM\obj\Debug\Interface.SCM.dll
+C:\Projects\IQCare 3.8.1\SourceBase\DataAccess\Interface.SCM\obj\Debug\Interface.SCM.pdb
