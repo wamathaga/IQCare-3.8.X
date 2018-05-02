@@ -14,6 +14,29 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Presentation", "..\Presentation\Application.Presentation\Application.Presentation.csproj", "{2E7534C9-101D-4B6D-8E57-056101E4D54D}"
 EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://192.168.0.2:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = IQCare\u0020Management.csproj
+		SccLocalPath1 = .
+		SccProjectUniqueName2 = IQCare.FormBuilder\\IQCare.FormBuilder.csproj
+		SccProjectName2 = IQCare.FormBuilder
+		SccLocalPath2 = IQCare.FormBuilder
+		SccProjectUniqueName3 = IQCare.SCM\\IQCare.SCM.csproj
+		SccProjectName3 = IQCare.SCM
+		SccLocalPath3 = IQCare.SCM
+		SccProjectUniqueName4 = IQCare.Service\\IQCare.Service.csproj
+		SccProjectName4 = IQCare.Service
+		SccLocalPath4 = IQCare.Service
+		SccProjectUniqueName5 = IQMGT\\IQMGT.vdproj
+		SccProjectName5 = IQMGT
+		SccLocalPath5 = IQMGT
+		SccProjectUniqueName6 = ..\\Presentation\\Application.Presentation\\Application.Presentation.csproj
+		SccProjectName6 = ../Presentation/Application.Presentation
+		SccLocalPath6 = ..\\Presentation\\Application.Presentation
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

@@ -2,9 +2,6 @@
     EnableEventValidation="false"  AutoEventWireup="true" Inherits="ClinicalForms_frm_PriorArt_HivCare" Codebehind="frm_PriorArt_HivCare.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="IQCareContentPlaceHolder" runat="Server">
-    
-<br />
-    <div style="padding-left:8px;padding-right:8px;">
   
     <script language="Javascript" type="text/javascript">
 
@@ -222,11 +219,11 @@
         }
     </script>
 
+<div style="padding-left:8px;padding-right:8px; width:100%;" class="container">
     <div class="border center formbg">
-     <br />
-        <h2 class="forms" align="left">
-            Prior ART</h2>
-        <table cellspacing="6" cellpadding="0" width="100%" border="0">
+        <h4 class="forms" align="left">
+            Prior ART</h4>
+        <table cellspacing="6" cellpadding="0" width="100%" border="0" class = "table-condensed">
             <tr align="left">
                 <td align="left">
                     <label>
@@ -242,7 +239,7 @@
                 </td>
             </tr>
         </table>
-        <table cellspacing="6" cellpadding="0" width="100%" border="0" id="divwhoto">
+        <table cellspacing="6" cellpadding="0" width="100%" border="0" id="divwhoto" class = "table-condensed">
             <tbody>
                 <tr>
                     <td class="form">
@@ -361,10 +358,10 @@
     <br />
     <div class="border center formbg">
         <br/>
-        <h2 class="forms" align="left">
-            HIV Care</h2>
+        <h4 class="forms" align="left">
+            HIV Care</h4>
         <!-- DAL: using tables for form layout. Note that there are classes on labels and td. For custom fields, just use the 2 column layout, if there is an uneven number of cells, set last cell colspan="2" and align="center". Probably should talk through this -->
-        <table cellspacing="6" cellpadding="0" width="100%" border="0">
+        <table cellspacing="6" cellpadding="0" width="100%" border="0" class = "table-condensed">
             <tbody>
                 <tr>
                     <td class="form" nowrap="nowrap">
@@ -509,10 +506,10 @@
     <br />
     <div class="border center formbg">
         <br/>
-        <h2 class="forms" align="left">
+        <h4 class="forms" align="left">
             Drug Allergies and Relevant Medical Conditions
-        </h2>
-        <table cellspacing="6" cellpadding="0" width="100%" border="0">
+        </h4>
+        <table cellspacing="6" cellpadding="0" width="100%" border="0" class = "table-condensed">
             <tbody>
                 <tr>
                     <td class="form">
@@ -578,7 +575,7 @@
                 </tr>
                 <tr align="center">
                     <td class="pad5 center" colspan="2" nowrap="nowrap">
-                        <asp:Button ID="btnAddAllergy" runat="server" Text="Add Allergy" OnClick="btnAddAllergy_Click" />
+                        <asp:Button ID="btnAddAllergy" runat="server" Text="Add Allergy" OnClick="btnAddAllergy_Click" CssClass="btn btn-primary" Height="28px" />
                     </td>
                 </tr>
                 <tr>
@@ -638,11 +635,11 @@
             <tbody>
                 <tr align="center">
                     <td class="form" nowrap="nowrap">
-                        <asp:Button ID="btnsave" runat="server" Text="Save" OnClick="btnsave_Click" />
-                        <asp:Button ID="btncomplete" runat="server" Text="Data Quality Check" OnClick="btncomplete_Click" />
-                        <asp:Button ID="btnback" runat="server" Text="Close" OnClick="btnback_Click" />
+                        <asp:Button ID="btnsave" runat="server" Text="Save" OnClick="btnsave_Click" CssClass="btn btn-primary" Height="28px" />
+                        <asp:Button ID="btncomplete" runat="server" Text="Data Quality Check" OnClick="btncomplete_Click" CssClass="btn btn-primary" Height="28px" />
+                        <asp:Button ID="btnback" runat="server" Text="Close" OnClick="btnback_Click" CssClass="btn btn-primary" Height="28px" />
                         <asp:Button ID="btnPrint" Text="Print" runat="server" OnClientClick="WindowPrint()"
-                            OnClick="btnPrint_Click" />
+                            OnClick="btnPrint_Click" CssClass="btn btn-primary" Height="28px"/>
                     </td>
                 </tr>
             </tbody>

@@ -96,6 +96,7 @@ namespace BusinessProcess.Clinical
 
                 // Management Plan
                 ClsUtility.AddParameters("@KNHHEIVitamgiven", SqlDbType.Int, ht["KNHHEIVitamgiven"].ToString());
+                ClsUtility.AddParameters("@KNHHEIWorkPlan", SqlDbType.VarChar, ht["KNHHEIWorkPlan"].ToString());
                 //ClsUtility.AddParameters("@KNHHEIPlan", SqlDbType.Int, ht["KNHHEIPlan"].ToString());
                 //ClsUtility.AddParameters("@KNHHEIPlanRegimen", SqlDbType.Int, ht["KNHHEIPlanRegimen"].ToString());
 

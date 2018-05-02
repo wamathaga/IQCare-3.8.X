@@ -24,18 +24,21 @@
             var index = source._selectIndex;
             if (index != -1) {
                 var hdCustID = $get('<%= hdCustID.ClientID %>');
-                hdCustID.value = e.get_value();
+                hdCustID.value = e.get_value();                
             }
         }
 
         function showHideTransactionType(controlID) {
             if (document.getElementById(controlID)[document.getElementById(controlID).selectedIndex].text == "Receive") {
                 tblDestinationStore.style.display = "block";
+                tblSupplier.style.display = "none";
                 tblSourceStore.style.display = "block";
                 lblSourceStore.innerHTML = "Source Store";
             }
             else if (document.getElementById(controlID)[document.getElementById(controlID).selectedIndex].text == "Opening Stock") {
+                
                 tblDestinationStore.style.display = "none";
+                tblSupplier.style.display = "none";
                 tblSourceStore.style.display = "block";
                 lblSourceStore.innerHTML = "Store";
             }
@@ -44,6 +47,28 @@
                 tblSourceStore.style.display = "block";
                 lblSourceStore.innerHTML = "Store";
             }
+        }
+//        $(function () {
+//            $('<%= ddlSupplier.ClientID %>').change(function () {
+//                var selectedText = $(this).find("option:selected").text();
+//                var selectedValue = $(this).val();
+//                alert("Selected Text: " + selectedText + " Value: " + selectedValue);
+//            });
+//        });
+        function showHideSupplierStore(controlID) {
+            
+            if (document.getElementById(controlID)[document.getElementById(controlID).selectedIndex].text == "Supplier") {                
+                tblSupplier.style.display = "block";
+                tblDestinationStore.style.display = "block";
+                tblSourceStore.style.display = "block";
+                lblSourceStore.innerHTML = "Source Store";
+            }
+            else {
+                tblSupplier.style.display = "none";
+                tblDestinationStore.style.display = "block";
+                tblSourceStore.style.display = "block";
+                lblSourceStore.innerHTML = "Source Store";
+            }                    
         }
 
         function DuplicateBatchNo(text, batches, controlID) {
@@ -140,7 +165,7 @@
                                         <div id="tblSourceStore">
                                             <%--<asp:Label ID="Label1" runat="server" Font-Bold="True" 
                             Text="Source Store:"></asp:Label>--%>
-                                            <label id="lblSourceStore" cssclass="required">
+                                            <label id="lblSourceStore" class="required">
                                                 Source Store</label>
                                             &nbsp;<asp:DropDownList ID="ddlSourceStore" runat="server" OnSelectedIndexChanged="ddlSourceStore_SelectedIndexChanged"
                                                 AutoPostBack="true">
@@ -149,7 +174,17 @@
                                                 Display="Dynamic" ControlToValidate="ddlSourceStore" InitialValue="0"></asp:RequiredFieldValidator>--%>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td width="33%">
+                                        <div id="tblSupplier" style="display:none">
+                                            <asp:Label ID="lblsupplier" runat="server" Font-Bold="True" Text="Supplier:"
+                                                CssClass="required"></asp:Label>
+                                            &nbsp;<asp:DropDownList ID="ddlSupplier" runat="server" Width="150px" 
+                                                onselectedindexchanged="ddlSupplier_SelectedIndexChanged" AutoPostBack="true">
+                                            </asp:DropDownList>
+                                            
+                                        </div>
+                                    </td>
+                                    <td width="33%">
                                         <div id="tblDestinationStore">
                                             <asp:Label ID="Label22" runat="server" Font-Bold="True" Text="Destination Store:"
                                                 CssClass="required"></asp:Label>
@@ -217,17 +252,18 @@
                                                                     Width="100%" BorderWidth="0px" CellPadding="0" CssClass="datatable" GridLines="None"
                                                                     DataKeyNames="Drug_Pk" OnRowDataBound="grdStockMngt_RowDataBound" OnRowDeleting="grdStockMngt_RowDeleting">
                                                                     <Columns>
-                                                                        <asp:TemplateField HeaderText="Drug Name" HeaderStyle-Width="500px">
+                                                                        <asp:TemplateField HeaderText="Drug Name" HeaderStyle-Width="500px" HeaderStyle-Font-Size="11px">
                                                                             <ItemTemplate>
                                                                                 <asp:Label ID="lblDrugName" runat="server" Text='<%# Bind("DrugName") %>'></asp:Label>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderText="Unit" HeaderStyle-Width="90px">
+                                                                        
+                                                                        <asp:TemplateField HeaderText="Unit" HeaderStyle-Width="90px" HeaderStyle-Font-Size="11px">
                                                                             <ItemTemplate>
                                                                                 <asp:Label ID="lblUnit" runat="server" Text='<%# Bind("Unit") %>'></asp:Label>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderText="Batch No" HeaderStyle-Width="90px">
+                                                                        <asp:TemplateField HeaderText="Batch No" HeaderStyle-Width="80px" HeaderStyle-Font-Size="11px">
                                                                             <ItemTemplate>
                                                                                 <span style="display: <%# ShowLabel() %>">
                                                                                     <asp:Label ID="lblBatchNo" runat="server" Text='<%# Bind("BatchNo") %>'></asp:Label></span>
@@ -238,7 +274,7 @@
                                                                                 </span>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderText="Expiry Date" HeaderStyle-Width="90px">
+                                                                        <asp:TemplateField HeaderText="Expiry Date" HeaderStyle-Width="70px" HeaderStyle-Font-Size="11px">
                                                                             <ItemTemplate>
                                                                                 <span style="display: <%# ShowLabel() %>">
                                                                                     <asp:Label ID="lblExpiryDate" runat="server" Text='<%# Bind("ExpiryDate") %>'></asp:Label></span>
@@ -249,12 +285,27 @@
                                                                                 </span>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderText="Avail Qty" HeaderStyle-Width="90px">
+                                                                        <asp:TemplateField HeaderText="Purchase Unit Price" HeaderStyle-CssClass="hidden" ItemStyle-CssClass="hidden" HeaderStyle-Width="100px" HeaderStyle-Font-Size="11px">
+                                                                            <ItemTemplate>
+                                                                                <asp:Label ID="lblPurchaseUnitPrice" runat="server" Text='<%# Bind("PurchaseUnitPrice") %>'></asp:Label>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateField>
+                                                                        <asp:TemplateField HeaderText="Purchase Unit" HeaderStyle-CssClass="hidden" ItemStyle-CssClass="hidden" HeaderStyle-Width="100px" HeaderStyle-Font-Size="11px">
+                                                                            <ItemTemplate>
+                                                                                <asp:Label ID="lblPurchaseUnit" runat="server" Text='<%# Bind("PurchaseUnit") %>'></asp:Label>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateField>
+                                                                        <asp:TemplateField HeaderText="Unit Quantity" HeaderStyle-CssClass="hidden" ItemStyle-CssClass="hidden" HeaderStyle-Width="100px" HeaderStyle-Font-Size="11px">
+                                                                            <ItemTemplate>
+                                                                                <asp:Label ID="lblQtyPerPurchaseUnit" runat="server" Text='<%# Bind("QtyPerPurchaseUnit") %>'></asp:Label>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateField>
+                                                                        <asp:TemplateField HeaderText="Avail Qty" HeaderStyle-Width="80px" HeaderStyle-Font-Size="11px">
                                                                             <ItemTemplate>
                                                                                 <asp:Label ID="lblAvailQty" runat="server" Text='<%# Bind("AvailQty") %>'></asp:Label>
                                                                             </ItemTemplate>
-                                                                        </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderText="Quantity" ControlStyle-Width="90px">
+                                                                        </asp:TemplateField>                                                                       
+                                                                        <asp:TemplateField HeaderText="Quantity"  ControlStyle-Width="80px" HeaderStyle-Font-Size="11px">
                                                                             <ItemTemplate>
                                                                                 <asp:TextBox ID="txtQuantity" runat="server" Text='<%# Bind("Quantity") %>' onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46 || event.charCode == 45'></asp:TextBox>
                                                                                 <asp:RangeValidator ID="qtyRangeValidator" runat="server" ErrorMessage="Error" MinimumValue="1"
@@ -264,7 +315,7 @@
                                                                                     ControlToValidate="txtQuantity" Display="Dynamic"></asp:RequiredFieldValidator>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderText="Comments" ControlStyle-Width="250px">
+                                                                        <asp:TemplateField HeaderText="Comments" ControlStyle-Width="250px" HeaderStyle-Font-Size="11px">
                                                                             <ItemTemplate>
                                                                                 <asp:TextBox ID="txtComments" runat="server" Text='<%# Bind("Comments") %>'></asp:TextBox>
                                                                             </ItemTemplate>
@@ -275,16 +326,7 @@
                                                                                 <asp:Label ID="lblBatchID" runat="server" Text='<%# Bind("BatchID") %>'></asp:Label>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderStyle-CssClass="hide" ItemStyle-CssClass="hide">
-                                                                            <ItemTemplate>
-                                                                                <asp:Label ID="lblPurchaseUnitPrice" runat="server" Text='<%# Bind("PurchaseUnitPrice") %>'></asp:Label>
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderStyle-CssClass="hide" ItemStyle-CssClass="hide">
-                                                                            <ItemTemplate>
-                                                                                <asp:Label ID="lblQtyPerPurchaseUnit" runat="server" Text='<%# Bind("QtyPerPurchaseUnit") %>'></asp:Label>
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateField>
+                                                                        
                                                                     </Columns>
                                                                     <RowStyle CssClass="row" />
                                                                 </asp:GridView>
@@ -303,7 +345,8 @@
                                     </div>
                                 </ContentTemplate>
                                 <Triggers>
-                                    <asp:AsyncPostBackTrigger ControlID="ddlSourceStore" EventName="SelectedIndexChanged" />
+                                    <%--<asp:AsyncPostBackTrigger ControlID="ddlSourceStore" EventName="SelectedIndexChanged" />
+                                    <asp:AsyncPostBackTrigger ControlID="ddlSupplier" EventName="SelectedIndexChanged" />--%>
                                     <%--<asp:PostBackTrigger ControlID="txtDrug" />--%>
                                 </Triggers>
                             </asp:UpdatePanel>

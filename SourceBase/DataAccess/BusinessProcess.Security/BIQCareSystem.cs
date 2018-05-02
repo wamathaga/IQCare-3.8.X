@@ -143,7 +143,16 @@ namespace BusinessProcess.Security
                 }
                 else
                 {
-                    throw new System.IO.DirectoryNotFoundException("Invalid drive. Please enter a valid path.");
+                    //throw new System.IO.DirectoryNotFoundException("Invalid drive. Please enter a valid path.");
+                    System.IO.Directory.CreateDirectory(Path);
+                    ClsObject DataManager = new ClsObject();
+                    ClsUtility.Init_Hashtable();
+                    ClsUtility.AddParameters("@FileName", SqlDbType.VarChar, Path);
+                    ClsUtility.AddParameters("@LocationId", SqlDbType.Int, Location.ToString());
+                    ClsUtility.AddParameters("@Deidentified", SqlDbType.Int, Deidentified.ToString());
+                    ClsUtility.AddParameters("@dbKey", SqlDbType.VarChar, ApplicationAccess.DBSecurity.ToString());
+                    return (Int32)DataManager.ReturnObject(ClsUtility.theParams, "pr_SystemAdmin_Backup_Constella", ClsDBUtility.ObjectEnum.ExecuteNonQuery);
+
                 }
             }
             catch (System.IO.DirectoryNotFoundException exd)

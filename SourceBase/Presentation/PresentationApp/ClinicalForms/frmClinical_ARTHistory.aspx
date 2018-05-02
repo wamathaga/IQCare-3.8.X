@@ -3,8 +3,8 @@
 
 <asp:Content ID="ConARTHistory" ContentPlaceHolderID="IQCareContentPlaceHolder" runat="Server">
     
-    <br />
-    <div style="padding-left: 8px; padding-right: 8px;">
+   
+    <div style="padding-left: 8px; padding-right: 8px; width:100%;" class="container" >
         <script language="javascript" type="text/javascript">
             function GetControl() {
                 document.forms[0].submit();
@@ -36,10 +36,10 @@
             }
         </script>
         <div class="border center formbg">
-            <br />
-            <h2 class="forms" align="left">
-                Transfer In</h2>
-            <table cellspacing="6" cellpadding="0" width="100%" border="0" id="divwhoto">
+          
+            <h4 class="forms" align="left">
+                Transfer In</h4>
+            <table cellspacing="6" cellpadding="0" width="100%" border="0" id="divwhoto" class="table-condensed">
                 <tbody>
                     <tr>
                         <td class="border pad6 whitebg" align="center" width="50%">
@@ -68,7 +68,7 @@
                             </asp:DropDownList>
                         </td>
                         <td class="border pad6 whitebg" align="center" width="50%">
-                            <label id="Label2" class="margin50" for="District">
+                            <label id="Label2" class="left" for="District">
                                 Date Started ART:</label>
                             <input id="txtDateARTStarted" onblur="DateFormat(this,this.value,event,false,'3')"
                                 onkeyup="DateFormat(this,this.value,event,false,'3')" onfocus="javascript:vDateType='3'"
@@ -84,9 +84,9 @@
         </div>
         <br />
         <div class="border center formbg">
-            <h2 class="forms" align="left">
-                Prior ART</h2>
-            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+            <h4 class="forms" align="left">
+                Prior ART</h4>
+            <table cellspacing="6" cellpadding="0" width="100%" border="0" class="table-condensed">
                 <tbody>
                     <tr>
                         <td class="form">
@@ -105,20 +105,17 @@
                                             No</label>
                                     </td>
                                 </tr>
+                               
                                 <tr>
-                                    <td colspan="4">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 20%" align="right">
+                                    <td style="width: 20%" align="left">
                                         <label class="" id="Label1" runat="server">
                                             Purpose:</label>
                                         <asp:DropDownList ID="ddlpurpose" runat="server" Width="110px" Style="z-index: 2">
                                         </asp:DropDownList>
                                     </td>
-                                    <td style="width: 4%" align="right">
+                                    <td style="width: 4%" align="left">
                                     </td>
-                                    <td style="width: 25%" align="center">
+                                    <td style="width: 25%" align="left">
                                         <label class="">
                                             Regimen:</label>
                                         <asp:TextBox ID="txtRegimen" MaxLength="50" runat="server" Enabled="False"></asp:TextBox>
@@ -141,10 +138,10 @@
                     <tr>
                         <td class="pad5 formbg border" colspan="2">
                             <div id="divbtnPriorART" class="whitebg" align="center">
-                                <asp:Button ID="btnAddPriorART" Text="Add Prior ART" runat="server" OnClick="btnAddPriorART_Click" /></div>
+                                <asp:Button ID="btnAddPriorART" Text="Add Prior ART" runat="server" OnClick="btnAddPriorART_Click" CssClass="btn btn-primary" Height="26px" /></div>
                         </td>
                     </tr>
-                    <br />
+                
                     <tr>
                         <td class="pad5 formbg border" colspan="2">
                             <div class="grid" id="divDrugAllergyMedicalAlr" style="width: 100%;">
@@ -191,9 +188,9 @@
         </div>
         <br />
         <div class="border center formbg">
-            <h2 class="forms" align="left">
-                HIV Care</h2>
-            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+            <h4 class="forms" align="left">
+                HIV Care</h4>
+            <table cellspacing="6" cellpadding="0" width="100%" border="0" class="table-condensed">
                 <tbody>
                     <tr>
                         <td class="border pad6 whitebg" align="center" width="50%">
@@ -237,9 +234,9 @@
         </div>
         <br />
         <div class="border center formbg">
-            <h2 class="forms" align="left">
+            <h4 class="forms" align="left">
                 Drug Allergies
-            </h2>
+            </h4>
             <table cellspacing="6" cellpadding="0" width="100%" border="0" style="height: 73px">
                 <tbody>
                     <tr>
@@ -263,10 +260,10 @@
                 <tbody>
                     <tr align="center">
                         <td class="form">
-                            <asp:Button ID="btnsave" runat="server" Text="Save" OnClick="btnsave_Click" />
-                            <asp:Button ID="btncomplete" runat="server" Text="Data Quality Check" OnClick="btncomplete_Click" />
-                            <asp:Button ID="btnback" runat="server" Text="Close" OnClick="btnback_Click" />
-                            <asp:Button ID="btnPrint" Text="Print" OnClientClick="WindowPrint()" runat="server"
+                            <asp:Button ID="btnsave" runat="server" Text="Save" OnClick="btnsave_Click" CssClass="btn btn-primary" Height="26px" />
+                            <asp:Button ID="btncomplete" runat="server" Text="Data Quality Check" OnClick="btncomplete_Click" CssClass="btn btn-primary" Height="26px" />
+                            <asp:Button ID="btnback" runat="server" Text="Close" OnClick="btnback_Click" CssClass="btn btn-primary" Height="26px" />
+                            <asp:Button ID="btnPrint" Text="Print" OnClientClick="WindowPrint()" runat="server" CssClass="btn btn-primary" Height="26px"
                                 OnClick="btnPrint_Click" />
                         </td>
                     </tr>

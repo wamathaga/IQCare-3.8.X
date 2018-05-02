@@ -48,6 +48,8 @@ namespace IQCare.Web.Reports
                 }
                 this.PopulateData();
             }
+            IQWebUtils Utils = new IQWebUtils();
+            Utils.HidePatientLevelheader();
         }
         /// <summary>
         /// Handles the PreRender event of the Page control.

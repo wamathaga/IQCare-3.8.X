@@ -6,7 +6,7 @@
     <tr>
         <td class="form" style="width: 100%" align="left">
             <asp:Button ID="btnLab" runat="server" Font-Bold="True"
-                Text="Order Lab Tests" onclick="btnLab_Click" />
+                Text="Order Lab Tests" onclick="btnLab_Click" CssClass="btn btn-primary" Height="26px"/>
             <br />
         </td>
     </tr>

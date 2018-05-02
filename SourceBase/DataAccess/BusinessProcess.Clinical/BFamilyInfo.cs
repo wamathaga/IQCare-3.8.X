@@ -15,7 +15,9 @@ namespace BusinessProcess.Clinical
 {
     public class BFamilyInfo : ProcessBase, IFamilyInfo
     {
-        public int SaveFamilyInfo(int Id, int Ptn_Pk, string RFirstName, string RLastName, int Sex, int AgeYear, int AgeMonth, int RelationshipType, int HivStatus, int HivCareStatus, int UserId, int DeleteFlag, int ReferenceId, string RegistrationNo, DateTime RelationshipDate)
+        public int SaveFamilyInfo(int Id, int Ptn_Pk, string RFirstName, string RLastName, int Sex, int AgeYear, int AgeMonth, int RelationshipType,
+            int HivStatus, int HivCareStatus, int UserId, int DeleteFlag, int ReferenceId, string RegistrationNo, DateTime RelationshipDate, string LastHIVTestDate,
+            int? LocationID = null, bool EnableHIVstatus = false)
         {
             ClsObject FamilyInfo = new ClsObject();
             int retval = 0;
@@ -40,18 +42,21 @@ namespace BusinessProcess.Clinical
                 }
                 ClsUtility.AddParameters("@RelationshipType", SqlDbType.Int, RelationshipType.ToString());
                 ClsUtility.AddParameters("@HivStatus", SqlDbType.Int, HivStatus.ToString());
+                ClsUtility.AddParameters("@LastHIVTestDate", SqlDbType.VarChar, LastHIVTestDate);
                 ClsUtility.AddParameters("@HivCareStatus", SqlDbType.Int, HivCareStatus.ToString());
                 ClsUtility.AddParameters("@UserId", SqlDbType.Int, UserId.ToString());
                 ClsUtility.AddParameters("@DeleteFlag", SqlDbType.Int, DeleteFlag.ToString());
                 ClsUtility.AddParameters("@ReferenceId", SqlDbType.Int, ReferenceId.ToString());
                 ClsUtility.AddParameters("@RegistrationNo", SqlDbType.VarChar, RegistrationNo.ToString());
+                ClsUtility.AddParameters("@LocationID", SqlDbType.Int, LocationID.ToString());
+                ClsUtility.AddParameters("@EnableHIVstatus", SqlDbType.Bit, EnableHIVstatus.ToString());
                 ClsUtility.AddParameters("@DBKey", SqlDbType.VarChar, ApplicationAccess.DBSecurity);
                 if (RelationshipDate.DayOfYear != 1)
                 {
                     ClsUtility.AddParameters("@RelationshipDate", SqlDbType.DateTime, RelationshipDate.ToString());
                 }
                 retval = (int)FamilyInfo.ReturnObject(ClsUtility.theParams, "Pr_Clinical_SaveFamilyInfo_Constella", ClsDBUtility.ObjectEnum.ExecuteNonQuery);
-                
+
                 DataMgr.CommitTransaction(this.Transaction);
                 DataMgr.ReleaseConnection(this.Connection);
             }
@@ -80,7 +85,7 @@ namespace BusinessProcess.Clinical
                 return (DataSet)FamilyInfo.ReturnObject(ClsUtility.theParams, "pr_Clinical_GetAllFamilyData_Constella", ClsDBUtility.ObjectEnum.DataSet);
             }
         }
-     
+
         public DataSet GetSearchFamilyInfo(int PatientId)
         {
             lock (this)
@@ -103,7 +108,7 @@ namespace BusinessProcess.Clinical
             }
         }
 
-        public int DeleteFamilyInfo(int Id,int @UserId)
+        public int DeleteFamilyInfo(int Id, int @UserId)
         {
             try
             {

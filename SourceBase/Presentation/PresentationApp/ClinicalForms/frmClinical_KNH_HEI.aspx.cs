@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+
 using Interface.Clinical;
 using Interface.Security;
 using Application.Presentation;
@@ -40,6 +41,14 @@ namespace PresentationApp.ClinicalForms
             (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblRoot") as Label).Text = "Clinical Forms >> ";
             (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblheader") as Label).Text = "HEI Form";
             (Master.FindControl("levelTwoNavigationUserControl1").FindControl("lblformname") as Label).Text = "HEI Form";
+            if (Session["isHEIVisible"] != null || Convert.ToBoolean(Session["isHEIVisible"]) == false)
+            {
+                Session["isHEIVisible"] = true;
+            }
+            idVitalSign.txtBMI.Style.Add("display", "none");
+            idVitalSign.lblBMI.Style.Add("display", "none"); ;
+            idVitalSign.lblBMIClassification.Style.Add("display", "none");
+
 
             if (!IsPostBack)
             {
@@ -90,6 +99,23 @@ namespace PresentationApp.ClinicalForms
 
             Authenticate();
         }
+
+        protected void Page_Unload(object sender, EventArgs e)
+        {
+            Session["isHEIVisible"] = false;
+        }
+        protected void tabControl_ActiveTabChanged(object sender, EventArgs e)
+        {
+            AjaxControlToolkit.TabPanel activeTab = tabControl.ActiveTab;
+            if (activeTab == TabClinicalHistory)
+            {
+                IQCareMsgBox.NotifyActionTab("Please Update Immunization and Vitamin A, if requires in subsequent visit.", "HEI Form", false, this, tabControl, "0");
+                //btnHIVHistorySave.Enabled = true;
+                //btncloseHIVHistory.Enabled = true;
+            }
+
+        }
+
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
@@ -145,6 +171,9 @@ namespace PresentationApp.ClinicalForms
                     showhideFullVisit();
                 }
             }
+
+
+
         }
 
         private Hashtable htableKNHHEIParameters()
@@ -220,6 +249,7 @@ namespace PresentationApp.ClinicalForms
 
             //Management Plan
             htKNHHEIParameters.Add("KNHHEIVitamgiven", rdoHasVitaminGivenYes.Checked == true ? 1 : rdoHasVitaminGivenNo.Checked == true ? 0 : 2);
+            htKNHHEIParameters.Add("KNHHEIWorkPlan", txtAreaWorkPlan.Value);
             // Plan Grid
             //htKNHHEIParameters.Add("KNHHEIPlan", ddlPlan.SelectedValue);
             //htKNHHEIParameters.Add("KNHHEIPlanRegimen", ddlRegimen.SelectedValue);
@@ -442,6 +472,10 @@ namespace PresentationApp.ClinicalForms
                         else if (theDS.Tables[1].Rows[0]["VitaminA"].ToString() == "0")
                         { rdoHasVitaminGivenNo.Checked = true; };
                     }
+                    if (theDS.Tables[1].Rows[0]["WorkPlan"] != System.DBNull.Value)
+                    {
+                        txtAreaWorkPlan.Value = theDS.Tables[1].Rows[0]["WorkPlan"].ToString();
+                    }
                     if (theDS.Tables[1].Rows[0]["ReferralPeads"] != System.DBNull.Value)
                     {
                         ddlReferred.SelectedValue = theDS.Tables[1].Rows[0]["ReferralPeads"].ToString();
@@ -621,7 +655,7 @@ namespace PresentationApp.ClinicalForms
                 }
                 else
                 {
-                    theDVDecode.RowFilter = "CodeName='FeedingOption' and (DeleteFlag = 0 or DeleteFlag IS NULL) and SystemId in(0,1) and NAME IN ('Exclusive breast feeding - (EBF)','Replacement feeding - (EBMS)',' Mixed feeding (MF)')";
+                    theDVDecode.RowFilter = "CodeName='FeedingOption' and (DeleteFlag = 0 or DeleteFlag IS NULL) and SystemId in(0,1) and NAME IN ('Exclusive breast feeding - (EBF)','Replacement feeding - (EBMS)','Mixed feeding (MF)')";
                 }
                 theDVDecode.Sort = "SRNo";
                 if (theDVDecode.Table != null)
@@ -1325,7 +1359,7 @@ namespace PresentationApp.ClinicalForms
             #region Check Visit Date
             if (Session["RegDate"] != null && txtVisitDate.Value != "")
             {
-                if (dateconstraint)
+                if (!dateconstraint)
                 {
                     if (Convert.ToDateTime(txtVisitDate.Value) < Convert.ToDateTime(Session["RegDate"]))
                     {
@@ -1382,8 +1416,10 @@ namespace PresentationApp.ClinicalForms
                 validationCheck = false;
             }
 
+
             if (ddlVisitType.SelectedItem.Text == "Full Visit")
             {
+
                 if (txtBirthWeight.Text.Trim() == "")
                 {
                     MsgBuilder msgBuilder = new MsgBuilder();
@@ -1405,12 +1441,100 @@ namespace PresentationApp.ClinicalForms
                     MsgBuilder msgBuilder = new MsgBuilder();
                     msgBuilder.DataElements["Control"] = " -Mother Registered at this Clinic";
                     validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
-                    ddlIfeedingoption.Focus();
+                    rdoMotherRegisYes.Focus();
+                    validationCheck = false;
+                }
+                if (rdoARTEnrolNo.Checked == false && rdoARTEnrolYes.Checked == false)
+                {
+                    MsgBuilder msgBuilder = new MsgBuilder();
+                    msgBuilder.DataElements["Control"] = " -On ART at enrollment of infant";
+                    validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
+                    rdoARTEnrolYes.Focus();
+                    validationCheck = false;
+                }
+                if (rdMotherRDrugNo.Checked == false && rdMotherRDrugYes.Checked == false)
+                {
+                    MsgBuilder msgBuilder = new MsgBuilder();
+                    msgBuilder.DataElements["Control"] = " -Mother received drugs for PMTCT";
+                    validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
+                    rdMotherRDrugYes.Focus();
+                    validationCheck = false;
+                }
+                if (ddlARVProphylaxis.SelectedValue == "0")
+                {
+                    MsgBuilder msgBuilder = new MsgBuilder();
+                    msgBuilder.DataElements["Control"] = " -ARV Prophylaxis";
+                    validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
+                    ddlARVProphylaxis.Focus();
+                    validationCheck = false;
+                }
+                if (ddlModeofDelivery.SelectedValue == "0")
+                {
+                    MsgBuilder msgBuilder = new MsgBuilder();
+                    msgBuilder.DataElements["Control"] = " -Mode of delivery";
+                    validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
+                    ddlModeofDelivery.Focus();
+                    validationCheck = false;
+                }
+                if (ddlStateofMother.SelectedValue == "0")
+                {
+                    MsgBuilder msgBuilder = new MsgBuilder();
+                    msgBuilder.DataElements["Control"] = " -State of mother";
+                    validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
+                    ddlStateofMother.Focus();
                     validationCheck = false;
                 }
             }
 
             #endregion
+            if (!validationCheck)
+            {
+                MsgBuilder totalMsgBuilder = new MsgBuilder();
+                totalMsgBuilder.DataElements["MessageText"] = validateMessage;
+                IQCareMsgBox.Show("#C1", totalMsgBuilder, this);
+            }
+            return validationCheck;
+        }
+
+        private bool fieldValidation_ClinicalReview()
+        {
+            string validateMessage = "Following values are required:</br>";
+            bool validationCheck = true;
+
+            //if (ddlDuration.SelectedValue == "0")
+            //{
+            //    MsgBuilder msgBuilder = new MsgBuilder();
+            //    msgBuilder.DataElements["Control"] = " -Duration";
+            //    validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
+            //    ddlDuration.Focus();
+            //    validationCheck = false;
+            //}
+            //if (ddlStatus.SelectedValue == "0")
+            //{
+            //    MsgBuilder msgBuilder = new MsgBuilder();
+            //    msgBuilder.DataElements["Control"] = " -Status";
+            //    validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
+            //    ddlStatus.Focus();
+            //    validationCheck = false;
+            //}
+            if (gvMilestones.Rows.Count <= 0)
+            {
+                MsgBuilder msgBuilder = new MsgBuilder();
+                msgBuilder.DataElements["Control"] = " -Duration OR Status";
+                validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
+                ddlDuration.Focus();
+                validationCheck = false;
+            }
+            bool isAnyTBAssessmentSelected = cblTBAssesment.SelectedIndex != -1;
+            if (ddlVisitType.SelectedItem.Text == "Full Visit" && (!isAnyTBAssessmentSelected))
+            {
+                MsgBuilder msgBuilder = new MsgBuilder();
+                msgBuilder.DataElements["Control"] = " -TB Assessment";
+                validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
+                txtBirthWeight.Focus();
+                validationCheck = false;
+            }
+
             if (!validationCheck)
             {
                 MsgBuilder totalMsgBuilder = new MsgBuilder();
@@ -1537,11 +1661,13 @@ namespace PresentationApp.ClinicalForms
         protected void btnFind_Click(object sender, EventArgs e)
         {
             string theUrl = string.Format("../frmFindAddPatient.aspx?FormName=FamilyInfo");
+            Session["PtnRedirect"] = Convert.ToInt32(Session["PatientId"]);
             if (Session["SaveFlag"] != null)
             {
                 if (Session["SaveFlag"].ToString() == "Edit")
                 {
                     Session["SaveFlag"] = "Add";
+
                 }
             }
             Response.Redirect(theUrl);
@@ -1573,8 +1699,15 @@ namespace PresentationApp.ClinicalForms
 
         protected void btnHIVHistorySave_Click(object sender, EventArgs e)
         {
-            if (fieldValidation() == false)
-            { return; }
+            if (fieldValidation_ClinicalReview() == false)
+            {
+                if (Convert.ToInt32(Session["PatientVisitId"]) > 0)
+                {
+                    btncloseHIVHistory.Enabled = true;
+                    btnHIVHistorySave.Enabled = true;
+                }
+                return;
+            }
 
             SaveUpdateKNHPMTCTHEI(0);
             SaveCancelClinicalReview();
@@ -1615,7 +1748,7 @@ namespace PresentationApp.ClinicalForms
         protected void btnAddImmunization_Click(object sender, EventArgs e)
         {
             int VisitId = Convert.ToInt32(Session["PatientVisitId"]) > 0 ? Convert.ToInt32(Session["PatientVisitId"]) : 0;
-            if (ddlImmunisationPeriod.SelectedItem.Text == "Select" && ddImmunisationgiven.SelectedItem.Text == "Select" && txtDateImmunised.Value == "")
+            if (ddlImmunisationPeriod.SelectedItem.Text == "Select" || ddImmunisationgiven.SelectedItem.Text == "Select" || txtDateImmunised.Value == "")
             {
                 IQCareMsgBox.Show("NoRecordSelected", this);
                 return;
@@ -1669,7 +1802,7 @@ namespace PresentationApp.ClinicalForms
         protected void btnAddNNatal_Click(object sender, EventArgs e)
         {
             int VisitId = Convert.ToInt32(Session["PatientVisitId"]) > 0 ? Convert.ToInt32(Session["PatientVisitId"]) : 0;
-            if (ddlTypeofTest.SelectedItem.Text == "Select" && ddlTestResults.SelectedItem.Text == "Select" && txttestresultsgiven.Value == "" && txtcomments.Text == "")
+            if (ddlTypeofTest.SelectedItem.Text == "Select" || ddlTestResults.SelectedItem.Text == "Select" || txttestresultsgiven.Value == "" || txtcomments.Text == "")
             {
                 IQCareMsgBox.Show("NoRecordSelected", this);
                 return;
@@ -1723,7 +1856,7 @@ namespace PresentationApp.ClinicalForms
         protected void btnMMother_Click(object sender, EventArgs e)
         {
             int VisitId = Convert.ToInt32(Session["PatientVisitId"]) > 0 ? Convert.ToInt32(Session["PatientVisitId"]) : 0;
-            if (ddlTestDone.SelectedItem.Text == "Select" && txtresultmother.Text == "" && txtresultmothergiven.Value == "" && txtRemarks.Text == "")
+            if (ddlTestDone.SelectedItem.Text == "Select" || txtresultmother.Text == "" || txtresultmothergiven.Value == "" || txtRemarks.Text == "")
             {
                 IQCareMsgBox.Show("NoRecordSelected", this);
                 return;
@@ -1777,7 +1910,7 @@ namespace PresentationApp.ClinicalForms
         protected void btnAddMilestone_Click(object sender, EventArgs e)
         {
             int VisitId = Convert.ToInt32(Session["PatientVisitId"]) > 0 ? Convert.ToInt32(Session["PatientVisitId"]) : 0;
-            if (ddlDuration.SelectedItem.Text == "Select" && ddlStatus.SelectedItem.Text == "Select")
+            if (ddlDuration.SelectedItem.Text == "Select" || ddlStatus.SelectedItem.Text == "Select")
             {
                 IQCareMsgBox.Show("NoRecordSelected", this);
                 return;
@@ -1831,7 +1964,7 @@ namespace PresentationApp.ClinicalForms
         protected void btnAddTB_Click(object sender, EventArgs e)
         {
             int VisitId = Convert.ToInt32(Session["PatientVisitId"]) > 0 ? Convert.ToInt32(Session["PatientVisitId"]) : 0;
-            if (ddlPlan.SelectedItem.Text == "Select" && ddlRegimen.SelectedItem.Text == "Select" && txtTreatmentDate.Value == "")
+            if (ddlPlan.SelectedItem.Text == "Select" || ddlRegimen.SelectedItem.Text == "Select" || txtTreatmentDate.Value == "")
             {
                 IQCareMsgBox.Show("NoRecordSelected", this);
                 return;

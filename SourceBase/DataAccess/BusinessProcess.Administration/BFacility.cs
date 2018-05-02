@@ -102,6 +102,8 @@ namespace BusinessProcess.Administration
                 ClsUtility.AddParameters("@PMSCM", SqlDbType.Int, ht["PMSCM"].ToString());
 
                 ClsUtility.AddParameters("@Wards", SqlDbType.Int, ht["Wards"].ToString());
+                ClsUtility.AddParameters("@LMIS", SqlDbType.Int, ht["LMIS"].ToString());
+                
                 Int32 RowsAffected = (Int32)FacilityManager.ReturnObject(ClsUtility.theParams, "Pr_Admin_InsertFacility_Constella", ClsDBUtility.ObjectEnum.ExecuteNonQuery);
                 if (RowsAffected <= 0)
                 {
@@ -222,6 +224,7 @@ namespace BusinessProcess.Administration
                 ClsUtility.AddParameters("@PMSCM", SqlDbType.Int, ht["PMSCM"].ToString());
 
                 ClsUtility.AddParameters("@Wards", SqlDbType.Int, ht["Wards"].ToString());
+                ClsUtility.AddParameters("@LMIS", SqlDbType.Int, ht["LMIS"].ToString());
 
                 int RowsAffected = (Int32)FacilityManager.ReturnObject(ClsUtility.theParams, "Pr_Admin_UpdateFacility_Constella", ClsDBUtility.ObjectEnum.ExecuteNonQuery);
                 if (RowsAffected == 0)
@@ -303,14 +306,14 @@ namespace BusinessProcess.Administration
             }
         }
 
-        public int SaveBackupSetup(string theDrive, DateTime theTime)
+        public int SaveBackupSetup(string theDrive, string theTime)
         {
-            DateTime theBackupDatetime = theTime;
+            //DateTime theBackupDatetime = theTime;
             lock (this)
             {
                 ClsUtility.Init_Hashtable();
                 ClsUtility.AddParameters("@BackupDrive", SqlDbType.VarChar, theDrive.ToString());
-                ClsUtility.AddParameters("@BackUpTime", SqlDbType.DateTime, theBackupDatetime.ToString());
+                ClsUtility.AddParameters("@BackUpTime", SqlDbType.VarChar, theTime.ToString());
                 ClsObject BackupManager = new ClsObject();
                 return (Int32)BackupManager.ReturnObjectNewImpl(ClsUtility.theParams, "Pr_Admin_UpdateBackupSetup_Constella", ClsDBUtility.ObjectEnum.ExecuteNonQuery);
                 BackupManager = null;

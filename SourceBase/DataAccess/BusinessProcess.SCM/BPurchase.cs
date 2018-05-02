@@ -585,7 +585,29 @@ namespace BusinessProcess.SCM
                 }
             }
         }
-
+        public DataTable GetStoreSourceDestination(int StoreId)
+        {
+            lock (this)
+            {
+                try
+                {
+                    ClsUtility.Init_Hashtable();
+                    ClsObject objPOdetails = new ClsObject();
+                    ClsUtility.AddParameters("@SupplierId", SqlDbType.Int, StoreId.ToString());                    
+                    return(DataTable)objPOdetails.ReturnObject(ClsUtility.theParams, "pr_SCM_GetStoreSourceDestination",
+                                                  ClsDBUtility.ObjectEnum.DataTable);
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    if (this.Connection != null)
+                        DataMgr.ReleaseConnection(this.Connection);
+                }
+            }
+        }
         public int SaveDisposeItems(int StoreId, int LocationId, DateTime AsofDate, int UserId, DataTable theDT)
         {
 
@@ -743,7 +765,7 @@ namespace BusinessProcess.SCM
                     ClsUtility.AddParameters("@GRNId", SqlDbType.Int, GrnId.ToString());
                     ClsUtility.AddParameters("@ItemId", SqlDbType.VarChar, dtGRNItems.Rows[i]["ItemId"].ToString());
                     ClsUtility.AddParameters("@BatchID", SqlDbType.Int, dtGRNItems.Rows[i]["BatchID"].ToString());
-                    //oUtility.AddParameters("@batchName", SqlDbType.VarChar, dtGRNItems.Rows[i]["batchName"].ToString());
+                    ClsUtility.AddParameters("@batchName", SqlDbType.VarChar, dtGRNItems.Rows[i]["batchName"].ToString());
                     ClsUtility.AddParameters("@RecievedQuantity", SqlDbType.Int, dtGRNItems.Rows[i]["RecievedQuantity"].ToString());
 
                     ClsUtility.AddParameters("@FreeRecievedQuantity", SqlDbType.Int, (Convert.ToString(dtGRNItems.Rows[i]["FreeRecievedQuantity"]) == "") ? "0" : dtGRNItems.Rows[i]["FreeRecievedQuantity"].ToString());

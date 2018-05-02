@@ -327,7 +327,7 @@
 <tr align="left">
     <td class="form" align="left">
         <asp:Button ID="btnPrescribeDrugs" runat="server" Text="Prescribe Regimen" 
-            onclick="btnPrescribeDrugs_Click" />
+            onclick="btnPrescribeDrugs_Click" CssClass="btn btn-primary" Height="26px"/>
     </td>
 </tr>
 </table>

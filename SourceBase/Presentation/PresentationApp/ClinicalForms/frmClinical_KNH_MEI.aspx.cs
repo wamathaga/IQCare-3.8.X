@@ -28,13 +28,21 @@ namespace PresentationApp.ClinicalForms
         protected void Page_Init(object sender, EventArgs e)
         {
             BindList();
-        }
 
+        }
+        protected void Page_Unload(object sender, EventArgs e)
+        {
+            Session["isMEIVisible"] = false;
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblRoot") as Label).Text = "Clinical Forms >> ";
             (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblheader") as Label).Text = "MEI Form";
             (Master.FindControl("levelTwoNavigationUserControl1").FindControl("lblformname") as Label).Text = "MEI Form";
+            if (Session["isMEIVisible"] != null || Convert.ToBoolean(Session["isMEIVisible"]) == false)
+            {
+                Session["isMEIVisible"] = true;
+            }
 
             if (!IsPostBack)
             {
@@ -44,6 +52,29 @@ namespace PresentationApp.ClinicalForms
             }
             HideControls();
             Authenticate();
+        }
+
+        protected void rdofamilyinformationFilledYes_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdofamilyinformationFilledYes.Checked)
+            {
+                IFamilyInfo PatientManager = (IFamilyInfo)ObjectFactory.CreateInstance("BusinessProcess.Clinical.BFamilyInfo, BusinessProcess.Clinical");
+                if (Session["PatientId"] != null && Session["PatientId"].ToString() != "0")
+                {
+                    DataSet theDS = PatientManager.GetSearchFamilyInfo(Convert.ToInt32(Session["PatientId"]));
+                    if (theDS.Tables[0].Rows.Count <= 1)
+                    {
+                        ScriptManager.RegisterStartupScript(this, GetType(), "familyInfo", "alert('Family Information not exists!');", true);
+                    }
+                }
+            }
+        }
+        protected void rdofamilyinformationFilledNo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdofamilyinformationFilledNo.Checked)
+            {
+                rdofamilyinformationFilledYes.Checked = false;
+            }
         }
 
         protected void Page_PreRender(object sender, EventArgs e)
@@ -64,15 +95,15 @@ namespace PresentationApp.ClinicalForms
             {
                 showhideFollowUp();
             }
-            //else if (ddlFieldVisitType.SelectedItem.Text == "ANC PMTCT")
-            //{
-            //    showhideANCPMTCT();
-            //}
 
             ScriptManager.RegisterStartupScript(this, GetType(), "divTBSave", "hide('divTBSave');", true);
 
             GetDataforAutopopulate();
 
+            if (rdoHIVTestingTodayYes.Checked == true)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "trHIVTesting", "show('trHIVTesting1');show('trHIVTesting2');", true);
+            }
             if (rdoPatientaccPartnerYes.Checked == true)
             {
                 ScriptManager.RegisterStartupScript(this, GetType(), "spnpap1", "show('pap1');show('pap2');", true);
@@ -122,6 +153,14 @@ namespace PresentationApp.ClinicalForms
             {
                 ScriptManager.RegisterStartupScript(this, GetType(), "spntbtdtdothercurrentregimenshowhide", "show('tdothercurrentregimen');", true);
             }
+            if (rdodisclosedHIVStatusYes.Checked == true)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "tdPnlDiscloseHIVStatus", "show('tdPnlHIVStatus');", true);
+            }
+            if (rdoAdmittedtowardPMTCTYes.Checked == true)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "tdSpecifyWardToAdmitted", "show('tdSpecifyWardAdmitted');", true);
+            }
         }
 
         private void HideControls()
@@ -132,11 +171,11 @@ namespace PresentationApp.ClinicalForms
             ScriptManager.RegisterStartupScript(this, GetType(), "tblavailableTBResults", "hide('tblAvailableTBResultsBody');", true);
             ScriptManager.RegisterStartupScript(this, GetType(), "tblTBAssessment", "hide('tblTBAssessment');", true);
             //ScriptManager.RegisterStartupScript(this, GetType(), "DivavailableTBResults", "hide('ctl00_IQCareContentPlaceHolder_tabControl_TabPnlProfile_UCTBScreen_AvailableTBResultsHeader');", true);
-            ScriptManager.RegisterStartupScript(this, GetType(), "tblIPTBody", "hide('tblIPTBody');", true);
+            //ScriptManager.RegisterStartupScript(this, GetType(), "tblIPTBody", "show('tblIPTBody');", true);
             UCTBScreen.CollapsiblePanelExtender1.Collapsed = false;
-            //ScriptManager.RegisterStartupScript(this, GetType(), "IPTHeader", "hide('ctl00_IQCareContentPlaceHolder_tabControl_TabPnlProfile_UCTBScreen_IPTHeader');", true);
-            ScriptManager.RegisterStartupScript(this, GetType(), "tblDiscontinueIPTBody", "hide('tblDiscontinueIPTBody');", true);
-            //ScriptManager.RegisterStartupScript(this, GetType(), "DiscontinueIPTHeader", "hide('ctl00_IQCareContentPlaceHolder_tabControl_TabPnlProfile_UCTBScreen_DiscontinueIPTHeader');", true);
+            //ScriptManager.RegisterStartupScript(this, GetType(), "IPTHeader", "show('ctl00_IQCareContentPlaceHolder_tabControl_TabPnlProfile_UCTBScreen_IPTHeader');", true);
+            //ScriptManager.RegisterStartupScript(this, GetType(), "tblDiscontinueIPTBody", "show('tblDiscontinueIPTBody');", true);
+            //ScriptManager.RegisterStartupScript(this, GetType(), "DiscontinueIPTHeader", "show('ctl00_IQCareContentPlaceHolder_tabControl_TabPnlProfile_UCTBScreen_DiscontinueIPTHeader');", true);
             ScriptManager.RegisterStartupScript(this, GetType(), "divTBSave", "hide('divTBSave');", true);
             ScriptManager.RegisterStartupScript(this, GetType(), "labresults", "SelectAllCheckboxes();", true);
         }
@@ -149,6 +188,21 @@ namespace PresentationApp.ClinicalForms
             DataTable theDTCode = new DataTable();
             BindFunctions BindManager = new BindFunctions();
             IQCareUtils theUtils = new IQCareUtils();
+
+            if (theDS.Tables["Mst_Decode"] != null)
+            {
+
+                theDVDecode = new DataView(theDS.Tables["Mst_Decode"]);
+                theDVDecode.RowFilter = "CodeName='ReferredToFP' and (DeleteFlag = 0 or DeleteFlag IS NULL) and SystemId in(0,1)";
+                if (theDVDecode.Table != null)
+                {
+                    theDTCode = (DataTable)theUtils.CreateTableFromDataView(theDVDecode);
+                    theDTCode = theDTCode.Select("Name <> 'Fertility Desire'").CopyToDataTable();
+                    BindManager.BindCombo(ddlHIVTestDoneToday, theDTCode, "Name", "Id");
+                }
+
+            }
+
             if (theDS.Tables["Mst_PMTCTDecode"] != null)
             {
                 //Field VisitType
@@ -165,7 +219,7 @@ namespace PresentationApp.ClinicalForms
                 //Parity
                 theDVDecode = new DataView(theDS.Tables["Mst_PMTCTDecode"]);
                 theDVDecode.RowFilter = "CodeName='Parity' and (DeleteFlag = 0 or DeleteFlag IS NULL) and SystemId in(0,1)";
-                theDVDecode.Sort = "SRNo";
+                theDVDecode.Sort = "Name";
                 if (theDVDecode.Table != null)
                 {
                     theDTCode = (DataTable)theUtils.CreateTableFromDataView(theDVDecode);
@@ -556,6 +610,10 @@ namespace PresentationApp.ClinicalForms
             IQCareMsgBox.NotifyAction("MEI " + TabName + " tab saved successfully!", "MEI Form", false, this, "window.location.href='frmPatient_History.aspx?sts=" + 0 + "';");
         }
 
+
+
+
+
         private void GetFormData()
         {
             IKNHMEI KNHMEIManager;
@@ -596,6 +654,10 @@ namespace PresentationApp.ClinicalForms
                     {
                         rdoHIVTestingTodayNo.Checked = true;
                     }
+                }
+                if (theDS.Tables[1].Rows[0]["HIVTestingTodayDone"] != System.DBNull.Value)
+                {
+                    this.ddlHIVTestDoneToday.SelectedValue = theDS.Tables[1].Rows[0]["HIVTestingTodayDone"].ToString();
                 }
                 if (theDS.Tables[1].Rows[0]["PretestCounselling"] != System.DBNull.Value)
                 {
@@ -919,13 +981,14 @@ namespace PresentationApp.ClinicalForms
                 }
                 if (theDS.Tables[1].Rows[0]["Mernarche"] != System.DBNull.Value)
                 {
-                    if (theDS.Tables[1].Rows[0]["Mernarche"].ToString() == "1")
+                    if (Convert.ToInt32(theDS.Tables[1].Rows[0]["Mernarche"]) > 1)
                     {
-                        UCWHOStage.radbtnMernarcheyes.Checked = true;
-                    }
-                    if (theDS.Tables[1].Rows[0]["Mernarche"].ToString() == "0")
-                    {
-                        UCWHOStage.radbtnMernarcheno.Checked = true;
+                        this.txtAgeMernarche.Value = theDS.Tables[1].Rows[0]["Mernarche"].ToString();
+                        //    UCWHOStage.radbtnMernarcheyes.Checked = true;
+                        //}
+                        //if (theDS.Tables[1].Rows[0]["Mernarche"].ToString() == "0")
+                        //{
+                        //    UCWHOStage.radbtnMernarcheno.Checked = true;
                     }
                 }
                 if (theDS.Tables[1].Rows[0]["MernarcheDate"] != System.DBNull.Value)
@@ -1164,7 +1227,7 @@ namespace PresentationApp.ClinicalForms
                 }
                 if (theDS.Tables[4].Rows[0]["GestAge"] != System.DBNull.Value)
                 {
-                    txtGestation.Text = theDS.Tables[4].Rows[0]["GestAge"].ToString();
+                    txtGestation.Value = theDS.Tables[4].Rows[0]["GestAge"].ToString();
                 }
             }
             //Table 5
@@ -1228,9 +1291,9 @@ namespace PresentationApp.ClinicalForms
                 if (theDS.Tables[8].Rows[0]["Cotrimoxazole"] != System.DBNull.Value)
                 {
                     //ddlmthroncotrimoxazole.SelectedValue = theDS.Tables[8].Rows[0]["Cotrimoxazole"].ToString();
-                    if (theDS.Tables[8].Rows[0]["Cotrimoxazole"].ToString() == "Yes")
+                    if (theDS.Tables[8].Rows[0]["Cotrimoxazole"].ToString() == "1")
                         ddlmthroncotrimoxazoleyes.Checked = true;
-                    else
+                    else if (theDS.Tables[8].Rows[0]["Cotrimoxazole"].ToString() == "0")
                         ddlmthroncotrimoxazoleNo.Checked = true;
                 }
             }
@@ -1354,6 +1417,7 @@ namespace PresentationApp.ClinicalForms
                         btnSavePMTCT.Enabled = true;
                         btnClosePMTCT.Enabled = true;
                         btnPrintPMTCT.Enabled = true;
+                        btnPharmacy.Enabled = true;
                     }
                 }
             }
@@ -1426,7 +1490,7 @@ namespace PresentationApp.ClinicalForms
                 }
                 if (theDS.Tables[1].Rows[0]["GestAge"] != System.DBNull.Value)
                 {
-                    txtGestation.Text = theDS.Tables[1].Rows[0]["GestAge"].ToString();
+                    txtGestation.Value = theDS.Tables[1].Rows[0]["GestAge"].ToString();
                 }
             }
 
@@ -1538,7 +1602,7 @@ namespace PresentationApp.ClinicalForms
             #region Check Visit Date
             if (Session["RegDate"] != null && txtVisitDate.Value != "")
             {
-                if (dateconstraint)
+                if (!dateconstraint)
                 {
                     if (Convert.ToDateTime(txtVisitDate.Value) < Convert.ToDateTime(Session["RegDate"]))
                     {
@@ -1596,7 +1660,7 @@ namespace PresentationApp.ClinicalForms
                 validationCheck = false;
             }
 
-            if (txtGestation.Text.Trim() == "" && ddlFieldVisitType.SelectedItem.Text == "Initial only")
+            if (txtGestation.Value.Trim() == "" && ddlFieldVisitType.SelectedItem.Text == "Initial only")
             {
                 MsgBuilder msgBuilder = new MsgBuilder();
                 msgBuilder.DataElements["Control"] = " -Gestation";
@@ -1610,7 +1674,86 @@ namespace PresentationApp.ClinicalForms
                 validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
                 validationCheck = false;
             }
+
             #endregion
+            if (!validationCheck)
+            {
+                MsgBuilder totalMsgBuilder = new MsgBuilder();
+                totalMsgBuilder.DataElements["MessageText"] = validateMessage;
+                IQCareMsgBox.Show("#C1", totalMsgBuilder, this);
+            }
+            return validationCheck;
+        }
+
+        private bool HTCTabFieldValidation()
+        {
+            IIQCareSystem IQCareSystemInterface = (IIQCareSystem)ObjectFactory.CreateInstance("BusinessProcess.Security.BIQCareSystem, BusinessProcess.Security");
+            DateTime theCurrentDate = (DateTime)IQCareSystemInterface.SystemDate();
+            IQCareUtils iQCareUtils = new IQCareUtils();
+            string validateMessage = "Following values are required:</br>";
+            bool validationCheck = true;
+            AuthenticationManager auth = new AuthenticationManager();
+            if (ddlFinalHIVResult.SelectedValue == "0")
+            {
+                MsgBuilder msgBuilder = new MsgBuilder();
+                msgBuilder.DataElements["Control"] = " -Final HIV Result";
+                validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
+                validationCheck = false;
+            }
+
+
+            if (rdoPatientaccPartnerYes.Checked == false && rdoPatientaccPartnerNo.Checked == false)
+            {
+                MsgBuilder msgBuilder = new MsgBuilder();
+                msgBuilder.DataElements["Control"] = " -Is Patient accompanied by partner?";
+                validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
+                validationCheck = false;
+            }
+
+            if (rdoHIVTestingTodayYes.Checked == false && rdoHIVTestingTodayNo.Checked == false)
+            {
+                MsgBuilder msgBuilder = new MsgBuilder();
+                msgBuilder.DataElements["Control"] = " -Is Client due for HIV Testing?";
+                validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
+                validationCheck = false;
+            }
+
+
+
+            if (!validationCheck)
+            {
+                MsgBuilder totalMsgBuilder = new MsgBuilder();
+                totalMsgBuilder.DataElements["MessageText"] = validateMessage;
+                IQCareMsgBox.Show("#C1", totalMsgBuilder, this);
+            }
+            return validationCheck;
+        }
+
+        private bool ClinicalReviewTabFieldValidation()
+        {
+            IIQCareSystem IQCareSystemInterface = (IIQCareSystem)ObjectFactory.CreateInstance("BusinessProcess.Security.BIQCareSystem, BusinessProcess.Security");
+            DateTime theCurrentDate = (DateTime)IQCareSystemInterface.SystemDate();
+            IQCareUtils iQCareUtils = new IQCareUtils();
+            string validateMessage = "Following values are required:</br>";
+            bool validationCheck = true;
+            AuthenticationManager auth = new AuthenticationManager();
+            if (ddlFieldVisitType.SelectedValue == "Initial only" && ddlMaternalBloodGroup.SelectedValue == "0")
+            {
+                MsgBuilder msgBuilder = new MsgBuilder();
+                msgBuilder.DataElements["Control"] = " -Maternal Blood Group";
+                validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
+                validationCheck = false;
+            }
+
+
+            if (ddlFieldVisitType.SelectedValue == "Initial only" && ddlRhesusFactor.SelectedValue == "0")
+            {
+                MsgBuilder msgBuilder = new MsgBuilder();
+                msgBuilder.DataElements["Control"] = " -Rhesus Factor";
+                validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
+                validationCheck = false;
+            }
+
             if (!validationCheck)
             {
                 MsgBuilder totalMsgBuilder = new MsgBuilder();
@@ -1622,7 +1765,7 @@ namespace PresentationApp.ClinicalForms
 
         private Boolean ProfileTabfieldValidation()
         {
-            int i = 0;
+
             IIQCareSystem IQCareSystemInterface = (IIQCareSystem)ObjectFactory.CreateInstance("BusinessProcess.Security.BIQCareSystem, BusinessProcess.Security");
             DateTime theCurrentDate = (DateTime)IQCareSystemInterface.SystemDate();
             IQCareUtils iQCareUtils = new IQCareUtils();
@@ -1667,24 +1810,7 @@ namespace PresentationApp.ClinicalForms
                 validationCheck = false;
             }
 
-            //TB Assessment
-            if (ddlFieldVisitType.SelectedItem.Text == "Follow Up" && ddlFieldVisitType.SelectedItem.Text == "Follow Up")
-            {
-                foreach (ListItem LtItem in UCTBScreen.cblTBAssessmentICF.Items)
-                {
-                    if (LtItem.Selected == true)
-                    {
-                        i = 1;
-                    }
-                }
-                if (i == 0)
-                {
-                    MsgBuilder msgBuilder = new MsgBuilder();
-                    msgBuilder.DataElements["Control"] = " -TB assessment (ICF):";
-                    validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
-                    validationCheck = false;
-                }
-            }
+
             if (!validationCheck)
             {
                 MsgBuilder totalMsgBuilder = new MsgBuilder();
@@ -1696,17 +1822,27 @@ namespace PresentationApp.ClinicalForms
 
         private Boolean PMTCTTabfieldValidation()
         {
+            int i = 0;
             string validateMessage = "Following values are required:</br>";
             bool validationCheck = true;
             AuthenticationManager auth = new AuthenticationManager();
-            if (rdoMotherAdherenceAssessmentdoneYes.Checked == false && rdoMotherAdherenceAssessmentdoneNo.Checked == false && ddlFieldVisitType.SelectedItem.Text == "Follow Up")
+            if (rdoMotherAdherenceAssessmentdoneYes.Checked == false && rdoMotherAdherenceAssessmentdoneNo.Checked == false)
             {
                 MsgBuilder msgBuilder = new MsgBuilder();
                 msgBuilder.DataElements["Control"] = " -Adherence Assessment done";
                 validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
                 validationCheck = false;
             }
-            if (ddlARVRegimen.SelectedValue == "0" && ddlFieldVisitType.SelectedItem.Text == "Follow Up")
+
+            if (rdodisclosedHIVStatusNo.Checked == false && rdodisclosedHIVStatusYes.Checked == false)
+            {
+                MsgBuilder msgBuilder = new MsgBuilder();
+                msgBuilder.DataElements["Control"] = " -Have you disclosed your HIV Status?";
+                validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
+                validationCheck = false;
+            }
+
+            if (ddlARVRegimen.SelectedValue == "0")
             {
                 MsgBuilder msgBuilder = new MsgBuilder();
                 msgBuilder.DataElements["Control"] = " -ARV Regimen";
@@ -1714,13 +1850,29 @@ namespace PresentationApp.ClinicalForms
                 validationCheck = false;
             }
 
-            if (ddlCTX.SelectedValue == "0" && ddlFieldVisitType.SelectedItem.Text == "Follow Up")
+            if (ddlCTX.SelectedValue == "0")
             {
                 MsgBuilder msgBuilder = new MsgBuilder();
                 msgBuilder.DataElements["Control"] = " -CTX";
                 validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
                 validationCheck = false;
             }
+            //TB Assessment
+            foreach (ListItem LtItem in UCTBScreen.cblTBAssessmentICF.Items)
+            {
+                if (LtItem.Selected == true)
+                {
+                    i = 1;
+                }
+            }
+            if (i == 0)
+            {
+                MsgBuilder msgBuilder = new MsgBuilder();
+                msgBuilder.DataElements["Control"] = " -TB assessment (ICF):";
+                validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
+                validationCheck = false;
+            }
+
             if (!validationCheck)
             {
                 MsgBuilder totalMsgBuilder = new MsgBuilder();
@@ -2002,15 +2154,25 @@ namespace PresentationApp.ClinicalForms
             ScriptManager.RegisterStartupScript(this, GetType(), "sttdSubabuse", "show('tdSubabuse');", true);
             ScriptManager.RegisterStartupScript(this, GetType(), "stspTbassessment", "show('spTbassessment');", true);
             ScriptManager.RegisterStartupScript(this, GetType(), "stCR", "show('CR');", true);
-
-
+            ScriptManager.RegisterStartupScript(this, GetType(), "stblVitalSigns", "show('VitalSigns');", true);
+            ScriptManager.RegisterStartupScript(this, GetType(), "stBGP", "show('BGP');", true);
+            ScriptManager.RegisterStartupScript(this, GetType(), "sttdExGBV", "show('tdExGBV');", true);
         }
 
         private void addAttributes()
         {
 
             UCTBScreen.lblTBassessment.CssClass = "required";
-            txtGestation.Attributes.Add("onkeyup", "chkDecimal('" + txtGestation.ClientID + "');");
+            //txtGestation.Attributes.Add("onkeyup", "chkDecimal('" + txtGestation.ClientID + "');");
+            rdoHIVTestingTodayYes.Attributes.Add("onclick", "show('trHIVTesting1'), show('trHIVTesting2');");
+            rdoHIVTestingTodayNo.Attributes.Add("onclick", "hide('trHIVTesting1'), hide('trHIVTesting2');");
+
+            rdodisclosedHIVStatusYes.Attributes.Add("onclick", "show('tdPnlHIVStatus')");
+            rdodisclosedHIVStatusNo.Attributes.Add("onclick", "hide('tdPnlHIVStatus')");
+
+            rdoAdmittedtowardPMTCTYes.Attributes.Add("onclick", "show('tdSpecifyWardAdmitted')");
+            rdoAdmittedtowardPMTCTNo.Attributes.Add("onclick", "hide('tdSpecifyWardAdmitted')");
+
             rdoPatientaccPartnerYes.Attributes.Add("onclick", "show('pap1'), show('pap2');");
             rdoPatientaccPartnerNo.Attributes.Add("onclick", "hide('pap1'), hide('pap2');");
             rdoExperienceanyGBVYes.Attributes.Add("onclick", "show('tdGBVExperienced');");
@@ -2030,6 +2192,7 @@ namespace PresentationApp.ClinicalForms
             txtNoofdosesmissed.Attributes.Add("onkeyup", "chkDecimal('" + txtNoofdosesmissed.ClientID + "');");
             txtNofHomevisits.Attributes.Add("onkeyup", "chkDecimal('" + txtNofHomevisits.ClientID + "');");
             txtDOT.Attributes.Add("onkeyup", "chkDecimal('" + txtDOT.ClientID + "');");
+            txtAgeMernarche.Attributes.Add("onkeyup", "chkDecimal('" + txtAgeMernarche.ClientID + "');");
             // CheckUncheklogic(pnlBarriertoadherence);
         }
 
@@ -2240,7 +2403,7 @@ namespace PresentationApp.ClinicalForms
             theHTTriage.Add("EDD", txtEDD.Value);
             theHTTriage.Add("Parity", ddlparity.SelectedValue);
             theHTTriage.Add("Gravidae", ddlGravidae.SelectedValue);
-            theHTTriage.Add("Gestation", txtGestation.Text == "" ? "999" : txtGestation.Text);
+            theHTTriage.Add("Gestation", txtGestation.Value == "" ? string.Empty : txtGestation.Value);
             theHTTriage.Add("VisitNumber", ddlVisitNumber.SelectedValue);
             theHTTriage.Add("Temp", idVitalSign.txtTemp.Text == "" ? "999" : idVitalSign.txtTemp.Text);
             theHTTriage.Add("RR", idVitalSign.txtRR.Text == "" ? "999" : idVitalSign.txtRR.Text);
@@ -2250,7 +2413,10 @@ namespace PresentationApp.ClinicalForms
             theHTTriage.Add("Height", idVitalSign.txtHeight.Text == "" ? "999" : idVitalSign.txtHeight.Text);
             theHTTriage.Add("Weight", idVitalSign.txtWeight.Text == "" ? "999" : idVitalSign.txtWeight.Text);
             theHTTriage.Add("UserId", Session["AppUserId"].ToString());
-
+            theHTTriage.Add("tetanustoxoid", rdotetanustoxoidyes.Checked == true ? 1 : rdotetanustoxoidno.Checked == true ? 0 : 2);
+            theHTTriage.Add("tetanustoxoidVaccine", ddlTTVaccine.SelectedValue);
+            theHTTriage.Add("tetanustoxoidVaccineNo", txtNoTTReason.Value);
+            theHTTriage.Add("Mernarche", txtAgeMernarche.Value);
             GetMultiSelectListItems(ref theDSTriage);
 
             IKNHMEI KNHMEIManager;
@@ -2269,6 +2435,15 @@ namespace PresentationApp.ClinicalForms
 
         protected void btnHTCSave_Click(object sender, EventArgs e)
         {
+            if (HTCTabFieldValidation() == false)
+            {
+                if (Convert.ToInt32(Session["PatientVisitId"]) > 0)
+                {
+                    btnHTCSave.Enabled = true;
+                    btnHTCClose.Enabled = true;
+                }
+                return;
+            }
             int LocationID = Convert.ToInt32(Session["AppLocationId"]);
             int PatientID = Convert.ToInt32(Session["PatientId"]);
             int visitPK = Convert.ToInt32(Session["PatientVisitId"]);
@@ -2284,6 +2459,7 @@ namespace PresentationApp.ClinicalForms
             theHTHTC.Add("PreTestCounseling", ddlPreTestCounselling.SelectedValue);
             theHTHTC.Add("PostTestCounseling", ddlPosttestcounselling.SelectedValue);
             theHTHTC.Add("HIVTestingToday", rdoHIVTestingTodayYes.Checked == true ? 1 : rdoHIVTestingTodayNo.Checked == true ? 0 : 2);
+            theHTHTC.Add("HIVTestingTodayDone", ddlHIVTestDoneToday.SelectedValue);
             theHTHTC.Add("FinalHIVResult", ddlFinalHIVResult.SelectedValue);
             theHTHTC.Add("Patientaccompaniedpartner", rdoPatientaccPartnerYes.Checked == true ? 1 : rdoPatientaccPartnerNo.Checked == true ? 0 : 2);
             theHTHTC.Add("partnerpretestcounselling", ddlpartnerPreTestCounselling.SelectedValue);
@@ -2317,6 +2493,11 @@ namespace PresentationApp.ClinicalForms
 
             if (ProfileTabfieldValidation() == false)
             {
+                if (Convert.ToInt32(Session["PatientVisitId"]) > 0)
+                {
+                    btnProfileClose.Enabled = true;
+                    btnProfileSave.Enabled = true;
+                }
                 return;
             }
 
@@ -2383,7 +2564,17 @@ namespace PresentationApp.ClinicalForms
 
         protected void btnSaveClinicalReview_Click1(object sender, EventArgs e)
         {
+            if (!ClinicalReviewTabFieldValidation())
+            {
+                if (Convert.ToInt32(Session["PatientVisitId"]) > 0)
+                {
+                    btnSaveClinicalReview.Enabled = true;
+                    btnCloseClinicalReview.Enabled = true;
+                }
+                return;
+            }
             ClinicalReviewData();
+            btnPharmacy.Enabled = true;
             SaveCancel("Clinical Review");
             tabControl.ActiveTabIndex = 4;
         }
@@ -2436,7 +2627,7 @@ namespace PresentationApp.ClinicalForms
             }
             theHTClinicalReview.Add("Plan", txtPlan.Text);
             theHTClinicalReview.Add("AppointmentDate", txtAppointmentDate.Value == "" ? "01-Jan-1900" : txtAppointmentDate.Value);
-            theHTClinicalReview.Add("Admittedtoward", rdoAdmittedtowardyes.Checked == true ? 1 : rdoAdmittedtowardno.Checked == true ? 0 : 2);
+            theHTClinicalReview.Add("Admittedtoward", rdoAdmittedtowardyes.Checked == true ? 1 : rdoAdmittedtowardyes.Checked == true ? 0 : 2);
             theHTClinicalReview.Add("DiagnosisandPlanWardAdmitted", ddlDiagnosisandPlanWardAdmitted.SelectedValue);
             theHTClinicalReview.Add("ProgressionInWHOstage", UCWHOStage.rdoProgressionInWHOstage.SelectedValue);
             //theHTClinicalReview.Add("Currentwhostage", UCWHOStage.ddlwhostage1.SelectedValue);
@@ -2472,6 +2663,11 @@ namespace PresentationApp.ClinicalForms
         {
             if (PMTCTTabfieldValidation() == false)
             {
+                if (Convert.ToInt32(Session["PatientVisitId"]) > 0)
+                {
+                    btnSavePMTCT.Enabled = true;
+                    btnClosePMTCT.Enabled = true;
+                }
                 return;
             }
 
@@ -2527,14 +2723,26 @@ namespace PresentationApp.ClinicalForms
             theHTPMTCT.Add("ContactsScreenedForTB", UCTBScreen.rdoContactsScreenedForTBYes.Checked == true ? 1 : UCTBScreen.rdoContactsScreenedForTBNo.Checked == true ? 0 : 2);
             theHTPMTCT.Add("txtSpecifyWhyContactNotScreenedForTB", UCTBScreen.txtSpecifyWhyContactNotScreenedForTB.Text);
             theHTPMTCT.Add("PatientReferredForTreatment", UCTBScreen.ddlPatientReferredForTreatment.SelectedValue);
-            theHTPMTCT.Add("tetanustoxoid", rdotetanustoxoidyes.Checked == true ? 1 : rdotetanustoxoidno.Checked == true ? 0 : 2);
-            theHTPMTCT.Add("tetanustoxoidVaccine", ddlTTVaccine.SelectedValue);
-            theHTPMTCT.Add("tetanustoxoidVaccineNo", txtNoTTReason.Value);
-            
+
+            theHTPMTCT.Add("IPT", UCTBScreen.rdoLstIPT.SelectedValue);
+            theHTPMTCT.Add("ReasonDeclinedIPT", UCTBScreen.ddlReasonDeclinedIPT.SelectedValue);
+            theHTPMTCT.Add("OtherReasonDeclinedIPT", UCTBScreen.txtOtherReasonDeclinedIPT.Text);
+            theHTPMTCT.Add("INHStartDate", UCTBScreen.txtINHStartDate.Text);
+            theHTPMTCT.Add("INHEndDate", UCTBScreen.txtINHEndDate.Text);
+            theHTPMTCT.Add("PyridoxineStartDate", UCTBScreen.txtPyridoxineStartDate.Text);
+            theHTPMTCT.Add("PyridoxineEndDate", UCTBScreen.txtPyridoxineEndDate.Text);
+            theHTPMTCT.Add("AdherenceAddressed", UCTBScreen.AdherenceAddressed);
+            theHTPMTCT.Add("missedAnyDoses", UCTBScreen.missedAnyDoses);
+            theHTPMTCT.Add("ReferredForAdherence", UCTBScreen.ReferredForAdherence);
+            theHTPMTCT.Add("SpecifyOtherTBSideEffects", UCTBScreen.txtSpecifyOtherTBSideEffects.Text);
+            //theHTPMTCT.Add("tetanustoxoid", rdotetanustoxoidyes.Checked == true ? 1 : rdotetanustoxoidno.Checked == true ? 0 : 2);
+            //theHTPMTCT.Add("tetanustoxoidVaccine", ddlTTVaccine.SelectedValue);
+            //theHTPMTCT.Add("tetanustoxoidVaccineNo", txtNoTTReason.Value);
+
             // Staging
             theHTPMTCT.Add("Currentwhostage", UCWHOStage.ddlwhostage1.SelectedValue);
             theHTPMTCT.Add("WABStage", UCWHOStage.ddlWABStage.SelectedValue);
-            theHTPMTCT.Add("Mernarche", UCWHOStage.radbtnMernarcheyes.Checked == true ? 1 : UCWHOStage.radbtnMernarcheno.Checked == true ? 0 : 2);
+            //theHTPMTCT.Add("Mernarche", UCWHOStage.radbtnMernarcheyes.Checked == true ? 1 : UCWHOStage.radbtnMernarcheno.Checked == true ? 0 : 2);
             theHTPMTCT.Add("MernarcheDate", UCWHOStage.txtmenarchedate.Value == "" ? "01-Jan-1900" : UCWHOStage.txtmenarchedate.Value);
             theHTPMTCT.Add("tannerstaging", UCWHOStage.ddltannerstaging.SelectedValue);
 
@@ -2626,6 +2834,21 @@ namespace PresentationApp.ClinicalForms
             DTTBAssessment = getCheckBoxListItemValues(UCTBScreen.cblTBAssessmentICF);
             DTTBAssessment.TableName = "TBAssessment";
             theDSMEI.Tables.Add(DTTBAssessment);
+
+            DataTable DTTBReview = new DataTable();
+            DTTBReview = getCheckBoxListItemValues(UCTBScreen.cblReviewChecklist);
+            DTTBReview.TableName = "TBReview";
+            theDSMEI.Tables.Add(DTTBReview);
+
+            DataTable DTTBSignsOfHepatitis = new DataTable();
+            DTTBSignsOfHepatitis = getCheckBoxListItemValues(UCTBScreen.cblSignsOfHepatitis);
+            DTTBSignsOfHepatitis.TableName = "TBSignsOfHepatitis";
+            theDSMEI.Tables.Add(DTTBSignsOfHepatitis);
+
+            DataTable DTTBStopReason = new DataTable();
+            DTTBStopReason = getCheckBoxListItemValues(UCTBScreen.cblStopTBReason);
+            DTTBStopReason.TableName = "TBStopReason";
+            theDSMEI.Tables.Add(DTTBStopReason);
 
             #endregion
 
@@ -2851,6 +3074,11 @@ namespace PresentationApp.ClinicalForms
             IQCareUtils.Redirect("../PharmacyDispense/frmPharmacyDispense_PatientOrder.aspx?opento=ArtForm&LastRegimenDispensed=True", "_blank", "toolbars=no,location=no,directories=no,dependent=yes,top=100,left=30,maximize=no,resize=no,width=1000,height=800,scrollbars=yes");
         }
 
+        protected void btnPharmacy_Click(object sender, EventArgs e)
+        {
+            ClinicalReviewData();
+            IQCareUtils.Redirect("../PharmacyDispense/frmPharmacyDispense_PatientOrder.aspx?opento=ArtForm&LastRegimenDispensed=True", "_blank", "toolbars=no,location=no,directories=no,dependent=yes,top=100,left=30,maximize=no,resize=no,width=1000,height=800,scrollbars=yes");
+        }
         protected void ddlFieldVisitType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlFieldVisitType.SelectedItem.Text == "Initial only")

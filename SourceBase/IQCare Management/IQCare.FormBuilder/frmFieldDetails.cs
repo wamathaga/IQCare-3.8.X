@@ -744,7 +744,7 @@ using Application.Presentation;
                                         GblIQCare.objhashBusinessRule.Add(dgwFieldDetails.Rows[e.RowIndex].Cells[9].Value, dtEmptyDataTable);
                                     }
                                 }
-                                if (display != "Drug Selection" && display != "11" && display.Trim() != "Lab Selection" && display.Trim() != "12")
+                                if (display.Trim() != "Lab Selection" && display.Trim() != "12")
                                 {
                                     GblIQCare.iFormMode = 0;
                                     theForm = (Form)Activator.CreateInstance(Type.GetType("IQCare.FormBuilder.frmBusinessRule, IQCare.FormBuilder"));

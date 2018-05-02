@@ -3,174 +3,174 @@
 
 <%@ Register TagPrefix="UcNextAppointment" TagName="UcNxtAppt" Src="~/ClinicalForms/UserControl/UserControlKNH_NextAppointment.ascx" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="IQCareContentPlaceHolder" runat="server">
-    <div style="padding-left: 8px; padding-right: 8px;">
-        <script language="javascript" type="text/javascript">
+    <script language="javascript" type="text/javascript">
 
-            function WindowPrint() {
-                window.print();
+        function WindowPrint() {
+            window.print();
+        }
+
+        function fnPageOpen(pageopen) {
+            if (pageopen == "Pharmacy") {
+                window.open('../PharmacyDispense/frmPharmacyDispense_PatientOrder.aspx?opento=ArtForm');
+            }
+            else if (pageopen == "Labratory") {
+                window.open('../Laboratory/frm_Laboratory.aspx?opento=ArtForm');
+            }
+            else if (pageopen == "LabTest") {
+                window.open('../Laboratory/frm_Laboratory.aspx?opento=ArtForm');
+            }
+        }
+
+        function fnfamilyplanning() {
+            var e = document.getElementById("<%=ddlFamilyPanningStatus.ClientID%>");
+            var strtext = e.options[e.selectedIndex].text;
+            if (strtext == "Select") {
+                hide('divFamilyPlanningMethod');
+            }
+            else if (strtext == "ONFP=on Family Planning") {
+                show('divFamilyPlanningMethod');
+            }
+            else { hide('divFamilyPlanningMethod'); }
+        }
+
+        function fnARVDrug() {
+            var e = document.getElementById("<%=ddlarvdrugadhere.ClientID%>");
+            var strtext = e.options[e.selectedIndex].text;
+            if (strtext == "Select") {
+                hide('divARVAdherence');
+            }
+            else if (strtext == "Fair" || strtext == "Poor") {
+                show('divARVAdherence');
+            }
+            else { hide('divARVAdherence'); }
+        }
+
+        function fnCotrimoxale() {
+            var e = document.getElementById("<%=ddlCotrimoxazoleAdhere.ClientID%>");
+            var strtext = e.options[e.selectedIndex].text;
+            if (strtext == "Select") {
+                hide('divCotrimoxazole');
+            }
+            else if (strtext == "Fair" || strtext == "Poor") {
+                show('divCotrimoxazole');
+            }
+            else { hide('divCotrimoxazole'); }
+        }
+
+        function fnINH() {
+            var e = document.getElementById("<%=DDLINH.ClientID%>");
+            var strtext = e.options[e.selectedIndex].text;
+            if (strtext == "Select") {
+                hide('divINH');
+            }
+            else if (strtext == "Fair" || strtext == "Poor") {
+                show('divINH');
+            }
+            else { hide('divINH'); }
+        }
+
+        function fnSubsituations() {
+            var e = document.getElementById("<%=ddlsubsituationInterruption.ClientID%>");
+            var strtext = e.options[e.selectedIndex].text;
+            if (strtext == "Change regimen") {
+                show('arvTherapyChange');
+                hide('arvTherapyStop');
+
+            }
+            else if (strtext == "Stop treatment") {
+                show('arvTherapyStop');
+                hide('arvTherapyChange');
+            }
+            else {
+                hide('arvTherapyChange');
+                hide('arvTherapyStop');
+            }
+        }
+
+        function fnRegimenChange() {
+            var e = document.getElementById("<%=ddlArvTherapyChangeCode.ClientID%>");
+            var strtext = e.options[e.selectedIndex].text;
+            if (strtext == "10=Other reasons(specify)") {
+                show('otherarvTherapyChangeCode');
+
+            }
+            else {
+                hide('otherarvTherapyChangeCode');
+            }
+        }
+
+        function fnStopReason() {
+            var e = document.getElementById("<%=ddlArvTherapyStopCode.ClientID%>");
+            var strtext = e.options[e.selectedIndex].text;
+            if (strtext == "10=Other reasons(specify)") {
+                show('otherarvTherapyStopCode');
+
+            }
+            else {
+                hide('otherarvTherapyStopCode');
+            }
+        }
+
+        function CalculateBMI(txtBMI, txtWeight, txtHeight) {
+            var weight = document.getElementById(txtWeight).value;
+            var height = document.getElementById(txtHeight).value;
+            if (weight == "" || height == "") {
+                weight = 0;
+                height = 0;
             }
 
-            function fnPageOpen(pageopen) {
-                if (pageopen == "Pharmacy") {
-                    window.open('../PharmacyDispense/frmPharmacyDispense_PatientOrder.aspx?opento=ArtForm');
-                }
-                else if (pageopen == "Labratory") {
-                    window.open('../Laboratory/frm_Laboratory.aspx?opento=ArtForm');
-                }
-                else if (pageopen == "LabTest") {
-                    window.open('../Laboratory/frm_Laboratory.aspx?opento=ArtForm');
-                }
+            weight = parseFloat(weight);
+            height = parseFloat(height);
+
+            var BMI = weight / ((height / 100) * (height / 100));
+            BMI = BMI.toFixed(2);
+            document.getElementById(txtBMI).value = BMI;
+        }
+
+        function fnTBStatus() {
+            var e = document.getElementById("<%=ddlTBStatus.ClientID%>");
+            var strtext = e.options[e.selectedIndex].text;
+            if (strtext == "Select") {
+                hide('tbCardNo');
+                document.getElementById("<%=txtTBCardNo.ClientID %>").value = "";
             }
-
-            function fnfamilyplanning() {
-                var e = document.getElementById("<%=ddlFamilyPanningStatus.ClientID%>");
-                var strtext = e.options[e.selectedIndex].text;
-                if (strtext == "Select") {
-                    hide('divFamilyPlanningMethod');
-                }
-                else if (strtext == "ONFP=on Family Planning") {
-                    show('divFamilyPlanningMethod');
-                }
-                else { hide('divFamilyPlanningMethod'); }
+            else if (strtext == "4=TB Rx") {
+                show('tbCardNo');
             }
-
-            function fnARVDrug() {
-                var e = document.getElementById("<%=ddlarvdrugadhere.ClientID%>");
-                var strtext = e.options[e.selectedIndex].text;
-                if (strtext == "Select") {
-                    hide('divARVAdherence');
-                }
-                else if (strtext == "Fair" || strtext == "Poor") {
-                    show('divARVAdherence');
-                }
-                else { hide('divARVAdherence'); }
+            else {
+                hide('tbCardNo');
+                document.getElementById("<%=txtTBCardNo.ClientID %>").value = "";
             }
+        }
 
-            function fnCotrimoxale() {
-                var e = document.getElementById("<%=ddlCotrimoxazoleAdhere.ClientID%>");
-                var strtext = e.options[e.selectedIndex].text;
-                if (strtext == "Select") {
-                    hide('divCotrimoxazole');
-                }
-                else if (strtext == "Fair" || strtext == "Poor") {
-                    show('divCotrimoxazole');
-                }
-                else { hide('divCotrimoxazole'); }
-            }
-
-            function fnINH() {
-                var e = document.getElementById("<%=DDLINH.ClientID%>");
-                var strtext = e.options[e.selectedIndex].text;
-                if (strtext == "Select") {
-                    hide('divINH');
-                }
-                else if (strtext == "Fair" || strtext == "Poor") {
-                    show('divINH');
-                }
-                else { hide('divINH'); }
-            }
-
-            function fnSubsituations() {
-                var e = document.getElementById("<%=ddlsubsituationInterruption.ClientID%>");
-                var strtext = e.options[e.selectedIndex].text;
-                if (strtext == "Change regimen") {
-                    show('arvTherapyChange');
-                    hide('arvTherapyStop');
-
-                }
-                else if (strtext == "Stop treatment") {
-                    show('arvTherapyStop');
-                    hide('arvTherapyChange');
-                }
-                else {
-                    hide('arvTherapyChange');
-                    hide('arvTherapyStop');
-                }
-            }
-
-            function fnRegimenChange() {
-                var e = document.getElementById("<%=ddlArvTherapyChangeCode.ClientID%>");
-                var strtext = e.options[e.selectedIndex].text;
-                if (strtext == "10=Other reasons(specify)") {
-                    show('otherarvTherapyChangeCode');
-
-                }
-                else {
-                    hide('otherarvTherapyChangeCode');
-                }
-            }
-
-            function fnStopReason() {
-                var e = document.getElementById("<%=ddlArvTherapyStopCode.ClientID%>");
-                var strtext = e.options[e.selectedIndex].text;
-                if (strtext == "10=Other reasons(specify)") {
-                    show('otherarvTherapyStopCode');
-
-                }
-                else {
-                    hide('otherarvTherapyStopCode');
-                }
-            }
-
-            function CalculateBMI(txtBMI, txtWeight, txtHeight) {
-                var weight = document.getElementById(txtWeight).value;
-                var height = document.getElementById(txtHeight).value;
-                if (weight == "" || height == "") {
-                    weight = 0;
-                    height = 0;
-                }
-
-                weight = parseFloat(weight);
-                height = parseFloat(height);
-
-                var BMI = weight / ((height / 100) * (height / 100));
-                BMI = BMI.toFixed(2);
-                document.getElementById(txtBMI).value = BMI;
-            }
-
-            function fnTBStatus() {
-                var e = document.getElementById("<%=ddlTBStatus.ClientID%>");
-                var strtext = e.options[e.selectedIndex].text;
-                if (strtext == "Select") {
-                    hide('tbCardNo');
-                    document.getElementById("<%=txtTBCardNo.ClientID %>").value = "";
-                }
-                else if (strtext == "4=TB Rx") {
-                    show('tbCardNo');
-                }
-                else {
-                    hide('tbCardNo');
-                    document.getElementById("<%=txtTBCardNo.ClientID %>").value = "";
-                }
-            }
-
-            function checkNone(searchEles, Id_None) {
-                for (var i = 0; i < searchEles.length; i++) {
-                    if (searchEles[i].children.length > 0) {
-                        for (var ii = 0; ii < searchEles[i].children.length; ii++) {
-                            if (searchEles[i].children[ii].tagName == 'LABEL' && searchEles[i].children[ii].htmlFor != Id_None) {
-                                document.getElementById(searchEles[i].children[ii].htmlFor).checked = false;
-                            }
+        function checkNone(searchEles, Id_None) {
+            for (var i = 0; i < searchEles.length; i++) {
+                if (searchEles[i].children.length > 0) {
+                    for (var ii = 0; ii < searchEles[i].children.length; ii++) {
+                        if (searchEles[i].children[ii].tagName == 'LABEL' && searchEles[i].children[ii].htmlFor != Id_None) {
+                            document.getElementById(searchEles[i].children[ii].htmlFor).checked = false;
                         }
                     }
                 }
             }
+        }
 
 
 
-            function checkNotNone(searchEles, Id_None) {
-                for (var i = 0; i < searchEles.length; i++) {
-                    if (searchEles[i].children.length > 0) {
-                        for (var ii = 0; ii < searchEles[i].children.length; ii++) {
-                            if (searchEles[i].children[ii].tagName == 'LABEL' && searchEles[i].children[ii].textContent == "12=None") {
-                                document.getElementById(searchEles[i].children[ii].htmlFor).checked = false;
-                            }
+        function checkNotNone(searchEles, Id_None) {
+            for (var i = 0; i < searchEles.length; i++) {
+                if (searchEles[i].children.length > 0) {
+                    for (var ii = 0; ii < searchEles[i].children.length; ii++) {
+                        if (searchEles[i].children[ii].tagName == 'LABEL' && searchEles[i].children[ii].textContent == "12=None") {
+                            document.getElementById(searchEles[i].children[ii].htmlFor).checked = false;
                         }
                     }
                 }
             }
+        }
 
-            function GetCheckboxId(Id) {
+        function GetCheckboxId(Id) {
+            if (document.getElementById("<%=PnlNotedSideEffects.ClientID %>") != null) {
                 var searchEles = document.getElementById("<%=PnlNotedSideEffects.ClientID %>").children;
                 for (var i = 0; i < searchEles.length; i++) {
                     if (searchEles[i].children.length > 0) {
@@ -185,8 +185,10 @@
                     }
                 }
             }
+        }
 
-            function ShowPnlforOther(param, shwpnl) {
+        function ShowPnlforOther(param, shwpnl) {
+            if (document.getElementById(param) != null) {
                 var searchpnl = document.getElementById(param).children;
                 var chkboxId = "";
                 for (var i = 0; i < searchpnl.length; i++) {
@@ -199,13 +201,18 @@
                         }
                     }
                 }
-                if (document.getElementById(chkboxId).checked == true)
-                    show(shwpnl);
             }
+            if (document.getElementById(chkboxId) != null) {
+                if (document.getElementById(chkboxId).checked == true) {
+                    show(shwpnl);
+                }
+            }
+        }
             
-        </script>
+    </script>
+    <div style="padding-left: 8px; padding-right: 8px; width: 100%;" class="container">
         <div class="border center formbg">
-            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+            <table cellspacing="6" cellpadding="0" width="100%" border="0" class="table-condensed">
                 <tbody>
                     <tr>
                         <td class="border pad5 whitebg" align="center">
@@ -240,9 +247,9 @@
         <br />
         <div class="border center formbg">
             <br />
-            <h2 class="forms" align="left">
-                Clinical Status</h2>
-            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+            <h4 class="forms" align="left">
+                Clinical Status</h4>
+            <table cellspacing="6" cellpadding="0" width="100%" border="0" class="table-condensed">
                 <tbody>
                     <tr>
                         <td class="border pad5 whitebg" colspan="2" width="100%">
@@ -406,11 +413,11 @@
         <br />
         <div class="border center formbg">
             <br />
-            <table cellspacing="2" cellpadding="0" width="100%" border="0">
+            <table cellspacing="2" cellpadding="0" width="100%" border="0" class="table-condensed">
                 <tr>
                     <td style="width: 50%;">
-                        <h2 id="H1" class="forms" align="left">
-                            Pharmacy</h2>
+                        <h4 id="H1" class="forms" align="left">
+                            Pharmacy</h4>
                     </td>
                     <td style="width: 50%;">
                         <label class="margin10">
@@ -419,7 +426,7 @@
                     </td>
                 </tr>
             </table>
-            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+            <table cellspacing="6" cellpadding="0" width="100%" border="0" class="table-condensed">
                 <tbody>
                     <tr>
                         <td class="border pad10 whitebg" colspan="2" width="100%" valign="top" align="left"
@@ -562,8 +569,8 @@
                     <tr>
                         <td class="border pad5 whitebg center" colspan="2" width="100%">
                             <div id="divAdultPharmacy" runat="server">
-                                <asp:Button ID="btnpharmacy" Text="Prescribe Drugs" runat="server" OnClick="btnpharmacy_Click">
-                                </asp:Button>
+                                <asp:Button ID="btnpharmacy" Text="Prescribe Drugs" runat="server" OnClick="btnpharmacy_Click"
+                                    CssClass="btn btn-primary" Height="26px"></asp:Button>
                             </div>
                         </td>
                     </tr>
@@ -573,11 +580,11 @@
         <br />
         <div class="border center formbg">
             <br />
-            <table cellspacing="2" cellpadding="0" width="100%" border="0">
+            <table cellspacing="2" cellpadding="0" width="100%" border="0" class="table-condensed">
                 <tr>
                     <td style="width: 50%;">
-                        <h2 id="H2" class="forms" align="left">
-                            Laboratory Investigations</h2>
+                        <h4 id="H2" class="forms" align="left">
+                            Laboratory Investigations</h4>
                     </td>
                     <td style="width: 50%;">
                         <label class="margin10">
@@ -586,12 +593,13 @@
                     </td>
                 </tr>
             </table>
-            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+            <table cellspacing="6" cellpadding="0" width="100%" border="0" class="table-condensed">
                 <tbody>
                     <tr>
                         <td class="border pad5 whitebg formcenter" align="center" colspan="2">
                             <div id="divLaboratory" runat="server">
-                                <asp:Button ID="btnLabratory" Text="Laboratory" runat="server" OnClick="btnLabratory_Click" />
+                                <asp:Button ID="btnLabratory" Text="Laboratory" runat="server" OnClick="btnLabratory_Click"
+                                    CssClass="btn btn-primary" Height="26px" />
                             </div>
                         </td>
                     </tr>
@@ -601,9 +609,9 @@
         <br />
         <div class="border center formbg">
             <br />
-            <h2 id="H3" class="forms" align="left">
-                Referrals and Consultations</h2>
-            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+            <h4 id="H3" class="forms" align="left">
+                Referrals and Consultations</h4>
+            <table cellspacing="6" cellpadding="0" width="100%" border="0" class="table-condensed">
                 <tbody>
                     <tr>
                         <td class="border pad10 whitebg" valign="top" width="50%" align="left">
@@ -637,10 +645,14 @@
                     <tr>
                         <td class="pad5 center whitebg border" colspan="2">
                             <br />
-                            <asp:Button ID="btnSave" Text="Save" runat="server" OnClick="btnSave_Click" />
-                            <asp:Button ID="btnDataQualityCheck" Text="Data Quality check" runat="server" OnClick="btnDataQualityCheck_Click" />
-                            <asp:Button ID="btnClose" Text="Close" runat="server" OnClick="btnClose_Click" />
-                            <asp:Button ID="btnPrint" Text="Print" runat="server" OnClientClick="WindowPrint()" />
+                            <asp:Button ID="btnSave" Text="Save" runat="server" OnClick="btnSave_Click" CssClass="btn btn-primary"
+                                Height="26px" />
+                            <asp:Button ID="btnDataQualityCheck" Text="Data Quality check" runat="server" OnClick="btnDataQualityCheck_Click"
+                                CssClass="btn btn-primary" Height="26px" />
+                            <asp:Button ID="btnClose" Text="Close" runat="server" OnClick="btnClose_Click" CssClass="btn btn-primary"
+                                Height="26px" />
+                            <asp:Button ID="btnPrint" Text="Print" runat="server" OnClientClick="WindowPrint()"
+                                CssClass="btn btn-primary" Height="26px" />
                         </td>
                     </tr>
                 </tbody>

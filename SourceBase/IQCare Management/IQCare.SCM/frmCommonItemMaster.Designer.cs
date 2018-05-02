@@ -65,9 +65,9 @@
             // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(392, 117);
+            this.btnSubmit.Location = new System.Drawing.Point(392, 126);
             this.btnSubmit.Name = "btnSubmit";
-            this.btnSubmit.Size = new System.Drawing.Size(60, 25);
+            this.btnSubmit.Size = new System.Drawing.Size(60, 27);
             this.btnSubmit.TabIndex = 43;
             this.btnSubmit.Tag = "btnSingleText";
             this.btnSubmit.Text = "&Submit";
@@ -77,7 +77,7 @@
             // splitContainer1
             // 
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer1.Location = new System.Drawing.Point(12, 32);
+            this.splitContainer1.Location = new System.Drawing.Point(12, 34);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -88,7 +88,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.lblStatus);
             this.splitContainer1.Panel2.Controls.Add(this.ddlStatus);
-            this.splitContainer1.Size = new System.Drawing.Size(828, 76);
+            this.splitContainer1.Size = new System.Drawing.Size(828, 82);
             this.splitContainer1.SplitterDistance = 433;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 42;
@@ -100,9 +100,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanelItemName.Controls.Add(this.lblItem);
             this.flowLayoutPanelItemName.Controls.Add(this.txtItemName);
-            this.flowLayoutPanelItemName.Location = new System.Drawing.Point(3, 16);
+            this.flowLayoutPanelItemName.Location = new System.Drawing.Point(3, 17);
             this.flowLayoutPanelItemName.Name = "flowLayoutPanelItemName";
-            this.flowLayoutPanelItemName.Size = new System.Drawing.Size(425, 43);
+            this.flowLayoutPanelItemName.Size = new System.Drawing.Size(425, 46);
             this.flowLayoutPanelItemName.TabIndex = 0;
             // 
             // lblItem
@@ -115,7 +115,7 @@
             this.lblItem.Margin = new System.Windows.Forms.Padding(27, 6, 6, 6);
             this.lblItem.Name = "lblItem";
             this.lblItem.Padding = new System.Windows.Forms.Padding(0, 2, 2, 2);
-            this.lblItem.Size = new System.Drawing.Size(60, 17);
+            this.lblItem.Size = new System.Drawing.Size(58, 18);
             this.lblItem.TabIndex = 44;
             this.lblItem.Tag = "lblLabelRequired";
             this.lblItem.Text = "Item Name";
@@ -125,7 +125,7 @@
             this.txtItemName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtItemName.Location = new System.Drawing.Point(97, 4);
+            this.txtItemName.Location = new System.Drawing.Point(95, 4);
             this.txtItemName.Margin = new System.Windows.Forms.Padding(4);
             this.txtItemName.Name = "txtItemName";
             this.txtItemName.Size = new System.Drawing.Size(223, 20);
@@ -136,9 +136,9 @@
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(44, 28);
+            this.lblStatus.Location = new System.Drawing.Point(44, 30);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(40, 13);
+            this.lblStatus.Size = new System.Drawing.Size(41, 14);
             this.lblStatus.TabIndex = 37;
             this.lblStatus.Tag = "lblLabelRequired";
             this.lblStatus.Text = "Status:";
@@ -148,9 +148,9 @@
             this.ddlStatus.BackColor = System.Drawing.Color.White;
             this.ddlStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ddlStatus.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ddlStatus.Location = new System.Drawing.Point(110, 23);
+            this.ddlStatus.Location = new System.Drawing.Point(110, 25);
             this.ddlStatus.Name = "ddlStatus";
-            this.ddlStatus.Size = new System.Drawing.Size(174, 21);
+            this.ddlStatus.Size = new System.Drawing.Size(174, 22);
             this.ddlStatus.TabIndex = 38;
             this.ddlStatus.Tag = "ddlDropDownList";
             // 
@@ -167,9 +167,9 @@
             this.ColName,
             this.ColStatus,
             this.ColUpdate});
-            this.dgwItemList.Location = new System.Drawing.Point(12, 149);
+            this.dgwItemList.Location = new System.Drawing.Point(12, 160);
             this.dgwItemList.Name = "dgwItemList";
-            this.dgwItemList.Size = new System.Drawing.Size(758, 305);
+            this.dgwItemList.Size = new System.Drawing.Size(758, 328);
             this.dgwItemList.TabIndex = 68;
             this.dgwItemList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwItemList_CellClick);
             // 
@@ -213,20 +213,20 @@
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.btnSave);
             this.panel2.Controls.Add(this.btnClose);
-            this.panel2.Location = new System.Drawing.Point(0, 457);
+            this.panel2.Location = new System.Drawing.Point(0, 492);
             this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(852, 47);
+            this.panel2.Size = new System.Drawing.Size(852, 50);
             this.panel2.TabIndex = 72;
             this.panel2.Tag = "pnlSubPanel";
             // 
             // btnSave
             // 
             this.btnSave.BackColor = System.Drawing.SystemColors.Window;
-            this.btnSave.Location = new System.Drawing.Point(692, 10);
+            this.btnSave.Location = new System.Drawing.Point(692, 11);
             this.btnSave.Margin = new System.Windows.Forms.Padding(0);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(80, 25);
+            this.btnSave.Size = new System.Drawing.Size(80, 27);
             this.btnSave.TabIndex = 72;
             this.btnSave.Tag = "btnSingleText";
             this.btnSave.Text = "&Save";
@@ -236,10 +236,10 @@
             // btnClose
             // 
             this.btnClose.BackColor = System.Drawing.SystemColors.Window;
-            this.btnClose.Location = new System.Drawing.Point(771, 10);
+            this.btnClose.Location = new System.Drawing.Point(771, 11);
             this.btnClose.Margin = new System.Windows.Forms.Padding(0);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(80, 25);
+            this.btnClose.Size = new System.Drawing.Size(80, 27);
             this.btnClose.TabIndex = 73;
             this.btnClose.Tag = "btnSingleText";
             this.btnClose.Text = "&Close";
@@ -249,18 +249,18 @@
             // lblMove
             // 
             this.lblMove.AutoSize = true;
-            this.lblMove.Location = new System.Drawing.Point(788, 277);
+            this.lblMove.Location = new System.Drawing.Point(788, 298);
             this.lblMove.Name = "lblMove";
-            this.lblMove.Size = new System.Drawing.Size(34, 13);
+            this.lblMove.Size = new System.Drawing.Size(33, 14);
             this.lblMove.TabIndex = 72;
             this.lblMove.Text = "Move";
             // 
             // btnDown
             // 
             this.btnDown.Image = ((System.Drawing.Image)(resources.GetObject("btnDown.Image")));
-            this.btnDown.Location = new System.Drawing.Point(792, 323);
+            this.btnDown.Location = new System.Drawing.Point(792, 348);
             this.btnDown.Name = "btnDown";
-            this.btnDown.Size = new System.Drawing.Size(26, 26);
+            this.btnDown.Size = new System.Drawing.Size(26, 28);
             this.btnDown.TabIndex = 71;
             this.btnDown.Tag = "btnFlexible";
             this.btnDown.UseVisualStyleBackColor = true;
@@ -269,9 +269,9 @@
             // btnUp
             // 
             this.btnUp.Image = ((System.Drawing.Image)(resources.GetObject("btnUp.Image")));
-            this.btnUp.Location = new System.Drawing.Point(792, 218);
+            this.btnUp.Location = new System.Drawing.Point(792, 235);
             this.btnUp.Name = "btnUp";
-            this.btnUp.Size = new System.Drawing.Size(26, 26);
+            this.btnUp.Size = new System.Drawing.Size(26, 28);
             this.btnUp.TabIndex = 70;
             this.btnUp.Tag = "btnFlexible";
             this.btnUp.UseVisualStyleBackColor = true;
@@ -280,10 +280,10 @@
             // lblItemName
             // 
             this.lblItemName.AutoSize = true;
-            this.lblItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblItemName.Location = new System.Drawing.Point(12, 10);
+            this.lblItemName.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblItemName.Location = new System.Drawing.Point(12, 11);
             this.lblItemName.Name = "lblItemName";
-            this.lblItemName.Size = new System.Drawing.Size(41, 13);
+            this.lblItemName.Size = new System.Drawing.Size(39, 14);
             this.lblItemName.TabIndex = 73;
             this.lblItemName.Tag = "lblLabel";
             this.lblItemName.Text = "label1";
@@ -322,10 +322,10 @@
             // 
             // frmCommonItemMaster
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(852, 504);
+            this.ClientSize = new System.Drawing.Size(852, 543);
             this.Controls.Add(this.lblItemName);
             this.Controls.Add(this.lblMove);
             this.Controls.Add(this.btnDown);

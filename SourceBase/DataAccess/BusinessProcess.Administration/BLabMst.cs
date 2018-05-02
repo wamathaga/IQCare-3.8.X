@@ -451,14 +451,15 @@ namespace BusinessProcess.Administration
         /// <param name="userID">The user identifier.</param>
         /// <param name="itemList">The item list.</param>
         /// <param name="labGroupID">The lab group identifier.</param>
-        public void SaveLabGroupItems(int userID, DataTable itemList, int labGroupID)
+        public void SaveLabGroupItems(int userID, DataTable itemList, int labGroupID, string LabName, int DepartmentID)
         {
             lock (this)
             {
                 ClsUtility.Init_Hashtable();
                 ClsUtility.AddParameters("@UserID", SqlDbType.Int, userID.ToString());
                 ClsUtility.AddParameters("@labGroupID", SqlDbType.Int, labGroupID.ToString());
-
+                ClsUtility.AddParameters("@LabName", SqlDbType.VarChar, LabName);
+                ClsUtility.AddParameters("@LabDepartmentID", SqlDbType.Int, DepartmentID.ToString());
 
                 System.Text.StringBuilder sbItems = new System.Text.StringBuilder("<root>");
                 foreach (DataRow row in itemList.Rows)
@@ -482,14 +483,14 @@ namespace BusinessProcess.Administration
         /// </summary>
         /// <param name="labGroupID">The lab group identifier.</param>
         /// <returns></returns>
-        public DataTable GetLabGroupTests(int labGroupID)
+        public DataSet GetLabGroupTests(int labGroupID)
         {
             lock (this)
             {
                 ClsUtility.Init_Hashtable();
                 ClsUtility.AddParameters("@LabGroupTestID", SqlDbType.Int, labGroupID.ToString());
                 ClsObject LabManager = new ClsObject();
-                return (DataTable)LabManager.ReturnObject(ClsUtility.theParams, "pr_Admin_GetLabGroupTests", ClsDBUtility.ObjectEnum.DataTable);
+                return (DataSet)LabManager.ReturnObject(ClsUtility.theParams, "pr_Admin_GetLabGroupTests", ClsDBUtility.ObjectEnum.DataSet);
             }
         }
     }

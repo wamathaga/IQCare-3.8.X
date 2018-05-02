@@ -122,7 +122,7 @@
         <tr>
             <td align="left">
                 <div id="DivPrescDrug" class="border pad5 whitebg" style="display: none;">
-                    <asp:Button ID="btnPrescribeDrugs" runat="server" Text="Prescribe Regimen" OnClick="btnPrescribeDrugs_Click" />
+                    <asp:Button ID="btnPrescribeDrugs" runat="server" Text="Prescribe Regimen" OnClick="btnPrescribeDrugs_Click" CssClass="btn btn-primary" Height="26px"/>
                 </div>
             </td>
         </tr>

@@ -503,10 +503,19 @@ namespace IQCare.Web.Billing
                     int itemTypeId = Convert.ToInt32(gridPriceList.DataKeys[gridRow.RowIndex].Values["ItemTypeID"].ToString());
                     UInt64? _version = null;
                     string vst = "";
-                    try { vst = (gridPriceList.DataKeys[gridRow.RowIndex].Values["VersionStamp"].ToString()); }
-                    catch { }
+
+                    if (gridPriceList.DataKeys[gridRow.RowIndex].Values["VersionStamp"] != null)
+                        vst = (gridPriceList.DataKeys[gridRow.RowIndex].Values["VersionStamp"].ToString());
+                    //else
+                    //{
+                    //    this.NotifyAction("Please enter a valid date.", "Price Configuration", false);
+                    //    return;
+                    //}
+
+
                     if (vst != "")
                         _version = Convert.ToUInt64(vst);
+
                     TextBox txtPrice = gridRow.FindControl("textPrice") as TextBox;
                     if (txtPrice.Text.Trim() == "") continue;
 
@@ -537,9 +546,17 @@ namespace IQCare.Web.Billing
 
                     Decimal? newPrice;
                     newPrice = Decimal.Parse(txtPrice.Text);
+                    DateTime dtDateTime;
+                    string tmp = txtPriceDate.Text.ToString();
+
+                    if (!DateTime.TryParse(tmp, out dtDateTime))
+                        tmp = tmp.Replace('_', ' ').Replace('-', ' ').Trim();
+
+
                     DateTime? newPriceDate;
 
-                    newPriceDate = txtPriceDate.Text.Trim() == "" ? DateTime.Now : DateTime.Parse(txtPriceDate.Text);
+                    newPriceDate = string.IsNullOrEmpty(tmp.ToString()) ? DateTime.Now : DateTime.Parse(tmp);
+
                     bool hasChanged = false;
                     bool priceChanged = txtPrice.Text != lblPrice.Text;
 

@@ -547,12 +547,13 @@
                         <act:CollapsiblePanelExtender ID="CPEHIVCare" runat="server" SuppressPostBack="True"
                             ExpandedImage="~/images/arrow-dn.gif" TargetControlID="pnlHivCareDetail" CollapseControlID="pnlHIVCare"
                             ExpandControlID="pnlHIVCare" CollapsedImage="~/images/arrow-up.gif" Collapsed="True"
-                            ImageControlID="imgHIVCare" Enabled="True">
+                            ImageControlID="imgHIVCare" BehaviorID="_content_CPEHIVCare">
                         </act:CollapsiblePanelExtender>
                         <act:CollapsiblePanelExtender ID="CPEVitalSign" runat="server" SuppressPostBack="True"
                             ExpandedImage="~/images/arrow-dn.gif" TargetControlID="PnlVitalSignsDetails"
                             CollapseControlID="PnlVitalSigns" ExpandControlID="PnlVitalSigns" CollapsedImage="~/images/arrow-up.gif"
-                            Collapsed="True" ImageControlID="imgVitalSigns" Enabled="True">
+                            Collapsed="True" ImageControlID="imgVitalSigns" 
+                            BehaviorID="_content_CPEVitalSign">
                         </act:CollapsiblePanelExtender>
                         <br />
                         <div class="border center formbg">
@@ -564,15 +565,15 @@
                                 </tr>
                                 <tr id="tblSaveButton" align="center">
                                     <td class="form">
-                                        <asp:Button ID="btnTriagesave" runat="server" OnClick="btnTriagesave_Click" Text="Save" />
-                                        <asp:Button ID="btncloseTriage" Text="Close" runat="server" OnClick="btncloseTriage_Click" />
-                                        <asp:Button ID="btnTriagePrint" runat="server" OnClientClick="WindowPrint()" Text="Print" />
+                                        <asp:Button ID="btnTriagesave" runat="server" OnClick="btnTriagesave_Click" Text="Save" CssClass="btn btn-primary" Height="26px"/>
+                                        <asp:Button ID="btncloseTriage" Text="Close" runat="server" OnClick="btncloseTriage_Click" CssClass="btn btn-primary" Height="26px"/>
+                                        <asp:Button ID="btnTriagePrint" runat="server" OnClientClick="WindowPrint()" Text="Print" CssClass="btn btn-primary" Height="26px"/>
                                     </td>
                                 </tr>
                                 <tr id="tblDeleteButton" style="display: none" align="center">
                                     <td align="center" class="form" width="100%">
                                         <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" 
-                                            Text="Delete" />
+                                            Text="Delete" CssClass="btn btn-primary" Height="26px"/>
                                     </td>
                                 </tr>
                             </table>
@@ -1008,10 +1009,10 @@
                                     <tr align="center">
                                         <td class="form">
                                             <asp:Button ID="btnClinicalHistorySave" runat="server" OnClick="btnClinicalHistorySave_Click"
-                                                Text="Save" />
-                                            <asp:Button ID="btncloseCHistory" Text="Close" runat="server" OnClick="btncloseCHistory_Click"/>
+                                                Text="Save" CssClass="btn btn-primary" Height="26px"/>
+                                            <asp:Button ID="btncloseCHistory" Text="Close" runat="server" OnClick="btncloseCHistory_Click" CssClass="btn btn-primary" Height="26px"/>
                                             <asp:Button ID="btnClinicalHistoryPrint" Text="Print" OnClientClick="WindowPrint()"
-                                                runat="server" />
+                                                runat="server" CssClass="btn btn-primary" Height="26px"/>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -1383,9 +1384,9 @@
                                     </tr>
                                     <tr align="center">
                                         <td class="form">
-                                            <asp:Button ID="btnExaminationSave" runat="server" Text="Save" OnClick="btnExaminationSave_Click" />
-                                            <asp:Button ID="btncloseExam" Text="Close" runat="server" OnClick="btncloseExam_Click"/>
-                                            <asp:Button ID="btnExaminationPrint" Text="Print" OnClientClick="WindowPrint()" runat="server" />
+                                            <asp:Button ID="btnExaminationSave" runat="server" Text="Save" OnClick="btnExaminationSave_Click" CssClass="btn btn-primary" Height="26px"/>
+                                            <asp:Button ID="btncloseExam" Text="Close" runat="server" OnClick="btncloseExam_Click" CssClass="btn btn-primary" Height="26px"/>
+                                            <asp:Button ID="btnExaminationPrint" Text="Print" OnClientClick="WindowPrint()" runat="server" CssClass="btn btn-primary" Height="26px"/>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -1790,9 +1791,9 @@
                                     </tr>
                                     <tr align="center">
                                         <td class="form">
-                                            <asp:Button ID="btnManagementSave" runat="server" Text="Save" OnClick="btnManagementSave_Click" />
-                                            <asp:Button ID="btncloseMgt" Text="Close" runat="server" OnClick="btncloseMgt_Click"/>
-                                            <asp:Button ID="btnManagementPrint" Text="Print" OnClientClick="WindowPrint()" runat="server" />
+                                            <asp:Button ID="btnManagementSave" runat="server" Text="Save" OnClick="btnManagementSave_Click" CssClass="btn btn-primary" Height="26px"/>
+                                            <asp:Button ID="btncloseMgt" Text="Close" runat="server" OnClick="btncloseMgt_Click" CssClass="btn btn-primary" Height="26px"/>
+                                            <asp:Button ID="btnManagementPrint" Text="Print" OnClientClick="WindowPrint()" runat="server" CssClass="btn btn-primary" Height="26px"/>
                                         </td>
                                     </tr>
                                 </tbody>

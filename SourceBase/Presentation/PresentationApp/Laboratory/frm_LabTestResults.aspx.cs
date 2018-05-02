@@ -1186,7 +1186,11 @@ namespace PresentationApp.Laboratory
                                 TextBox txtrejreason = (TextBox)item.FindControl("txtrejreason");
                                 CheckBox chkConfirm = (CheckBox)item.FindControl("chkConfirm");
                                 DropDownList ddlconfirmedby = (DropDownList)item.FindControl("ddlconfirmedby");
-                                
+                                if (chkConfirm.Checked)
+                                    objLabFields1.Confirmed = 1;
+                                else
+                                    objLabFields1.Confirmed = 0;
+                                objLabFields1.Confirmedby = Convert.ToInt32(ddlconfirmedby.SelectedValue);
                                 DataRow thetestinitdr = TestIntList.NewRow();                                
                                 thetestinitdr["LabID"] = Convert.ToInt32(Session["LabOrderID"].ToString());
                                 thetestinitdr["LabTestID"] = Convert.ToInt32(lblLabSubTestId.Text.ToString());
@@ -1392,7 +1396,7 @@ namespace PresentationApp.Laboratory
             rbList.DataTextField = "Result";
             rbList.DataValueField = "ResultID";
             rbList.DataBind();
-            //rbList.Items.Insert(0, new ListItem("Select", ""));
+            rbList.Items.Insert(0, new RadComboBoxItem("", "9997"));
 
         }
         protected void BindCheckBoxList(CheckBoxList rbList, string labSubTestID)
@@ -1499,59 +1503,72 @@ namespace PresentationApp.Laboratory
                 Label lblOtherReason = (Label)item.FindControl("lblOtherReason");
                 Label lblConfirmed = (Label)item.FindControl("lblConfirmed");
                 Label lblConfirmedby = (Label)item.FindControl("lblConfirmedby");
-                
 
+                DropDownList ddlState = (DropDownList)item.FindControl("ddlState");
+                BindRejectList("SpecimenState", ddlState, null);
+                DropDownList ddlTestStatus = (DropDownList)item.FindControl("ddlTestStatus");
+                DropDownList ddlrejreason = (DropDownList)item.FindControl("ddlrejreason");
+                BindRejectList("SpecimenStatus", ddlTestStatus, ddlrejreason);
+                BindRejectList("SpecimenRejectReason", ddlrejreason, null);
+                DropDownList ddlconfirmedby = (DropDownList)item.FindControl("ddlconfirmedby");
+                BindUserDropdown(ddlconfirmedby, string.Empty);
                 if (Session["LabOrderID"] != null)
                 {
                     ILabFunctions theILabManager = (ILabFunctions)ObjectFactory.CreateInstance("BusinessProcess.Laboratory.BLabFunctions, BusinessProcess.Laboratory");                   
                     DataSet theLabDS = theILabManager.GetOrderedLabs(Convert.ToInt32(Session["LabOrderID"]));
-                    BindFunctions thebind = new BindFunctions();
-                    DropDownList ddlselectspecimen = (DropDownList)item.FindControl("ddlselectspecimen");
-                    thebind.BindCombo(ddlselectspecimen, theLabDS.Tables[2], "SpecimenName", "ID");
-                    TextBox txtCustSpecNo=(TextBox)item.FindControl("txtCustSpecNo");
-                    if (lblSpecimenID.Text != "")
+                    
+                    foreach (DataRow theLabDR in theLabDS.Tables[4].Rows)
                     {
-                        ddlselectspecimen.SelectedValue = lblSpecimenID.Text;
-                    }
-                    HtmlGenericControl divFinal = (HtmlGenericControl)item.FindControl("divctx");
-                    CheckBox chkCustSpec = (CheckBox)item.FindControl("chkCustSpec");
-                    chkCustSpec.Attributes.Add("onchange", "fnCustSpecihide(" + chkCustSpec.ClientID + "," + divFinal.ClientID + ");");
-                    if (lblCustomSpecimenName.Text != "")
-                    {
-                        chkCustSpec.Checked = true;                        
-                        txtCustSpecNo.Text = lblCustomSpecimenName.Text;
-                        ScriptManager.RegisterStartupScript(this, GetType(), "CustSpecihide", "fnCustSpecihide('" + chkCustSpec.ClientID + "','" + divFinal.ClientID + "');", true);
-                    }
-                    DropDownList ddlState = (DropDownList)item.FindControl("ddlState");
-                    BindRejectList("SpecimenState", ddlState,null);
-                    if (lblStateId.Text != "")
-                    {
-                        ddlState.SelectedValue = lblStateId.Text;
-                    }
-                    DropDownList ddlTestStatus = (DropDownList)item.FindControl("ddlTestStatus");
-                    DropDownList ddlrejreason = (DropDownList)item.FindControl("ddlrejreason");
-                    BindRejectList("SpecimenStatus", ddlTestStatus, ddlrejreason);                    
-                    BindRejectList("SpecimenRejectReason", ddlrejreason,null);
-                    if (lblStatusId.Text != "")
-                    {
-                        ddlTestStatus.SelectedValue = lblStatusId.Text;
-                    }
-                    if (lblRejectedReasonId.Text != "")
-                    {
-                        ddlrejreason.SelectedValue = lblRejectedReasonId.Text;
-                    }
-                    CheckBox chkConfirm = (CheckBox)item.FindControl("chkConfirm");
-                    DropDownList ddlconfirmedby = (DropDownList)item.FindControl("ddlconfirmedby");
-                    BindUserDropdown(ddlconfirmedby, string.Empty);
-                    chkConfirm.Attributes.Add("onchange", "fnConfirmEnable(" + chkConfirm.ClientID + "," + ddlconfirmedby.ClientID + ");");
-                    if (lblConfirmed.Text != "")
-                    {
-                        if (lblConfirmed.Text == "1")
+                        
+                        if (lblLabSubTestId.Text == theLabDR["LabTestId"].ToString())
                         {
-                            chkConfirm.Checked = true;
-                            if (lblConfirmedby.Text != "")
+                            BindFunctions thebind = new BindFunctions();
+                            DropDownList ddlselectspecimen = (DropDownList)item.FindControl("ddlselectspecimen");
+                            thebind.BindCombo(ddlselectspecimen, theLabDS.Tables[2], "SpecimenName", "ID");
+                            TextBox txtCustSpecNo = (TextBox)item.FindControl("txtCustSpecNo");
+                            if (lblSpecimenID.Text != "" && lblSpecimenID.Text == theLabDR["SpecimenId"].ToString())
                             {
-                                ddlconfirmedby.SelectedValue = lblConfirmedby.Text;
+                                ddlselectspecimen.SelectedValue = lblSpecimenID.Text;
+                            }
+                            else
+                                ddlselectspecimen.SelectedValue = "0";
+
+                            HtmlGenericControl divFinal = (HtmlGenericControl)item.FindControl("divctx");
+                            CheckBox chkCustSpec = (CheckBox)item.FindControl("chkCustSpec");
+                            chkCustSpec.Attributes.Add("onchange", "fnCustSpecihide(" + chkCustSpec.ClientID + "," + divFinal.ClientID + ");");
+                            if (lblCustomSpecimenName.Text != "")
+                            {
+                                chkCustSpec.Checked = true;
+                                txtCustSpecNo.Text = lblCustomSpecimenName.Text;
+                                ScriptManager.RegisterStartupScript(this, GetType(), "CustSpecihide", "fnCustSpecihide('" + chkCustSpec.ClientID + "','" + divFinal.ClientID + "');", true);
+                            }
+                            
+                            if (lblStateId.Text != "")
+                            {
+                                ddlState.SelectedValue = lblStateId.Text;
+                            }
+                            
+                            if (lblStatusId.Text != "")
+                            {
+                                ddlTestStatus.SelectedValue = lblStatusId.Text;
+                            }
+                            if (lblRejectedReasonId.Text != "")
+                            {
+                                ddlrejreason.SelectedValue = lblRejectedReasonId.Text;
+                            }
+                            CheckBox chkConfirm = (CheckBox)item.FindControl("chkConfirm");
+                            
+                            chkConfirm.Attributes.Add("onchange", "fnConfirmEnable(" + chkConfirm.ClientID + "," + ddlconfirmedby.ClientID + ");");
+                            if (lblConfirmed.Text != "")
+                            {
+                                if (lblConfirmed.Text == "1")
+                                {
+                                    chkConfirm.Checked = true;
+                                    if (lblConfirmedby.Text != "")
+                                    {
+                                        ddlconfirmedby.SelectedValue = lblConfirmedby.Text;
+                                    }
+                                }
                             }
                         }
                     }
@@ -1574,7 +1591,7 @@ namespace PresentationApp.Laboratory
                 {
                     BindUserDropdown(ddlRadReportedby, lblResultby.Text);
                 }
-                if (lblResultDate.Text != "")
+                if (lblResultDate.Text != "" && (Convert.ToDateTime(lblResultDate.Text).Year !=1900))
                 {
                     txtResultDate.SelectedDate = Convert.ToDateTime(lblResultDate.Text);
                 }
@@ -1590,6 +1607,7 @@ namespace PresentationApp.Laboratory
                     //BindDropdownist(ddlList, lblLabSubTestId.Text);
                     ddlList.Items.Clear();
                     ddlList.Items.Add(new RadComboBoxItem("Select", "0"));
+                    ddlList.Items.Add(new RadComboBoxItem("", "9997"));
                     ddlList.Items.Add(new RadComboBoxItem("Detectable", "9999"));
                     ddlList.Items.Add(new RadComboBoxItem("Undetectable", "9998"));
 
@@ -1997,6 +2015,7 @@ namespace PresentationApp.Laboratory
                 if (txthdnfield.Value.ToString().ToUpper().Contains("SPUTUM AFB") || txthdnfield.Value.ToString().ToUpper().Equals("GENEXPERT"))
                 {
                     rcbFooterArvType.Items.Clear();
+                    rcbFooterArvType.Items.Add(new RadComboBoxItem("", "9997"));
                     rcbFooterArvType.Items.Add(new RadComboBoxItem("Positive", "1"));
                     rcbFooterArvType.Items.Add(new RadComboBoxItem("Negative", "0"));
                 }
@@ -2370,16 +2389,23 @@ namespace PresentationApp.Laboratory
                                 
                                 foreach (GridDataItem item in radGridLabResult.Items)
                                 {
-
+                                    Label lblLabSubTestId = (Label)item.FindControl("lblLabSubTestId");
+                                    Label lblSpecimenID = (Label)item.FindControl("lblSpecimenID");
+                                    BindFunctions thebind = new BindFunctions();
+                                    DropDownList ddlselectspecimen = (DropDownList)item.FindControl("ddlselectspecimen");
+                                    thebind.BindCombo(ddlselectspecimen, theLabDS.Tables[2], "SpecimenName", "ID");
                                     if (Session["LabOrderID"] != null)
                                     {
-                                        Label lblSpecimenID = (Label)item.FindControl("lblSpecimenID");
-                                        BindFunctions thebind = new BindFunctions();
-                                        DropDownList ddlselectspecimen = (DropDownList)item.FindControl("ddlselectspecimen");
-                                        thebind.BindCombo(ddlselectspecimen, theLabDS.Tables[2], "SpecimenName", "ID");
-                                        if (lblSpecimenID.Text != "")
+                                        foreach (DataRow theLabDR in theLabDS.Tables[4].Rows)
                                         {
-                                            ddlselectspecimen.SelectedValue = lblSpecimenID.Text;
+                                            if (lblLabSubTestId.Text == theLabDR["LabTestId"].ToString())
+                                            {
+                                                
+                                                if (lblSpecimenID.Text != "")
+                                                {
+                                                    ddlselectspecimen.SelectedValue = lblSpecimenID.Text;
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -2559,7 +2585,8 @@ namespace PresentationApp.Laboratory
             theTestInitdt.Columns.Add("StateId", typeof(int));            
             theTestInitdt.Columns.Add("StatusId", typeof(int));            
             theTestInitdt.Columns.Add("RejectedReasonId", typeof(int));            
-            theTestInitdt.Columns.Add("OtherReason", typeof(string));            
+            theTestInitdt.Columns.Add("OtherReason", typeof(string));
+            
             return theTestInitdt;
         }
 
@@ -2625,46 +2652,156 @@ namespace PresentationApp.Laboratory
             foreach (GridNestedViewItem nestedView in RadGridLabTest.MasterTableView.GetItems(GridItemType.NestedView))
             {
                 RadGrid radGridLabResult = (RadGrid)nestedView.FindControl("RadGridLabResult");
-
+                DataTable dtGenXpert = new DataTable();
+                dtGenXpert = CreateDtGenXpertTable();
                 foreach (GridDataItem item in radGridLabResult.Items)
                 {
+                    
+                    List<BIQTouchLabFields> listArv = new List<BIQTouchLabFields>();
                     Label lblLabTestName = (Label)item.FindControl("lblLabTestName");
+                    Label lblLabSubTestId = (Label)item.FindControl("lblLabSubTestId");
+                    Label lblLabSubTestName = (Label)item.FindControl("lblLabTestName");
                     DropDownList ddlselectspecimen = (DropDownList)item.FindControl("ddlselectspecimen");                    
                     DropDownList ddlState = (DropDownList)item.FindControl("ddlState");                    
                     DropDownList ddlTestStatus = (DropDownList)item.FindControl("ddlTestStatus");
                     DropDownList ddlrejreason = (DropDownList)item.FindControl("ddlrejreason");
                     DropDownList ddlRadReportedby = (DropDownList)item.FindControl("ddlRadReportedby");
                     RadDateTimePicker txtReportLabDate = (RadDateTimePicker)item.FindControl("txtReportLabDate");
-                    if (ddlselectspecimen.SelectedIndex == 0)
+                    Label lblundetectable = (Label)item.FindControl("lblundetectable");
+                    Label lblControlType = (Label)item.FindControl("lblControlType");
+                    RadioButtonList btnradRadioButtonList = (RadioButtonList)item.FindControl("btnRadRadiolist");
+                    Telerik.Web.UI.RadNumericTextBox txtRadValue = (Telerik.Web.UI.RadNumericTextBox)item.FindControl("txtRadValue");
+                    Telerik.Web.UI.RadTextBox txtAlphaRadValue = (Telerik.Web.UI.RadTextBox)item.FindControl("txtAlphaRadValue");
+                    CheckBoxList chkBoxList = (CheckBoxList)item.FindControl("chkBoxList");
+                    Telerik.Web.UI.RadComboBox ddlList = (RadComboBox)item.FindControl("ddlList");
+
+                    string strResuts = "0";
+                    bool testfilled = false;
+                    if (lblundetectable.Text == "1")
                     {
-                        MsgBuilder theBuilder = new MsgBuilder();
-                        theBuilder.DataElements["Control"] = "Specimen Name for " + lblLabTestName.Text;
-                        IQCareMsgBox.Show("BlankDropDown", theBuilder, this);
-                        return false;
+                        if (ddlList.SelectedValue.ToString() != "0")
+                        {
+                            //if((ddlList.SelectedValue.ToString() != "9999") && (txtRadValue.Text !=""))
+                            testfilled = true;
+                        }
+
+
+
                     }
+                    else
+                    {
+                        if (lblControlType.Text == "Radio")
+                        {
+                            if (btnradRadioButtonList.SelectedValue != "")
+                            {
+                                testfilled = true;
+                            }
+                        }
+                        else if (lblControlType.Text == "Combo Box")
+                        {
+
+                            if (ddlList.SelectedValue.ToString() != "")
+                            {
+                                testfilled = true;
+                            }
+
+                        }
+                        else if (lblControlType.Text == "Check box")
+                        {
+
+                            if (chkBoxList.SelectedValue.ToString() != "")
+                            {
+                                testfilled = true;
+                            }
+                        }
+                        else if (lblControlType.Text == "GridView")
+                        {
+                            if (lblLabSubTestName.Text.ToUpper().Equals("ARV MUTATIONS"))
+                            {
+                                listArv = ArvMutationData(lblLabSubTestId.Text.ToString());
+                                if (listArv.Count > 0)
+                                {
+                                    testfilled = true;
+                                }
+                            }
+                            else
+                            {
+                                dtGenXpert.Rows.Clear();
+                                DataRow dR = dtGenXpert.NewRow();
+                                RadGrid radSubGridItems = (RadGrid)item.FindControl("RadGridArvMutation");
+                                GridFooterItem radSubFooterItems = (GridFooterItem)radSubGridItems.MasterTableView.GetItems(GridItemType.Footer)[0];
+                                Telerik.Web.UI.RadComboBox rcbFooterArvType = (Telerik.Web.UI.RadComboBox)radSubFooterItems.FindControl("rcbFooterArvType");
+                                Telerik.Web.UI.RadComboBox rcbFooterMutation = (Telerik.Web.UI.RadComboBox)radSubFooterItems.FindControl("rcbFooterMutation");
+                                Telerik.Web.UI.RadComboBox rcbFooterCulture = (Telerik.Web.UI.RadComboBox)radSubFooterItems.FindControl("rcbFooterCulture");
+                                dR["LabId"] = Convert.ToInt32(Session["LabOrderID"]);
+                                if (rcbFooterArvType.SelectedValue != "")
+                                {
+                                    dR["ABFID"] = Convert.ToInt32(rcbFooterArvType.SelectedValue);
+                                    dR["ABFText"] = rcbFooterArvType.SelectedItem.Text;
+                                }
+                                if (rcbFooterMutation.SelectedValue != "")
+                                {
+                                    dR["GeneXpertID"] = Convert.ToInt32(rcbFooterMutation.SelectedValue);
+                                    dR["GeneXpertText"] = rcbFooterMutation.SelectedItem.Text;
+                                }
+                                if (rcbFooterCulture.SelectedValue != "")
+                                {
+                                    dR["CultSens"] = Convert.ToInt32(rcbFooterCulture.SelectedValue);
+                                    dR["CultSensText"] = rcbFooterCulture.SelectedItem.Text;
+                                }
+                                dR["ParameterID"] = Convert.ToInt32(lblLabSubTestId.Text);
+                                dtGenXpert.Rows.Add(dR);
+                                if (dtGenXpert.Rows.Count > 0)
+                                {
+                                    testfilled = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+
+                            if (txtRadValue.Text != "0" && txtRadValue.Text != "")
+                            {
+                                strResuts = txtRadValue.Text.ToString();
+                                testfilled = true;
+                            }
+                            else if (txtAlphaRadValue.Text != "")
+                            {
+                                strResuts = txtAlphaRadValue.Text.ToString();
+                                testfilled = true;
+                            }
+                        }
+                    }
+                    //if (ddlselectspecimen.SelectedIndex == 0)
+                    //{
+                    //    MsgBuilder theBuilder = new MsgBuilder();
+                    //    theBuilder.DataElements["Control"] = "Specimen Name for " + lblLabTestName.Text;
+                    //    IQCareMsgBox.Show("BlankDropDown", theBuilder, this);
+                    //    return false;
+                    //}
                     
-                    if (ddlState.SelectedIndex == 0)
-                    {
-                        MsgBuilder theBuilder = new MsgBuilder();
-                        theBuilder.DataElements["Control"] = "Specimen State for " + lblLabTestName.Text;
-                        IQCareMsgBox.Show("BlankDropDown", theBuilder, this);
-                        return false;
-                    }
-                    if (ddlTestStatus.SelectedIndex == 0)
-                    {
-                        MsgBuilder theBuilder = new MsgBuilder();
-                        theBuilder.DataElements["Control"] = "Specimen Status for " + lblLabTestName.Text;
-                        IQCareMsgBox.Show("BlankDropDown", theBuilder, this);
-                        return false;
-                    }
-                    if (ddlRadReportedby.SelectedIndex == 0)
+                    //if (ddlState.SelectedIndex == 0)
+                    //{
+                    //    MsgBuilder theBuilder = new MsgBuilder();
+                    //    theBuilder.DataElements["Control"] = "Specimen State for " + lblLabTestName.Text;
+                    //    IQCareMsgBox.Show("BlankDropDown", theBuilder, this);
+                    //    return false;
+                    //}
+                    //if (ddlTestStatus.SelectedIndex == 0)
+                    //{
+                    //    MsgBuilder theBuilder = new MsgBuilder();
+                    //    theBuilder.DataElements["Control"] = "Specimen Status for " + lblLabTestName.Text;
+                    //    IQCareMsgBox.Show("BlankDropDown", theBuilder, this);
+                    //    return false;
+                    //}
+                    if (testfilled==true && ddlRadReportedby.SelectedIndex == 0)
                     {
                         MsgBuilder theBuilder = new MsgBuilder();
                         theBuilder.DataElements["Control"] = "Reported by for " + lblLabTestName.Text;
                         IQCareMsgBox.Show("BlankDropDown", theBuilder, this);
                         return false;
                     }
-                    if (txtReportLabDate.DbSelectedDate.ToString() == "")
+                    if (testfilled == true && txtReportLabDate.DbSelectedDate.ToString() == "")
                     {
                         MsgBuilder theBuilder = new MsgBuilder();
                         theBuilder.DataElements["Control"] = "Test Initiation Date for " + lblLabTestName.Text;

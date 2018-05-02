@@ -1207,10 +1207,20 @@ namespace IQCare.SCM
                             theDRowItem["DestinStoreID"] = Convert.ToInt32(ddlDestinationStore.SelectedValue);
                             theDRowItem["SourceStoreID"] = 0;
                             //theDRowItem["InKindFlag"] = Convert.ToInt32(dgwGRNItems.Rows[i].Cells["InKindFlag"].Value);
+                            if (!string.IsNullOrEmpty(dgwGRNItems.Rows[i].Cells["CustomPurchasePrice"].Value.ToString()))
+                                theDRowItem["CustomPurchasePrice"] = Convert.ToDecimal(dgwGRNItems.Rows[i].Cells["CustomPurchasePrice"].Value);
+                            else
+                                theDRowItem["CustomPurchasePrice"] = 0;
 
-                            theDRowItem["CustomPurchasePrice"] = Convert.ToDecimal(dgwGRNItems.Rows[i].Cells["CustomPurchasePrice"].Value);
-                            theDRowItem["CustomMargin"] = Convert.ToDecimal(dgwGRNItems.Rows[i].Cells["CustomMargin"].Value);
-                            theDRowItem["CustomSellingPrice"] = Convert.ToDecimal(dgwGRNItems.Rows[i].Cells["CustomSellingPrice"].Value);
+                            if (!string.IsNullOrEmpty(dgwGRNItems.Rows[i].Cells["CustomMargin"].Value.ToString()))
+                                theDRowItem["CustomMargin"] = Convert.ToDecimal(dgwGRNItems.Rows[i].Cells["CustomMargin"].Value);
+                            else
+                                theDRowItem["CustomMargin"] = 0;
+
+                            if (!string.IsNullOrEmpty(dgwGRNItems.Rows[i].Cells["CustomSellingPrice"].Value.ToString()))
+                                theDRowItem["CustomSellingPrice"] = Convert.ToDecimal(dgwGRNItems.Rows[i].Cells["CustomSellingPrice"].Value);
+                            else
+                                theDRowItem["CustomSellingPrice"] = 0;
 
                             dtGRNItem.Rows.Add(theDRowItem);
                         }

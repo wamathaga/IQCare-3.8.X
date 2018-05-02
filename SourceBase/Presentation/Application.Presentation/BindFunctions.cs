@@ -64,6 +64,7 @@ namespace Application.Presentation
 
         private void BindCombo(DataTable theDT, string theTextField, string theValueField, DropDownList theDropDown = null, RadComboBox theComboBox = null)
         {
+            theDropDown.Items.Clear();
             DataRow[] DR = theDT.Select("" + theValueField + " = 0");
             if (DR.Length < 1)
             {

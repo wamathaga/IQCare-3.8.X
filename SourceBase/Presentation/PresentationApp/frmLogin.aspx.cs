@@ -33,6 +33,7 @@ public partial class frmLogin : BasePage
         {
             //CLogger.WriteLog(ELogLevel.INFO, "Form: frmLogin, Method: Init_Form() begin!");
             //Response.Write("SessionCount -" + Session.Count.ToString());
+            Session.RemoveAll();
             Session.Timeout = Convert.ToInt32(((NameValueCollection)ConfigurationSettings.GetConfig("appSettings"))["SessionTimeOut"]);
             Session.Add("AppUserId", "");
             Session.Add("AppUserName", "");
@@ -50,6 +51,7 @@ public partial class frmLogin : BasePage
             Session.Add("SystemId", "1");
             Session.Add("ModuleId", "");
             Application.Add("AppCurrentDate", "");
+            Application.Add("MasterData", "");
             Session.Add("Program", "");
             Session.Add("AppCurrency", "");
             Session.Add("AppUserEmployeeId", "");
@@ -365,7 +367,7 @@ public partial class frmLogin : BasePage
             //CLogger.WriteLog(ELogLevel.INFO, "Form: frmLogin, Method: Page_Load() begin!");
             ScriptManager.RegisterStartupScript(this, this.GetType(), "screenSize", "getScreenSize();", true);
             Ajax.Utility.RegisterTypeForAjax(typeof(frmLogin));
-            if (Page.IsPostBack != true)
+            if (!Page.IsPostBack)
             {
                 Thread theThread = new Thread(new ParameterizedThreadStart(IQCareUtils.GenerateCache));
                 theThread.Start(false);
@@ -516,7 +518,7 @@ public partial class frmLogin : BasePage
                 Session["AppUserId"] = Convert.ToString(theDS.Tables[0].Rows[0]["UserId"]);
                 Session["AppUserName"] = Convert.ToString(theDS.Tables[0].Rows[0]["UserFirstName"]) + " " + Convert.ToString(theDS.Tables[0].Rows[0]["UserLastName"]);
                 Session["EnrollFlag"] = theDS.Tables[1].Rows[0]["EnrollmentFlag"].ToString();
-                Session["CareEndFlag"] = theDS.Tables[1].Rows[0]["CareEndFlag"].ToString();
+                Session["CareEndFlag"] = "0";
                 Session["IdentifierFlag"] = theDS.Tables[1].Rows[0]["IdentifierFlag"].ToString();
                 Session["UserRight"] = theDS.Tables[1];
                 Session["UserFeatures"] = theDS.Tables[6];
@@ -538,7 +540,8 @@ public partial class frmLogin : BasePage
                 Session["Billing"] = theDT.Rows[0]["Billing"].ToString();
                 //Session["Records"] = theDT.Rows[0]["Records"].ToString();
                 Session["Wards"] = theDT.Rows[0]["Wards"].ToString();
-
+                Session["LMIS"] = theDT.Rows[0]["LMIS"].ToString();
+                Application["MasterData"] = theDS.Tables[8];
                 #region "ModuleId"
                 Session["AppModule"] = theDS.Tables[3];
                 //DataView theSCMDV = new DataView(theDS.Tables[3]);

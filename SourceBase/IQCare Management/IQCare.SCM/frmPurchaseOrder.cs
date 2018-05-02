@@ -472,8 +472,10 @@ namespace IQCare.SCM
                     drItemSelect["ItemName"] = "Select";
                     drItemSelect["SupplierId"] = ddlSupplier.SelectedValue.ToString();
                     theComDT.Rows.InsertAt(drItemSelect, 0);
-
-                    theColumnItemName.DataSource = theComDT;
+                    DataTable distinctTable = theComDT.AsEnumerable()
+                       .GroupBy(x => x.Field<string>("ItemName"))
+                       .Select(g => g.First()).CopyToDataTable();                    
+                    theColumnItemName.DataSource = distinctTable;
                 }
                 else if(GblIQCare.ModePurchaseOrder==2)
                 {

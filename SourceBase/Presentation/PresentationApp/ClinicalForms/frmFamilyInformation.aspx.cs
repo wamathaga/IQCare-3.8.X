@@ -31,22 +31,22 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
         if (Session["AppLocation"] == null || Session.Count == 0 || Session["AppUserID"].ToString() == "")
         {
             IQCareMsgBox.Show("SessionExpired", this);
-            Response.Redirect("~/frmlogin.aspx",true);
+            Response.Redirect("~/frmlogin.aspx", true);
         }
 
-        if(Session["PatientStatus"]!=null)
+        if (Session["PatientStatus"] != null)
             (Master.FindControl("levelTwoNavigationUserControl1").FindControl("lblpntStatus") as Label).Text = Session["PatientStatus"].ToString();
-       
+
         (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblRoot") as Label).Visible = false;
         (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblheader") as Label).Text = "Family Information";
-     
+
         BindHeader();
 
         if (Authentiaction.HasFunctionRight(ApplicationAccess.FamilyInfo, FunctionAccess.Print, (DataTable)Session["UserRight"]) == false)
         {
             btnPrint.Enabled = false;
 
-        }  
+        }
         if (!IsPostBack)
         {
             if (Request.QueryString["name"] == "Add")
@@ -74,22 +74,22 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
                         btnadd.Enabled = false;
                     }
                 }
-                
+
             }
             btnfind.Visible = false;
-           
-            
+
+
             txtAgeYear.Attributes.Add("onkeyup", "chkNumeric('" + txtAgeYear.ClientID + "')");
             txtAgeMonth.Attributes.Add("onkeyup", "chkNumeric('" + txtAgeMonth.ClientID + "');");
             txtAgeMonth.Attributes.Add("onkeyup", "ChkAgeMonth();");
             //Session["PtnRedirect"] = Convert.ToInt32(Request.QueryString["PatientId"]);
             Session["PtnRedirect"] = Convert.ToInt32(Session["PatientId"]);
-           
+
             //btnSubmit.Enabled = false;
             if (Request.QueryString["RefId"] == null)
             {
-                
-                Session["SaveFlag"] = "Add"; 
+
+                Session["SaveFlag"] = "Add";
                 Session["SelectedId"] = "";
                 Session["SelectedRow"] = -1;
                 Session["RemoveFlag"] = "False";
@@ -99,7 +99,7 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
                 {
                     //Session["PtnRedirect"] = Convert.ToInt32(Request.QueryString["PatientId"]);
                     Session["PtnRedirect"] = Convert.ToInt32(Session["PatientId"]);
-                    
+
                 }
                 if (Request.QueryString["strfy"] != null)
                 {
@@ -111,15 +111,18 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
                 Session["RegistrationNo"] = "";
                 FillDropDowns();
                 GetAllData();
-                
+
             }
             else
-            { 
-               
+            {
+
                 FillDropDowns();
                 SearchFamilyInfo();
-                
+
             }
+
+            if (Session["SaveFlag"] == null)
+                Session["SaveFlag"] = "Add";
 
             Session["SortDirection"] = "Desc";
 
@@ -128,7 +131,7 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
         if (dtPatientInfo != null)
         {
             if (Session["SystemId"].ToString() == "1")
-            {  
+            {
                 lblname.Text = dtPatientInfo.Rows[0]["LastName"].ToString() + ", " + dtPatientInfo.Rows[0]["FirstName"].ToString();
                 lblpatientnamepmtct.Text = dtPatientInfo.Rows[0]["LastName"].ToString() + ", " + dtPatientInfo.Rows[0]["FirstName"].ToString();
             }
@@ -136,7 +139,7 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
             {
                 lblname.Text = dtPatientInfo.Rows[0]["LastName"].ToString() + ", " + dtPatientInfo.Rows[0]["MiddleName"].ToString() + " , " + dtPatientInfo.Rows[0]["FirstName"].ToString();
                 lblpatientnamepmtct.Text = dtPatientInfo.Rows[0]["LastName"].ToString() + ", " + dtPatientInfo.Rows[0]["MiddleName"].ToString() + " , " + dtPatientInfo.Rows[0]["FirstName"].ToString();
-           
+
             }
             //lblname.Text = dtPatientInfo.Rows[0]["LastName"].ToString() + ", " + dtPatientInfo.Rows[0]["MiddleName"].ToString() + " , " + dtPatientInfo.Rows[0]["FirstName"].ToString();
             //lblpatientnamepmtct.Text = dtPatientInfo.Rows[0]["LastName"].ToString() + ", " + dtPatientInfo.Rows[0]["MiddleName"].ToString() + " , " + dtPatientInfo.Rows[0]["FirstName"].ToString();
@@ -156,7 +159,7 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
 
                 TechnicalAreaIdentifier();
 
-                
+
             }
             else
             {
@@ -202,21 +205,21 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
         //    lblfileno.Text = Session["PClinicIDHome"].ToString();
         //}
 
-        if (Session["lblpntstatus"].ToString() == "1")
-        {
-            btnadd.Enabled = false;
-            btnSubmit.Enabled = false;
-        }
-        else
-        {
-            btnadd.Enabled = true;
+        //if (Session["lblpntstatus"].ToString() == "1")
+        //{
+        //    btnadd.Enabled = false;
+        //    btnSubmit.Enabled = false;
+        //}
+        //else
+        //{
+        //    btnadd.Enabled = true;
 
-        }
-        if (Session["CareEndFlag"].ToString() == "1")
-        {
-            btnadd.Enabled = true;
-            btnSubmit.Enabled = true;
-        }
+        //}
+        //if (Session["CareEndFlag"].ToString() == "1")
+        //{
+        //    btnadd.Enabled = true;
+        //    btnSubmit.Enabled = true;
+        //}
     }
     private Boolean FieldValidation()
     {
@@ -225,7 +228,7 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
         DateTime theCurrentDate = (DateTime)IQCareSecurity.SystemDate();
         IQCareUtils theUtils = new IQCareUtils();
         PatientManager = (IFamilyInfo)ObjectFactory.CreateInstance("BusinessProcess.Clinical.BFamilyInfo, BusinessProcess.Clinical");
-        
+
         if (txtfname.Text == "")
         {
             MsgBuilder theBuilder = new MsgBuilder();
@@ -259,6 +262,13 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
             return false;
         }
 
+        if (ddlrelationtype.SelectedIndex <= 0)
+        {
+            IQCareMsgBox.Show("Please select relationship type", "Information", "OK", this);
+            txtAgeYear.Focus();
+            return false;
+
+        }
         //if (txtAgeMonth.Text == "")
         //{
         //    MsgBuilder theBuilder = new MsgBuilder();
@@ -346,25 +356,25 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
             IQCareMsgBox.Show("BlankDropDown", theMsg, this);
             return false;
         }
-        
+
         return true;
     }
     protected void btnAdd(object sender, EventArgs e)
     {
-       if (Authentiaction.HasFunctionRight(ApplicationAccess.FamilyInfo, FunctionAccess.Add, (DataTable)Session["UserRight"]) == false)
+        if (Authentiaction.HasFunctionRight(ApplicationAccess.FamilyInfo, FunctionAccess.Add, (DataTable)Session["UserRight"]) == false)
         {
 
             btnSubmit.Enabled = false;
             btnadd.Enabled = false;
         }
-       
+
         if (FieldValidation())
         {
             DataRow[] foundRows;
             grdFamily.Visible = true;
             DataTable theDT = new DataTable();
             theDT = (DataTable)Session["GridData"];
-            foundRows = theDT.Select("RFirstName='" + txtfname.Text + "' and RLastName='" + txtlname.Text +"'"); 
+            foundRows = theDT.Select("RFirstName='" + txtfname.Text + "' and RLastName='" + txtlname.Text + "'");
             if (Session["SaveFlag"].ToString() == "Add")
             {
                 if (foundRows.Length < 1)
@@ -389,12 +399,15 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
                         theDR["AgeMonth"] = txtAgeMonth.Text;
                     }
                     theDR["RelationshipTypeID"] = ddlrelationtype.SelectedItem.Value;
-                    
-                    if (ddlrelationtype.SelectedIndex> 0)
+
+                    if (ddlrelationtype.SelectedIndex > 0)
                         theDR["RelationshipTypeDesc"] = ddlrelationtype.SelectedItem.Text;
 
                     theDR["HivStatusID"] = ddlhivstatus.SelectedItem.Value; ;
                     theDR["HivStatusDesc"] = ddlhivstatus.SelectedItem.Text;
+
+                    if (!string.IsNullOrEmpty(txtLastHIVTestDate.Value)) { theDR["LastHivTestDate"] = Convert.ToDateTime(txtLastHIVTestDate.Value).ToShortDateString(); }
+                    else { theDR["LastHivTestDate"] = ""; }
                     theDR["HivCareStatusID"] = ddlhivcstatus.SelectedItem.Value;
                     theDR["HivCareStatusDesc"] = ddlhivcstatus.SelectedItem.Text;
                     if (ddlrelationtype.SelectedItem.Value.ToString() == "3" || ddlrelationtype.SelectedItem.Value.ToString() == "11")
@@ -417,8 +430,8 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
                         theDR["ReferenceId"] = Convert.ToInt32(Session["ReferenceId"]);
                     }
 
-                     
-                    if(Session["RegistrationNo"] !=null)
+
+                    if (Session["RegistrationNo"] != null)
                         theDR["RegistrationNo"] = Session["RegistrationNo"].ToString();
 
                     if (Session["ClinicID"] != null)
@@ -433,15 +446,15 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
                 }
                 else
                 {
-                    IQCareMsgBox.Show("FamilyMemberExists",this);
+                    IQCareMsgBox.Show("FamilyMemberExists", this);
                     return;
                 }
             }
             else if (Session["SaveFlag"].ToString() == "Edit")
             {
                 //Edit mode- ie member is selected from grid
-                
-                int r =Convert.ToInt32(Session["SelectedRow"]);
+
+                int r = Convert.ToInt32(Session["SelectedRow"]);
 
                 theDT.Rows[r]["RFirstName"] = txtfname.Text;
                 theDT.Rows[r]["RLastName"] = txtlname.Text;
@@ -458,6 +471,12 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
 
                 theDT.Rows[r]["HivStatusID"] = ddlhivstatus.SelectedItem.Value; ;
                 theDT.Rows[r]["HivStatusDesc"] = ddlhivstatus.SelectedItem.Text;
+                if (txtLastHIVTestDate.Value != "")
+                {
+                    theDT.Rows[r]["LastHIVTestDate"] = Convert.ToDateTime(txtLastHIVTestDate.Value).ToShortDateString();
+                }
+                else { theDT.Rows[r]["LastHIVTestDate"] = ""; }
+
                 theDT.Rows[r]["HivCareStatusID"] = ddlhivcstatus.SelectedItem.Value;
                 theDT.Rows[r]["HivCareStatusDesc"] = ddlhivcstatus.SelectedItem.Text;
                 if (ddlrelationtype.SelectedItem.Value.ToString() == "3" || ddlrelationtype.SelectedItem.Value.ToString() == "11")
@@ -468,15 +487,15 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
                 else
                 {
                     theDT.Rows[r]["RelationshipDate"] = "";
-                } 
+                }
 
                 if (theDT.Rows[r]["ReferenceId"] == null)
                     theDT.Rows[r]["Registered?"] = "No";
                 else if (theDT.Rows[r]["ReferenceId"].ToString() == "")
                     theDT.Rows[r]["Registered?"] = "No";
-                else 
+                else
                     theDT.Rows[r]["Registered?"] = "Yes";
-                
+
                 Session["GridData"] = theDT;
                 grdFamily.Columns.Clear();
                 grdFamily.DataSource = (DataTable)Session["GridData"];
@@ -485,7 +504,7 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
                 btnSubmit.Enabled = false;
             else
                 btnSubmit.Enabled = true;
-            
+
             BindGrid();
             Refresh();
             btnadd.Text = "Add Member";
@@ -509,7 +528,7 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
         if (theDV.Table != null)
         {
             theDT = (DataTable)theUtils.CreateTableFromDataView(theDV);
-            BindManager.BindCombo( ddlhivcstatus, theDT, "Name", "ID");
+            BindManager.BindCombo(ddlhivcstatus, theDT, "Name", "ID");
             theDV.Dispose();
             theDT.Clear();
         }
@@ -557,13 +576,13 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
         }
         else if (Session["SystemId"].ToString() == "2")
         {
-            
-            theFacilityDS = FacilityMaster.GetSystemBasedLabels(Convert.ToInt32(Session["SystemId"]), ApplicationAccess.FamilyInfo,0);
+
+            theFacilityDS = FacilityMaster.GetSystemBasedLabels(Convert.ToInt32(Session["SystemId"]), ApplicationAccess.FamilyInfo, 0);
             //lbldisplay.Text = theFacilityDS.Tables[0].Rows[0][0].ToString() + ":";
         }
-        
+
         ViewState["grdDataSource"] = theFacilityDS.Tables[0];
-       
+
     }
     private void BindGrid()
     {
@@ -572,7 +591,6 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
         theCol0.DataField = "Id";
         theCol0.ItemStyle.CssClass = "textstyle";
         grdFamily.Columns.Add(theCol0);
-
 
         BoundField theCol1 = new BoundField();
         theCol1.HeaderText = "Patientid";
@@ -587,7 +605,7 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
         theCol2.ItemStyle.CssClass = "textstyle";
         theCol2.ReadOnly = true;
         grdFamily.Columns.Add(theCol2);
-    
+
         BoundField theCol3 = new BoundField();
         theCol3.HeaderText = "First Name";
         theCol3.DataField = "RFirstName";
@@ -596,29 +614,30 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
         theCol3.ReadOnly = true;
         grdFamily.Columns.Add(theCol3);
 
-
+        //"Existing Hosp/Clinic #";//"Enrollment No.";
         BoundField theCol4 = new BoundField();
         if (((DataTable)ViewState["grdDataSource"]).Rows.Count > 0)
         {
             theCol4.HeaderText = ((DataTable)ViewState["grdDataSource"]).Rows[1][0].ToString().Trim();
-        }//"Existing Hosp/Clinic #";//"Enrollment No.";
+        }
         theCol4.ItemStyle.CssClass = "textstyle";
         theCol4.DataField = "RegistrationNo";
         theCol4.SortExpression = "RegistrationNo";
         theCol4.ReadOnly = true;
         grdFamily.Columns.Add(theCol4);
 
+        //"Existing Hosp/Clinic #";
         BoundField theCol5 = new BoundField();
         if (((DataTable)ViewState["grdDataSource"]).Rows.Count > 0)
         {
             theCol5.HeaderText = ((DataTable)ViewState["grdDataSource"]).Rows[0][0].ToString().Trim();
-        }//"Existing Hosp/Clinic #";
+        }
         theCol5.ItemStyle.CssClass = "textstyle";
         theCol5.DataField = "FileNo";
         theCol5.SortExpression = "FileNo";
         theCol5.ReadOnly = true;
         grdFamily.Columns.Add(theCol5);
-        
+
         BoundField theCol6 = new BoundField();
         theCol6.HeaderText = "Registered?";
         theCol6.ItemStyle.CssClass = "textstyle";
@@ -626,12 +645,6 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
         theCol6.SortExpression = "Registered?";
         theCol6.ReadOnly = true;
         grdFamily.Columns.Add(theCol6);
-
-        //BoundField theCol7 = new BoundField(); // double
-        //theCol7.HeaderText = "Relation";
-        //theCol7.DataField = "RelationshipTypeDesc";
-        //theCol7.ItemStyle.CssClass = "textstyle";
-        //grdFamily.Columns.Add(theCol7);
 
         BoundField theCol7 = new BoundField(); // double
         theCol7.HeaderText = "RelationshipTypeId";
@@ -687,9 +700,7 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
         theCol12.SortExpression = "AgeMonth";
         theCol12.ReadOnly = true;
         grdFamily.Columns.Add(theCol12);
-        
-       
-        
+
         BoundField theCol13 = new BoundField();
         theCol13.HeaderText = "HivStatusId";
         theCol13.DataField = "HivStatusId";
@@ -703,6 +714,14 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
         theCol14.SortExpression = "HivStatusDesc";
         theCol14.ReadOnly = true;
         grdFamily.Columns.Add(theCol14);
+
+        BoundField theCol14_1 = new BoundField();
+        theCol14_1.HeaderText = "Last HIV Test Date";
+        theCol14_1.DataField = "LastHIVTestDate";
+        //theCol4_1.DataField = String.Format("{0:dd-MMM-yyyy}", theCol8_1.DataField);
+        theCol14_1.ItemStyle.CssClass = "textstyle";
+        theCol14_1.SortExpression = "LastHIVTestDate";
+        grdFamily.Columns.Add(theCol14_1);
 
         BoundField theCol15 = new BoundField();
         theCol15.HeaderText = "HIVCareStatusId";
@@ -735,19 +754,18 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
         grdFamily.Columns.Add(objfield);
 
         //}
-       
+
         grdFamily.DataBind();
         grdFamily.Columns[0].Visible = false;
         grdFamily.Columns[1].Visible = false;
         grdFamily.Columns[7].Visible = false;
-        grdFamily.Columns[9].Visible = false;
         grdFamily.Columns[10].Visible = false;
         grdFamily.Columns[14].Visible = false;
-        grdFamily.Columns[16].Visible = false;
+        grdFamily.Columns[17].Visible = false;
     }
-    
+
     private void populatefamilydata()
-    { 
+    {
 
 
     }
@@ -759,7 +777,7 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
                 btnSubmit.Enabled = false;
             else
                 btnSubmit.Enabled = true;
-            
+
             grdFamily.DataSource = (DataTable)Session["GridData"];
             grdFamily.DataBind();
             BindGrid();
@@ -769,6 +787,9 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
 
             PatientManager = (IFamilyInfo)ObjectFactory.CreateInstance("BusinessProcess.Clinical.BFamilyInfo, BusinessProcess.Clinical");
             //pr_Clinical_GetAllFamilyData_Constella
+            if (Session["Ptn_Pk"] == null)
+                Session["Ptn_Pk"] = Session["PatientId"];
+
             if (Session["Ptn_Pk"].ToString() != "0")
             {
                 DataSet theDS = PatientManager.GetAllFamilyData(Convert.ToInt32(Session["Ptn_Pk"]));
@@ -796,11 +817,11 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
     private void SearchFamilyInfo()
     {
         Boolean blnValid = true;
-        
+
         PatientManager = (IFamilyInfo)ObjectFactory.CreateInstance("BusinessProcess.Clinical.BFamilyInfo, BusinessProcess.Clinical");
 
         Session["ReferenceId"] = Convert.ToInt32(Request.QueryString["RefId"]);
-        
+
         //---- check whether the patient is twice selected OR the patient is selecting himself as family member
 
         if (Convert.ToInt32(Session["ReferenceId"]) == Convert.ToInt32(Session["Ptn_Pk"])) // selecting himself
@@ -810,21 +831,25 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
             IQCareMsgBox.Show("SelectHimself", this);
             blnValid = false;
         }
-
-        foreach (DataRow theDR in ((DataTable)Session["GridData"]).Rows)
+        else
         {
-            if (theDR["ReferenceId"] != DBNull.Value)
+            GetAllData();
+            foreach (DataRow theDR in ((DataTable)Session["GridData"]).Rows)
             {
-                if (Convert.ToInt32(Session["ReferenceId"]) == Convert.ToInt32(theDR["ReferenceId"])) // patient already selected
+                if (theDR["ReferenceId"] != DBNull.Value)
                 {
-                    grdFamily.DataSource = (DataTable)Session["GridData"];
-                    grdFamily.DataBind();
-                    IQCareMsgBox.Show("DuplicateSelect", this);
-                    blnValid = false;
-                    break;
+                    if (Convert.ToInt32(Session["ReferenceId"]) == Convert.ToInt32(theDR["ReferenceId"])) // patient already selected
+                    {
+                        grdFamily.DataSource = (DataTable)Session["GridData"];
+                        grdFamily.DataBind();
+                        IQCareMsgBox.Show("DuplicateSelect", this);
+                        blnValid = false;
+                        break;
+                    }
                 }
             }
         }
+
 
         if (blnValid == true)
         {
@@ -844,6 +869,8 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
                     txtAgeYear.Text = theDS.Tables[0].Rows[0]["AgeYear"].ToString();
                 if (theDS.Tables[0].Rows[0]["AgeMonth"] != null)
                     txtAgeMonth.Text = theDS.Tables[0].Rows[0]["AgeMonth"].ToString();
+                if (theDS.Tables[0].Rows[0]["LastHivTestDate"] != null)
+                    txtLastHIVTestDate.Value = theDS.Tables[0].Rows[0]["LastHivTestDate"].ToString();
                 if (theDS.Tables[0].Rows[0]["HivStatus"] != null && theDS.Tables[0].Rows[0]["HivStatus"].ToString() != "0" && theDS.Tables[0].Rows[0]["HivStatus"].ToString() != "")
                 {
                     ddlhivstatus.SelectedValue = theDS.Tables[0].Rows[0]["HivStatus"].ToString();
@@ -859,7 +886,7 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
                 }
                 else
                 {
-                    if (theDS.Tables[0].Rows[0]["HivCareStatus"].ToString() !="")
+                    if (theDS.Tables[0].Rows[0]["HivCareStatus"].ToString() != "")
                     {
                         ddlhivcstatus.SelectedValue = "2";
                     }
@@ -877,7 +904,7 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
 
                 if (theDS.Tables[0].Rows[0]["RegistrationNo"] != null)
                     Session["RegistrationNo"] = theDS.Tables[0].Rows[0]["RegistrationNo"].ToString();
-                if(theDS.Tables[0].Rows[0]["PatientClinicID"]!=null)
+                if (theDS.Tables[0].Rows[0]["PatientClinicID"] != null)
                     Session["ClinicID"] = theDS.Tables[0].Rows[0]["PatientClinicID"].ToString();
 
             }
@@ -889,14 +916,14 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
 
     protected void grdFamily_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
     {
-      
+
         if (Authentiaction.HasFunctionRight(ApplicationAccess.FamilyInfo, FunctionAccess.Update, (DataTable)Session["UserRight"]) == true)
         {
             btnSubmit.Enabled = true;
             btnadd.Enabled = true;
         }
 
-        if (Session["lblpntstatus"].ToString() == "1" )
+        if (Session["lblpntstatus"].ToString() == "1")
         {
             btnadd.Enabled = false;
             btnSubmit.Enabled = false;
@@ -918,76 +945,80 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
 
         int r = theIndex;
 
-        
-            // Fill data in Textboxes from grid
-            //Edit the selected row
-            if (theDT.Rows.Count > 0)
+
+        // Fill data in Textboxes from grid
+        //Edit the selected row
+        if (theDT.Rows.Count > 0)
+        {
+
+            txtfname.Text = theDT.Rows[r]["RFirstName"].ToString();
+            txtlname.Text = theDT.Rows[r]["RLastName"].ToString();
+            if (theDT.Rows[r].IsNull("SexId") != true)
             {
-                
-                    txtfname.Text = theDT.Rows[r]["RFirstName"].ToString();
-                    txtlname.Text = theDT.Rows[r]["RLastName"].ToString();
-                    if (theDT.Rows[r].IsNull("SexId") != true)
-                    {
-                        ddlgender.SelectedValue = theDT.Rows[r]["SexId"].ToString();
-                    }
-                    else
-                    {
-                        ddlgender.SelectedValue = "0";
-                    }
+                ddlgender.SelectedValue = theDT.Rows[r]["SexId"].ToString();
+            }
+            else
+            {
+                ddlgender.SelectedValue = "0";
+            }
 
-                    if (theDT.Rows[r]["ReferenceId"] == null)
-                    {
-                        regthisclinic.SelectedItem.Text = "No";
-                        EnableControls();
-                    }
-                    else if (theDT.Rows[r]["ReferenceId"].ToString() == "")
-                    {
-                        regthisclinic.SelectedItem.Text = "No";
-                        EnableControls();
-                    }
-                    else
-                    {
-                        regthisclinic.SelectedItem.Text = "Yes";
-                        DisableControls();
-                    }
+            if (theDT.Rows[r]["ReferenceId"] == null)
+            {
+                regthisclinic.SelectedItem.Text = "No";
+                EnableControls();
+            }
+            else if (theDT.Rows[r]["ReferenceId"].ToString() == "")
+            {
+                regthisclinic.SelectedItem.Text = "No";
+                EnableControls();
+            }
+            else
+            {
+                regthisclinic.SelectedItem.Text = "Yes";
+                DisableControls();
+            }
 
-                    txtAgeYear.Text = theDT.Rows[r]["AgeYear"].ToString();
-                    txtAgeMonth.Text = theDT.Rows[r]["agemonth"].ToString();
-                    if (theDT.Rows[r].IsNull("RelationshipTypeID") != true && theDT.Rows[r].IsNull("RelationshipTypeID").ToString() != string.Empty)
-                    {
-                        ddlrelationtype.SelectedValue = theDT.Rows[r]["RelationshipTypeID"].ToString();
-                    }
-                    else
-                    {
-                        ddlrelationtype.SelectedValue = "0";
-                    }
-                    if (theDT.Rows[r]["HivStatusID"].ToString() != "")
-                    {
-                        ddlhivstatus.SelectedValue = theDT.Rows[r]["HivStatusID"].ToString();
-                    }
-                    if (theDT.Rows[r]["HivcareStatusID"].ToString() != "")
-                    {
-                        ddlhivcstatus.SelectedValue = theDT.Rows[r]["HivcareStatusID"].ToString();
-                    }
-                    if (theDT.Rows[r]["RelationshipDate"].ToString() != "")
-                    {
-                        if (theDT.Rows[r]["RelationshipTypeID"].ToString() == "3" || theDT.Rows[r]["RelationshipTypeID"].ToString() == "11")
-                        {
+            txtAgeYear.Text = theDT.Rows[r]["AgeYear"].ToString();
+            txtAgeMonth.Text = theDT.Rows[r]["agemonth"].ToString();
+            if (theDT.Rows[r].IsNull("RelationshipTypeID") != true && theDT.Rows[r].IsNull("RelationshipTypeID").ToString() != string.Empty)
+            {
+                ddlrelationtype.SelectedValue = theDT.Rows[r]["RelationshipTypeID"].ToString();
+            }
+            else
+            {
+                ddlrelationtype.SelectedValue = "0";
+            }
+            if (theDT.Rows[r]["HivStatusID"].ToString() != "")
+            {
+                ddlhivstatus.SelectedValue = theDT.Rows[r]["HivStatusID"].ToString();
+            }
+            if (theDT.Rows[r]["HivcareStatusID"].ToString() != "")
+            {
+                ddlhivcstatus.SelectedValue = theDT.Rows[r]["HivcareStatusID"].ToString();
+            }
+            if (theDT.Rows[r]["RelationshipDate"].ToString() != "")
+            {
+                if (theDT.Rows[r]["RelationshipTypeID"].ToString() == "3" || theDT.Rows[r]["RelationshipTypeID"].ToString() == "11")
+                {
 
-                            txtRelationDate.Value = fnConvertDate(theDT.Rows[r]["RelationshipDate"].ToString());
-                            //txtRelationDate.Value = String.Format("{0:dd-MMM-yyyy}", theDT.Rows[r]["RelationshipDate"].ToString());
-                            ClientScript.RegisterStartupScript(this.GetType(), "grdFamily_SelectedIndexChanging", "<script>ShowRelationDt();</script>");
-                        }
-                    }
-                    Session["SelectedRow"] = theIndex;
-                    Session["SaveFlag"] = "Edit";
-                    btnadd.Text = "Update Member";
+                    txtRelationDate.Value = fnConvertDate(theDT.Rows[r]["RelationshipDate"].ToString());
+                    //txtRelationDate.Value = String.Format("{0:dd-MMM-yyyy}", theDT.Rows[r]["RelationshipDate"].ToString());
+                    ClientScript.RegisterStartupScript(this.GetType(), "grdFamily_SelectedIndexChanging", "<script>ShowRelationDt();</script>");
                 }
-     
+            }
+
+            if (theDT.Rows[r]["LastHivTestDate"].ToString() != "")
+            { txtLastHIVTestDate.Value = fnConvertDate(theDT.Rows[r]["LastHivTestDate"].ToString()); }
+
+            Session["SelectedRow"] = theIndex;
+            Session["SaveFlag"] = "Edit";
+            btnadd.Text = "Update Member";
+        }
+
     }
     private void Refresh()
     {
-        Session["SaveFlag"] = "Add"; 
+        Session["SaveFlag"] = "Add";
         Session["SelectedId"] = "";
         Session["ClinicID"] = "";
         txtfname.Text = "";
@@ -996,11 +1027,12 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
         txtAgeYear.Text = "";
         ddlgender.SelectedIndex = -1;
         regthisclinic.SelectedItem.Text = "No";
-        ddlrelationtype.SelectedIndex= -1;
+        ddlrelationtype.SelectedIndex = -1;
         ddlhivstatus.SelectedIndex = -1;
         ddlhivcstatus.SelectedIndex = -1;
         Session["SelectedRow"] = -1;
         txtRelationDate.Value = "";
+        txtLastHIVTestDate.Value = string.Empty;
         EnableControls();
 
     }
@@ -1033,36 +1065,36 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
             {
                 if (Authentiaction.HasFunctionRight(ApplicationAccess.FamilyInfo, FunctionAccess.Delete, (DataTable)Session["UserRight"]) == true && Session["lblpntstatus"].ToString() != "1")
                 {
-                    LinkButton objlink = (LinkButton)e.Row.Cells[18].Controls[0];
+                    LinkButton objlink = (LinkButton)e.Row.Cells[19].Controls[0];
                     objlink.OnClientClick = "if(!confirm('Are you sure you want to delete this?')) return false;";
-                    e.Row.Cells[18].ID = e.Row.RowIndex.ToString();
+                    e.Row.Cells[19].ID = e.Row.RowIndex.ToString();
                     //btnSubmit.Enabled = false;
                 }
             }
 
 
-                        
+
         }
-        
+
     }
-    
+
     protected void grdFamily_Sorting(object sender, GridViewSortEventArgs e)
     {
-        
+
         IQCareUtils clsUtil = new IQCareUtils();
         DataView theDV;
-       
-            if (Session["SortDirection"].ToString() == "Asc")
-            {
-                theDV = clsUtil.GridSort((DataTable)Session["GridData"], e.SortExpression, Session["SortDirection"].ToString());
-                Session["SortDirection"] = "Desc";
-            }
-            else
-            {
-                theDV = clsUtil.GridSort((DataTable)Session["GridData"], e.SortExpression, Session["SortDirection"].ToString());
-                Session["SortDirection"] = "Asc";
-            }
-            
+
+        if (Session["SortDirection"].ToString() == "Asc")
+        {
+            theDV = clsUtil.GridSort((DataTable)Session["GridData"], e.SortExpression, Session["SortDirection"].ToString());
+            Session["SortDirection"] = "Desc";
+        }
+        else
+        {
+            theDV = clsUtil.GridSort((DataTable)Session["GridData"], e.SortExpression, Session["SortDirection"].ToString());
+            Session["SortDirection"] = "Asc";
+        }
+
         grdFamily.Columns.Clear();
         grdFamily.DataSource = theDV;
         BindGrid();
@@ -1085,7 +1117,7 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
     }
     protected void btnBack_Click(object sender, EventArgs e)
     {
-              
+
         string theUrl = string.Empty;
         if (Session["CEForm"] == null)
         {
@@ -1145,7 +1177,7 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
                         {
                             theUrl = string.Format("../ClinicalForms/frmClinical_PatientRegistrationCTC.aspx?name=Edit&locationid=" + Session["fmLocationID"].ToString() + "&sts=" + Session["fmsts"].ToString() + "");
                         }
-                        
+
                         Response.Redirect(theUrl);
                     }
                     else
@@ -1165,16 +1197,16 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
     }
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
-        int Id, Ptn_Pk=0, Sex, AgeYear, AgeMonth, RelationshipType, HivStatus=0, HivCareStatus=0, UserID, DeleteFlag,ReferenceId;
-        string RFirstName, RLastName, RegistrationNo,RelationshipDate;
-        
+        int Id, Ptn_Pk = 0, Sex, AgeYear, AgeMonth, RelationshipType, HivStatus = 0, HivCareStatus = 0, UserID, DeleteFlag, ReferenceId;
+        string RFirstName, RLastName, RegistrationNo, RelationshipDate, LastHIVStatusDate;
+
         PatientManager = (IFamilyInfo)ObjectFactory.CreateInstance("BusinessProcess.Clinical.BFamilyInfo, BusinessProcess.Clinical");
 
         DataTable theDT = (DataTable)Session["GridData"];
-        
+
         foreach (DataRow theDR in theDT.Rows)
         {
-            if(theDR["Id"]==DBNull.Value)
+            if (theDR["Id"] == DBNull.Value)
                 Id = -1;
             else
                 Id = Convert.ToInt32(theDR["Id"]);
@@ -1199,15 +1231,15 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
 
             //HivCareStatus = Convert.ToInt32(theDR["HivCareStatusID"]);
             //HivStatus = Convert.ToInt32(theDR["HivStatusID"]);
-            
+
             UserID = Convert.ToInt32(Session["AppUserId"]);
             DeleteFlag = 0;
             if (theDR["ReferenceId"] != DBNull.Value)
             {
                 ReferenceId = Convert.ToInt32(theDR["ReferenceId"]);
-                    if(theDR["HivCareStatusID"].ToString()!="")
-                HivCareStatus = Convert.ToInt32(theDR["HivCareStatusID"]);
-                if(theDR["HivStatusID"].ToString()!="")
+                if (theDR["HivCareStatusID"].ToString() != "")
+                    HivCareStatus = Convert.ToInt32(theDR["HivCareStatusID"]);
+                if (theDR["HivStatusID"].ToString() != "")
                     HivStatus = Convert.ToInt32(theDR["HivStatusID"]);
                 RegistrationNo = "";
             }
@@ -1217,13 +1249,13 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
                 HivStatus = Convert.ToInt32(theDR["HivStatusID"]);
                 ReferenceId = -1;
                 RegistrationNo = "NON";
-                
+
             }
 
             //if (theDR["RegistrationNo"] != DBNull.Value)
             //{
             //    //RegistrationNo = theDR["RegistrationNo"].ToString();
-                
+
             //}
             //else
             //{
@@ -1233,14 +1265,21 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
             RelationshipDate = theDR["RelationshipDate"].ToString();
             if (RelationshipDate == "")
             {
-                RelationshipDate="01-01-1900";
+                RelationshipDate = "01-01-1900";
             }
 
+            LastHIVStatusDate = theDR["LastHivTestDate"].ToString();
+            if (LastHIVStatusDate == "")
+            {
+                LastHIVStatusDate = string.Empty;
+            }
 
             //Pr_Clinical_SaveFamilyInfo_Constella
-            PatientManager.SaveFamilyInfo(Id, Ptn_Pk, RFirstName, RLastName, Sex, AgeYear, AgeMonth, RelationshipType, HivStatus, HivCareStatus, UserID, DeleteFlag, ReferenceId, RegistrationNo, Convert.ToDateTime(RelationshipDate));
+            PatientManager.SaveFamilyInfo(Id, Ptn_Pk, RFirstName, RLastName, Sex, AgeYear, AgeMonth, RelationshipType, HivStatus, HivCareStatus, UserID,
+                DeleteFlag, ReferenceId, RegistrationNo, Convert.ToDateTime(RelationshipDate), LastHIVStatusDate,
+                Convert.ToInt32(Session["AppLocationId"]), Convert.ToBoolean(ConfigurationManager.AppSettings["EnableHIVStatus"]));
         }
-        
+
         ClearSession();
         btnSubmit.Enabled = false;
         SaveCancel();
@@ -1301,7 +1340,7 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
     //    //        {
     //    //            string str = ex.Message;
     //    //        }
-              
+
     //    //}
 
 
@@ -1326,6 +1365,10 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
         txtAgeMonth.Enabled = false;
         regthisclinic.Enabled = false;
         ddlhivstatus.Enabled = false;
+        if (Convert.ToBoolean(ConfigurationManager.AppSettings["EnableHIVStatus"]) == true)
+        {
+            ddlhivstatus.Enabled = true;
+        }
         ddlhivcstatus.Enabled = false;
     }
     private void ClearSession()
@@ -1368,7 +1411,7 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
             char[] sep = { (strspliter.ToCharArray())[0] };
 
             string[] strDate = date.Split(sep);
-            
+
             strMonth = GetMonthName(Convert.ToInt32(strDate[0]));
             strDay = strDate[1];
             strYear = strDate[2];
@@ -1378,8 +1421,8 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
     }
     public string GetMonthName(int id)
     {
-        string strMonth=string.Empty;
-        switch(id)
+        string strMonth = string.Empty;
+        switch (id)
         {
             case 1:
                 {
@@ -1491,7 +1534,7 @@ public partial class ClinicalForms_frmFamilyInformation : BasePage
                 else
                     btnSubmit.Enabled = true;
                 Refresh();
-                
+
 
             }
             else

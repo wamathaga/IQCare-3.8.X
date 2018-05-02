@@ -186,7 +186,7 @@ namespace BusinessProcess.SCM
             }
         }
 
-        public DataTable GetStocksPerStore(int StoreId)
+        public DataTable GetStocksPerStore(int StoreId, int SupplierFlag)
         {
             lock (this)
             {
@@ -195,6 +195,7 @@ namespace BusinessProcess.SCM
                     ClsUtility.Init_Hashtable();
                     ClsObject objPOdetails = new ClsObject();
                     ClsUtility.AddParameters("@StoreId", SqlDbType.Int, StoreId.ToString());
+                    ClsUtility.AddParameters("@SupplierFlag", SqlDbType.Int, SupplierFlag.ToString());
                     return (DataTable)objPOdetails.ReturnObject(ClsUtility.theParams, "pr_SCM_GetStocksPerStore", ClsDBUtility.ObjectEnum.DataTable);
                 }
                 catch

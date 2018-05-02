@@ -192,6 +192,15 @@ public partial class ClinicalForms_frmFamilyInformation {
     protected global::System.Web.UI.WebControls.DropDownList ddlhivstatus;
     
     /// <summary>
+    /// txtLastHIVTestDate control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.HtmlControls.HtmlInputText txtLastHIVTestDate;
+    
+    /// <summary>
     /// ddlhivcstatus control.
     /// </summary>
     /// <remarks>

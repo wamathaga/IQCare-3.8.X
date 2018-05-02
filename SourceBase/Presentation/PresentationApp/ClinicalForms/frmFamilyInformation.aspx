@@ -201,7 +201,7 @@
                                             <table width="100%" border="0">
                                                 <tr>
                                                     <td colspan="2" align="center">
-                                                        <label>
+                                                        <label class="required">
                                                             Relationship Type:</label>
                                                         <asp:DropDownList ID="ddlrelationtype" onchange="ShowHideRelationDt()" runat="server">
                                                         </asp:DropDownList>
@@ -235,6 +235,17 @@
                                                     HIV Status:</label>
                                                 <asp:DropDownList ID="ddlhivstatus" runat="server">
                                                 </asp:DropDownList>
+                                                <span id="spnHIVTestDate">
+                                                    <label id="lblLastHIVTestDate">
+                                                        Last HIV Test Date:</label>
+                                                    <input id="txtLastHIVTestDate" onblur="DateFormat(this,this.value,event,false,'3')"
+                                                        onkeyup="DateFormat(this,this.value,event,false,'3')" onfocus="javascript:vDateType='3'"
+                                                        maxlength="11" size="8" name="LastHIVTestDate" runat="server" />
+                                                    <img id="imgDTP" onclick="w_displayDatePicker('<%=txtLastHIVTestDate.ClientID%>');"
+                                                        height="22" alt="Date Helper" hspace="0" src="../images/cal_icon.gif" width="22"
+                                                        border="0" name="appDateimg" style="vertical-align: sub;" />
+                                                    <span class="smallerlabel" id="spnLastHIVTestDate">(dd-mmm-yyyy)</span>
+                                                </span>
                                             </td>
                                             <td class="border pad5 whitebg" align="center">
                                                 <label class="required">

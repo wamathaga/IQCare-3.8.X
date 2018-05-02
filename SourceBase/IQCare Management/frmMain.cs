@@ -857,5 +857,14 @@ namespace IQCare_Management
             theForm.Top = 2;
             theForm.Show();
         }
+
+        private void nDRXMLCreationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            theForm = (Form)Activator.CreateInstance(Type.GetType("IQCare.Service.frmNDRXMLCreation, IQCare.Service"));
+            theForm.MdiParent = this;
+            theForm.Left = 0;
+            theForm.Top = 0;
+            theForm.Show();
+        }
     }
 }

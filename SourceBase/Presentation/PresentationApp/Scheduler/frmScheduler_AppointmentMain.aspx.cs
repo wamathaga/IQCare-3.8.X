@@ -360,7 +360,8 @@ public partial class frmScheduler_AppointmentMain : LogPage
         (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblRoot") as Label).Visible = false;
         (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblheader") as Label).Text = "Scheduler";
         (Master.FindControl("levelTwoNavigationUserControl1").FindControl("PanelPatiInfo") as Panel).Visible = false;
-
+        IQWebUtils Utils = new IQWebUtils();
+        Utils.HidePatientLevelheader();
         
 
         #region "Modified20June07(3)"

@@ -73,12 +73,10 @@
             }
         }
         function fnConfirmEnable(e, disableCntrl) {
-            if ($(e).is(':checked') == true) {
-                alert('false');
+            if ($(e).is(':checked') == true) {                
                 $(disableCntrl).prop("disabled", false);
             }
-            else {
-                alert('true');
+            else {                
                 $(disableCntrl).prop("disabled", true);
             }
         }
@@ -109,7 +107,7 @@
 
         }
     </style>
-    <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
+    <%--<telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
         <AjaxSettings>         
             <telerik:AjaxSetting AjaxControlID="TabTestResult">
                 <UpdatedControls>
@@ -127,26 +125,26 @@
                     <telerik:AjaxUpdatedControl ControlID="RadGridArvMutation" />                    
                 </UpdatedControls>
             </telerik:AjaxSetting>
-            <telerik:AjaxSetting AjaxControlID="rcbFooterArvType">
-                <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="RadGridArvMutation" />
-                    <%--<telerik:AjaxUpdatedControl ControlID="rcbFooterMutation" /> --%>                    
-                </UpdatedControls>
-            </telerik:AjaxSetting>
-           <%-- <telerik:AjaxSetting AjaxControlID="rcbFooterMutation">
+            <telerik:AjaxSetting AjaxControlID="RadGridArvMutation">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="rcbFooterArvType" />
+                    <%--<telerik:AjaxUpdatedControl ControlID="rcbFooterMutation" />  --%>                   
+               <%-- </UpdatedControls>
+            </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="rcbFooterArvType">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="rcbFooterMutation" />
                     
                 </UpdatedControls>
-            </telerik:AjaxSetting>--%>
+            </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="rcbFooterMutation">
                 <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="RadGridArvMutation" />                    
+                    <telerik:AjaxUpdatedControl ControlID="rcbFooterCulture" />                    
                 </UpdatedControls>
             </telerik:AjaxSetting>
         </AjaxSettings>     
         
-    </telerik:RadAjaxManager>
+    </telerik:RadAjaxManager>--%>
     <div class="container-fluid">
         <div class="border formbg">
             <br />            
@@ -232,7 +230,7 @@
                                                             <tr>
                                                                 <td style="width: 17%;" align="right">
                                                                     <label id="Label1" class="required" runat="server">
-                                                                        Specimen Received: &nbsp;&nbsp; DateTime:
+                                                                        Specimen Received DateTime:
                                                                     </label>
                                                                 </td>
                                                                 <td style="width: 24%;" align="left">
@@ -494,7 +492,7 @@
                                                                             <fieldset class="scheduler-border">
                                                                                 <legend class="scheduler-border">Specimen</legend>
                                                                             <asp:Panel runat="server" ID="pnl_spec" style="margin-top:-18px;">
-                                                                                <label id="Label10" class="required" runat="server">Select Specimen:</label>
+                                                                                <label id="Label10"  runat="server">Select Specimen:</label>
                                                                                 <asp:DropDownList ID="ddlselectspecimen" runat="server" Width="300px"></asp:DropDownList>
                                                                                 <asp:CheckBox ID="chkCustSpec" runat="server" Text="Custom Specimen" TextAlign="Right" />
                                                                             </asp:Panel>
@@ -505,12 +503,12 @@
                                                                                 <asp:TextBox ID="txtCustSpecNo" runat="server" Width="300px" TextMode="SingleLine"></asp:TextBox>
                                                                             </div>
                                                                                 <asp:Panel runat="server" ID="Panel1"  style="border-top:1px solid #eee;padding-top:5px;padding-bottom:2px" class="control-group">
-                                                                                <label id="Label12" class="required" runat="server">State:</label>
+                                                                                <label id="Label12"  runat="server">State:</label>
                                                                                 <asp:DropDownList ID="ddlState" runat="server" Width="100px">
                                                                                  <asp:ListItem Text="Select State" Value="0" Selected="True"></asp:ListItem>
                                                                                  </asp:DropDownList>
                                                                                  &emsp;
-                                                                                 <label id="Label14" class="required" runat="server">Status:</label>
+                                                                                 <label id="Label14"  runat="server">Status:</label>
                                                                                  <asp:DropDownList ID="ddlTestStatus" runat="server" Width="100px">
                                                                                     <asp:ListItem Text="Select Status" Value="0" Selected="True"></asp:ListItem>
                                                                                 </asp:DropDownList>

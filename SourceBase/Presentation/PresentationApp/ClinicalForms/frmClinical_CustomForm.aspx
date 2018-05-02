@@ -86,9 +86,9 @@
             }
 
             function OpenPharmacyDialog(DrgId) {
-                //window.open('../Pharmacy/frmDrugSelector.aspx?DrugType=' + DrgId + '&BtnDrg=customfrmDrug', 'DrugSelection', 'toolbars=no,location=no,directories=no,dependent=yes,top=10,left=30,maximize=no,resize=no,width=700,height=350,scrollbars=yes');
-                var TherapyPlanId = document.getElementById('ctl00_IQCareContentPlaceHolder_TAB_2064_SELECTLIST-TherapyPlan-DTL_PATIENTARVTHERAPY-9999319-2064').value;
-                window.open('../PharmacyDispense/frmPharmacyDispense_PatientOrder.aspx?opento=ArtForm&TherapyPlan=' + TherapyPlanId + '');
+                window.open('../Pharmacy/frmDrugSelector.aspx?DrugType=' + DrgId + '&BtnDrg=customfrmDrug', 'DrugSelection', 'toolbars=no,location=no,directories=no,dependent=yes,top=10,left=30,maximize=no,resize=no,width=700,height=350,scrollbars=yes');
+//                var TherapyPlanId = document.getElementById('ctl00_IQCareContentPlaceHolder_TAB_2064_SELECTLIST-TherapyPlan-DTL_PATIENTARVTHERAPY-9999319-2064').value;
+//                window.open('../PharmacyDispense/frmPharmacyDispense_PatientOrder.aspx?opento=ArtForm&TherapyPlan=' + TherapyPlanId + '');
             }
 
             function OpenRegimenDialog(DrgId, ControlId) {

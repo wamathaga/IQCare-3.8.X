@@ -675,7 +675,7 @@
                             </table>
                         </td>
                     </tr>
-                    <tr>
+                    <tr style="display: none">
                         <td colspan="2">
                             <div id="divmernarcheshow">
                                 <%--<table width="100%">

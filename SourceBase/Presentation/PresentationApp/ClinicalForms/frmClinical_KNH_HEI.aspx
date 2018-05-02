@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage/IQCare.master" AutoEventWireup="true"
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage/IQCare.master" AutoEventWireup="true" 
     CodeBehind="frmClinical_KNH_HEI.aspx.cs" Inherits="PresentationApp.ClinicalForms.frmClinical_KNH_HEI" %>
 
 <%@ Register TagPrefix="UcVitalSign" TagName="Uc1" Src="~/ClinicalForms/UserControl/UserControlKNH_VitalSigns.ascx" %>
@@ -32,6 +32,13 @@
             }
             else {
                 show('spnRegimen');
+                var ddlRegimen = document.getElementById("<%=ddlRegimen.ClientID%>");
+                if (strtext == "CTX" || strtext == "Nevirapine") {
+                    ddlRegimen.value = 199;
+                }
+                else {
+                    ddlRegimen.value = 0;
+                }
             }
         }
 
@@ -135,7 +142,7 @@
         <br />
         <div class="border formbg">
             <br />
-            <act:TabContainer ID="tabControl" runat="server" ActiveTabIndex="0" Width="100%">
+            <act:TabContainer ID="tabControl" runat="server" ActiveTabIndex="0" Width="100%" OnActiveTabChanged="tabControl_ActiveTabChanged" AutoPostBack="true">
                 <act:TabPanel ID="TabPnlTriage" runat="server" Font-Size="Large" HeaderText="Triage and Neonatal History">
                     <ContentTemplate>
                         <div class="border center formbg">
@@ -221,7 +228,7 @@
                                                             <table width="100%" border="0">
                                                                 <tr>
                                                                     <td style="width: 50%; margin-left: 20px">
-                                                                        <label id="Label5" runat="server">
+                                                                        <label id="Label5" runat="server" class="required">
                                                                             Mode of delivery:</label>
                                                                         <asp:DropDownList ID="ddlModeofDelivery" runat="server">
                                                                         </asp:DropDownList>
@@ -241,7 +248,7 @@
                                                             <table width="100%" border="0">
                                                                 <tr>
                                                                     <td align="center" style="width: 50%;">
-                                                                        <label id="Label8" runat="server">
+                                                                        <label id="Label8" runat="server" class="required">
                                                                             ARV Prophylaxis:</label>
                                                                         <asp:DropDownList ID="ddlARVProphylaxis" onchange="fnotherARVProphylaxis();" runat="server">
                                                                         </asp:DropDownList>
@@ -385,7 +392,7 @@
                                                             <table width="100%" border="0">
                                                                 <tr>
                                                                     <td align="left" style="width: 50%;">
-                                                                        <label id="Label15" runat="server">
+                                                                        <label id="Label15" runat="server" class="required">
                                                                             State of mother:</label>
                                                                         <asp:DropDownList ID="ddlStateofMother" runat="server">
                                                                         </asp:DropDownList>
@@ -428,7 +435,7 @@
                                                                         </span>
                                                                     </td>
                                                                     <td align="left" style="width: 50%;">
-                                                                        <label id="Label14" runat="server">
+                                                                        <label id="Label14" runat="server" class="required">
                                                                             Mother received drugs for PMTCT:</label>
                                                                         <input id="rdMotherRDrugYes" type="radio" runat="server" name="MotherRDrug" />
                                                                         <label for="rdMotherRDrugYes">
@@ -446,7 +453,7 @@
                                                             <table width="100%" border="0">
                                                                 <tr>
                                                                     <td align="left" style="width: 100%;">
-                                                                        <label id="Label16" runat="server">
+                                                                        <label id="Label16" runat="server" class="required">
                                                                             On ART at enrollment of infant:</label>
                                                                         <input id="rdoARTEnrolYes" type="radio" value="Yes" runat="server" name="ARTEnrol" />
                                                                         <label for="rdoARTEnrolYes">
@@ -603,7 +610,7 @@
                                             runat="server" Style="padding: 6px">
                                             <h5 class="forms" align="left">
                                                 <asp:ImageButton ID="imghivrelhistory" ImageUrl="~/images/arrow-up.gif" runat="server" />
-                                                <asp:Label ID="lblIHistory" runat="server" Text="Immunization"></asp:Label></h5>
+                                                <asp:Label ID="lblIHistory" runat="server" Text="Immunization and Vitamin A"></asp:Label></h5>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -634,6 +641,13 @@
                                                                             </input><img id="Img5" alt="Date Helper" border="0" height="22 " hspace="5" name="appDateimg"
                                                                                 onclick="w_displayDatePicker('<%=txtDateImmunised.ClientID%>');" src="../images/cal_icon.gif"
                                                                                 style="vertical-align: text-bottom;" width="22" /><span class="smallerlabel" id="Span5">(DD-MMM-YYYY)</span></label>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr style="vertical-align: top;">
+                                                                    <td width="100%" colspan="3" align="left">
+                                                                        <asp:Label ID="Label23" runat="server" Font-Bold="True" Text="Has Vitamin A been given?:"></asp:Label>
+                                                                        <input id="rdoHasVitaminGivenYes" name="Vitamingiven" type="radio" runat="server" /></input><label>Yes</label>
+                                                                        <input id="rdoHasVitaminGivenNo" name="Vitamingiven" type="radio" runat="server" /></input><label>No</label>
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -711,6 +725,15 @@
                                                             <UcHEIPrescomplaints:UcPC ID="UcHEIPcomplaints" runat="server" />
                                                         </td>
                                                     </tr>
+                                                    <tr class="center pad5 whitebg">
+                                                        <td align="left" nowrap="noWrap">
+                                                            <asp:Label ID="Label22" runat="server" Font-Bold="True" Text="TB Assesment:" CssClass="required"></asp:Label>
+                                                            <div class="customdivbordermultiselect">
+                                                                <asp:CheckBoxList ID="cblTBAssesment" runat="server">
+                                                                </asp:CheckBoxList>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
                                                 </table>
                                             </div>
                                         </asp:Panel>
@@ -755,12 +778,12 @@
                                                                             <tbody>
                                                                                 <tr>
                                                                                     <td width="25%">
-                                                                                        <asp:Label ID="lblDuration" runat="server" Font-Bold="True" Text="Duration:"></asp:Label>
+                                                                                        <asp:Label ID="lblDuration" runat="server" Font-Bold="True" Text="Duration:" CssClass="required"></asp:Label>
                                                                                         <asp:DropDownList ID="ddlDuration" runat="server">
                                                                                         </asp:DropDownList>
                                                                                     </td>
                                                                                     <td width="25%">
-                                                                                        <asp:Label ID="lblStatus" runat="server" Font-Bold="True" Text="Status:"></asp:Label>
+                                                                                        <asp:Label ID="lblStatus" runat="server" Font-Bold="True" Text="Status:" CssClass="required"></asp:Label>
                                                                                         <asp:DropDownList ID="ddlStatus" runat="server">
                                                                                         </asp:DropDownList>
                                                                                     </td>
@@ -853,50 +876,35 @@
                                         <asp:Panel ID="Pnl2ManagementPlan" runat="server" Visible="True">
                                             <div id="ManagementPlan" style="display: none">
                                                 <table class="center formbg" cellspacing="6" cellpadding="0" width="100%" border="0">
-                                                    <tr>
+                                                    <tr class="center pad5 whitebg">
                                                         <td style="width: 100%">
-                                                            <table width="100%" class="border center pad5 whitebg">
+                                                            <table>
                                                                 <tr>
-                                                                    <td width="50%" align="left" nowrap="noWrap">
-                                                                        <asp:Label ID="Label22" runat="server" Font-Bold="True" Text="TB Assesment:"></asp:Label>
-                                                                        <div class="customdivbordermultiselect">
-                                                                            <asp:CheckBoxList ID="cblTBAssesment" runat="server">
-                                                                            </asp:CheckBoxList>
-                                                                        </div>
+                                                                    <td width="30%" align="left">
+                                                                        <asp:Label ID="Label24" runat="server" Font-Bold="True" Text="Treatment:"></asp:Label>
+                                                                        <asp:DropDownList ID="ddlPlan" onchange="fnPlan();" runat="server">
+                                                                        </asp:DropDownList>
                                                                     </td>
-                                                                    <td width="50%" align="left">
-                                                                        <table width="100%" class="center pad5 whitebg" style="height: 160px; margin-left: 10px;">
-                                                                            <tr style="vertical-align: top;">
-                                                                                <td width="100%" colspan="3" align="left">
-                                                                                    <asp:Label ID="Label23" runat="server" Font-Bold="True" Text="Has Vitamin A been given?:"></asp:Label>
-                                                                                    <input id="rdoHasVitaminGivenYes" name="Vitamingiven" type="radio" runat="server" /></input><label>Yes</label>
-                                                                                    <input id="rdoHasVitaminGivenNo" name="Vitamingiven" type="radio" runat="server" /></input><label>No</label>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr style="vertical-align: bottom;">
-                                                                                <td width="25%" align="left">
-                                                                                    <asp:Label ID="Label24" runat="server" Font-Bold="True" Text="Treatment:"></asp:Label>
-                                                                                    <asp:DropDownList ID="ddlPlan" onchange="fnPlan();" runat="server">
-                                                                                    </asp:DropDownList>
-                                                                                </td>
-                                                                                <td width="15%" align="left">
-                                                                                    <span id="spnRegimen" style="display: none">
-                                                                                        <asp:Label ID="Label25" runat="server" Font-Bold="True" Text="Plan:"></asp:Label>
-                                                                                        <asp:DropDownList ID="ddlRegimen" runat="server">
-                                                                                        </asp:DropDownList>
-                                                                                    </span>
-                                                                                </td>
-                                                                                <td width="60%" align="center" >
-                                                                                    <asp:Label id="lblTreatment" runat="server" font-bold="True" Text="Date:"></asp:Label>
-                                                                                    <input id="txtTreatmentDate" onblur="DateFormat(this,this.value,event,false,3)" onkeyup="DateFormat(this,this.value,event,false,3);"
-                                                                                        onfocus="javascript:vDateType='3'" maxlength="11" size="11" runat="server" type="text" />
-                                                                                    <img id="Img2" onclick="w_displayDatePicker('<%=txtTreatmentDate.ClientID%>');" height="22 "
-                                                                                        alt="Date Helper" hspace="5" src="../images/cal_icon.gif" width="22" border="0"
-                                                                                        name="appDateimg" style="vertical-align: sub;" /><span class="smallerlabel"
-                                                                                            id="Span1">(DD-MMM-YYYY)</span>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
+                                                                    <td width="30%" align="left">
+                                                                        <span id="spnRegimen" style="display: none">
+                                                                            <asp:Label ID="Label25" runat="server" Font-Bold="True" Text="Plan:"></asp:Label>
+                                                                            <asp:DropDownList ID="ddlRegimen" runat="server">
+                                                                            </asp:DropDownList>
+                                                                        </span>
+                                                                    </td>
+                                                                    <td width="40%" align="center">
+                                                                        <asp:Label ID="lblTreatment" runat="server" Font-Bold="True" Text="Date:"></asp:Label>
+                                                                        <input id="txtTreatmentDate" onblur="DateFormat(this,this.value,event,false,3)" onkeyup="DateFormat(this,this.value,event,false,3);"
+                                                                            onfocus="javascript:vDateType='3'" maxlength="11" size="11" runat="server" type="text" />
+                                                                        <img id="Img2" onclick="w_displayDatePicker('<%=txtTreatmentDate.ClientID%>');" height="22 "
+                                                                            alt="Date Helper" hspace="5" src="../images/cal_icon.gif" width="22" border="0"
+                                                                            name="appDateimg" style="vertical-align: sub;" /><span class="smallerlabel" id="Span1">(DD-MMM-YYYY)</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan = "3">
+                                                                    <textarea id="txtAreaWorkPlan" cols="20" rows = "2" runat="server" placeholder="Enter workplan details"
+                                                                    style="float:left; margin:5px; width:100%"></textarea>
                                                                     </td>
                                                                 </tr>
                                                             </table>

@@ -30,7 +30,8 @@ public partial class Reports_frmReportCustom : LogPage
         //(Master.FindControl("lblheader") as Label).Text = "Custom Reports";
         (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblRoot") as Label).Text = "Reports >> ";
         (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblheader") as Label).Text = "Custom Reports";
-
+        IQWebUtils Utils = new IQWebUtils();
+        Utils.HidePatientLevelheader();
         this.btnExportReport.Attributes.Add("onclick", "javascript:return CheckReport('" + this.ddTitle.ClientID + "')");
         this.btnRun.Attributes.Add("onclick", "javascript:return CheckReport('" + this.ddTitle.ClientID + "')");
         this.btnEdit.Attributes.Add("onclick", "javascript:return CheckReport('" + this.ddTitle.ClientID + "')");

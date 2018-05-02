@@ -928,7 +928,7 @@
             this.lblCopyRight.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.lblCopyRight.ForeColor = System.Drawing.Color.White;
             this.lblCopyRight.Name = "lblCopyRight";
-            this.lblCopyRight.Size = new System.Drawing.Size(604, 17);
+            this.lblCopyRight.Size = new System.Drawing.Size(635, 17);
             this.lblCopyRight.Spring = true;
             this.lblCopyRight.Tag = "lblCopyRight";
             this.lblCopyRight.Text = "CopyRight";

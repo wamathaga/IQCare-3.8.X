@@ -245,11 +245,11 @@ public partial class ClinicalForms_frmClinical_ARVTherapy : LogPage
                 DQ_Check.Enabled = false;
             }
             //Privilages for Care End
-            if (Convert.ToString(Session["CareEndFlag"]) == "1" && Convert.ToString(Session["CareendedStatus"]) == "1")
-            {
-                btn_save.Enabled = true;
-                DQ_Check.Enabled = true;
-            }
+            //if (Convert.ToString(Session["CareEndFlag"]) == "1" && Convert.ToString(Session["CareendedStatus"]) == "1")
+            //{
+            //    btn_save.Enabled = true;
+            //    DQ_Check.Enabled = true;
+            //}
         }
     }
     private void BindDropdowns()
@@ -743,7 +743,7 @@ public partial class ClinicalForms_frmClinical_ARVTherapy : LogPage
     {
         if (txtanotherwght.Value != "")
         {
-            int weight = Convert.ToInt32(txtanotherwght.Value);
+            decimal weight = Convert.ToDecimal(txtanotherwght.Value);
             if (weight < 0 || weight > 250)
             {
                 IQCareMsgBox.Show("chkWeight", this);
@@ -753,7 +753,7 @@ public partial class ClinicalForms_frmClinical_ARVTherapy : LogPage
         }
         if (txtanotherheight.Value != "")
         {
-            int height = Convert.ToInt32(txtanotherheight.Value);
+            decimal height = Convert.ToDecimal(txtanotherheight.Value);
 
             if (height < 0 || height > 250)
             {

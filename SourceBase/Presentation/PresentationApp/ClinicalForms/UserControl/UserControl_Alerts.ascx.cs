@@ -72,7 +72,7 @@ namespace PresentationApp.ClinicalForms.UserControl
                             DataTable ViralDT = theDSAlerts.Tables[3];
                             if (ViralDT.Rows.Count > 0)
                             {
-                                if (!object.Equals(ViralDT.Rows[0]["ViralLoadDueDate"], null))
+                                if ((!object.Equals(ViralDT.Rows[0]["ViralLoadDueDate"], null)) && string.IsNullOrEmpty(ViralDT.Rows[0]["ViralLoadDueDate"].ToString()) == false)
                                 {
                                     TimeSpan timespanVL = ((DateTime)ViralDT.Rows[0]["ViralLoadDueDate"]) - DateTime.Now;
                                     if (timespanVL.Days < 60)

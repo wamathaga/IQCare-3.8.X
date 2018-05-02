@@ -14,6 +14,7 @@ using AjaxControlToolkit;
 using System.Web.Script.Serialization;
 using Application.Common;
 using System.Text;
+using System.Web.Services;
 
 namespace PresentationApp.PharmacyDispense
 {
@@ -35,7 +36,7 @@ namespace PresentationApp.PharmacyDispense
             LoadPendingPharmacyOrders();
 
             if (!IsPostBack)
-            {                
+            {
                 if (Request.QueryString["opento"] == "ArtForm")
                 {
                     if (Convert.ToInt32(Session["TherapyPlan"]) != 95)
@@ -63,30 +64,22 @@ namespace PresentationApp.PharmacyDispense
 
                 gvDispenseDrugs.DataSource = "";
                 gvDispenseDrugs.DataBind();
-
-                if (Convert.ToInt16(Session["StoreID"]) == 0)
+                int VisitID = Convert.ToInt32(Session["PatientVisitID"]);
+                LoadPendingPharmacyOrderDetails(VisitID);
+               
+                if (Session["StoreID"] == null || Session["StoreID"].ToString() == "" || Convert.ToInt16(Session["StoreID"]) == 0)
                 {
                     HttpContext.Current.Session["StoreID"] = 0;
                     //Ken 04-May-2015 - comented out
                     //HttpContext.Current.Session["DrugList"] = PrescriptionManager.GetPharmacyDrugList_Web(0, Session["SCMModule"] == null ? "" : Session["SCMModule"].ToString(), Session["TechnicalAreaId"].ToString());
                 }
-
+                ddlDispensingStore.SelectedValue = Session["StoreID"].ToString();
                 HttpContext.Current.Session["PartialDispense"] = 0;
-
+                Authenticate();
                 //txtDispenseDate.Text = DateTime.Now.ToString("dd-MMM-yyyy");
-                BindDropdownSignature(Session["AppUserEmployeeId"].ToString());
                 //ddlPrescribedBy.SelectedValue = Session["AppUserEmployeeId"].ToString();
                 //ddlDispensedBy.SelectedValue = Session["AppUserEmployeeId"].ToString();
-
-                try
-                {
-                    ddlDispensingStore.SelectedValue = Session["StoreID"].ToString();
-                }
-                catch { }
-
-                int VisitID = Convert.ToInt32(Session["PatientVisitID"]);
-                LoadPendingPharmacyOrderDetails(VisitID);
-                Authenticate();
+                BindDropdownSignature(Session["AppUserEmployeeId"].ToString());
                 if (ddlDispensedBy.SelectedValue == "0")
                 {
                     if (str.ToString() != "")
@@ -97,7 +90,7 @@ namespace PresentationApp.PharmacyDispense
             setValidatorsBasedOntechnicalArea();
             JavaScriptFunctionsOnLoad();
             resizeScreen();
-          
+
         }
 
         private void setValidatorsBasedOntechnicalArea()
@@ -176,7 +169,7 @@ namespace PresentationApp.PharmacyDispense
             {
                 ddlDispensingStore.CssClass = "";
                 //lblDispensingStoreLabel.CssClass = "";
-                  btnFullyDispensed.Visible = false;
+                btnFullyDispensed.Visible = false;
                 //RequiredFieldValidatorDispenStore.Enabled = false;
             }
             else if (Paperless && SCMOn)
@@ -206,7 +199,7 @@ namespace PresentationApp.PharmacyDispense
                 gvDispenseDrugs.Columns[3].HeaderStyle.CssClass = "hidden"; //Expiry date
                 gvDispenseDrugs.Columns[3].ItemStyle.CssClass = "hidden";
 
-                 btnFullyDispensed.Visible = false;
+                btnFullyDispensed.Visible = false;
                 //RequiredFieldValidatorDispenStore.Enabled = false;
             }
             else if (!SCMOn)
@@ -263,16 +256,22 @@ namespace PresentationApp.PharmacyDispense
                     gvDispenseDrugs.Columns[3].ItemStyle.CssClass = "hidden";
                 }
 
-                    Control myControl1 = (Master.FindControl("mainMaster") as Control);
+                Control myControl1 = (Master.FindControl("mainMaster") as Control);
 
-                    (Master.FindControl("levelTwoNavigationUserControl1").FindControl("patientLevelMenu") as Menu).Visible = true;
-                    (Master.FindControl("levelTwoNavigationUserControl1").FindControl("PharmacyDispensingMenu") as Menu).Visible = false;
-                
+                (Master.FindControl("levelTwoNavigationUserControl1").FindControl("patientLevelMenu") as Menu).Visible = true;
+                (Master.FindControl("levelTwoNavigationUserControl1").FindControl("PharmacyDispensingMenu") as Menu).Visible = false;
+
             }
             else //Pharmacy
             {
                 (Master.FindControl("levelTwoNavigationUserControl1").FindControl("patientLevelMenu") as Menu).Visible = false;
                 (Master.FindControl("levelTwoNavigationUserControl1").FindControl("PharmacyDispensingMenu") as Menu).Visible = true;
+                (Master.FindControl("facilityBanner") as Control).Visible = false;
+                (Master.FindControl("patientBanner") as Control).Visible = false;
+                (Master.FindControl("username1") as Control).Visible = false;
+                (Master.FindControl("currentdate1") as Control).Visible = false;
+                (Master.FindControl("facilityName") as Control).Visible = false;
+                (Master.FindControl("imageFlipLevel2") as Control).Visible = false;
             }
         }
 
@@ -386,9 +385,14 @@ namespace PresentationApp.PharmacyDispense
                 rbOnTBTreatment.Items[1].Selected = true;
                 lblIPTStartDate.Text = "IPT Start Date:";
                 lblIPTEndDate.Text = "IPT End Date:";
-
-                txtIPTStartDate.Text = dsPharmacyVitals.Tables[4].Rows[0]["INHStartDate"].ToString();
-                txtIPTEndDate.Text = dsPharmacyVitals.Tables[4].Rows[0]["INHEndDate"].ToString();
+                if (!string.IsNullOrEmpty(dsPharmacyVitals.Tables[4].Rows[0]["INHStartDate"].ToString()))
+                {
+                    txtIPTStartDate.Text = Convert.ToDateTime(dsPharmacyVitals.Tables[4].Rows[0]["INHStartDate"].ToString()).ToString("dd-MMM-yyyy");
+                }
+                if (!string.IsNullOrEmpty(dsPharmacyVitals.Tables[4].Rows[0]["INHEndDate"].ToString()))
+                {
+                    txtIPTEndDate.Text = Convert.ToDateTime(dsPharmacyVitals.Tables[4].Rows[0]["INHEndDate"].ToString()).ToString("dd-MMM-yyyy");
+                }
             }
 
             if (dsPharmacyVitals.Tables[5].Rows.Count > 0)
@@ -428,13 +432,25 @@ namespace PresentationApp.PharmacyDispense
 
         private void addAttributes()
         {
+            txtCurrentWeight.Attributes.Add("onkeyup", "chkNumeric('" + txtCurrentWeight.ClientID + "')");
             txtCurrentWeight.Attributes.Add("OnBlur", "CalculateBSA('" + txtCurrentWeight.ClientID + "','" + txtCurrentHeight.ClientID + "','" + txtCurrentBSA.ClientID + "');");
-            txtCurrentHeight.Attributes.Add("OnBlur", "CalculateBSA('" + txtCurrentWeight.ClientID + "','" + txtCurrentHeight.ClientID + "','" + txtCurrentBSA.ClientID + "');");
 
-            txtDaysToNextAppt.Attributes.Add("OnBlur", "CalculateNextAppointment('" + txtNextApptDate.ClientID + "','" + txtDaysToNextAppt.ClientID + "');");
+            txtCurrentHeight.Attributes.Add("onkeyup", "chkNumeric('" + txtCurrentHeight.ClientID + "')");
+            txtCurrentHeight.Attributes.Add("OnBlur", "CalculateBSA('" + txtCurrentWeight.ClientID + "','" + txtCurrentHeight.ClientID + "','" + txtCurrentBSA.ClientID + "');");
 
             txtprescriptionDate.Attributes.Add("onblur", "isCheckValidDate('" + Application["AppCurrentDate"] + "', '" + txtprescriptionDate.ClientID + "', '" + txtprescriptionDate.ClientID + "');");
             txtDispenseDate.Attributes.Add("onblur", "isCheckValidDate('" + Application["AppCurrentDate"] + "', '" + txtDispenseDate.ClientID + "', '" + txtDispenseDate.ClientID + "');");
+
+            txtIPTStartDate.Attributes.Add("onkeyup", "DateFormat(this,this.value,event,false,'3')");
+            txtIPTStartDate.Attributes.Add("onblur", "DateFormat(this,this.value,event,true,'3'); isCheckValidDate('" + Application["AppCurrentDate"] + "', '" + txtIPTStartDate.ClientID + "', '" + txtIPTStartDate.ClientID + "');");
+            txtIPTEndDate.Attributes.Add("onkeyup", "DateFormat(this,this.value,event,false,'3')");
+            txtIPTEndDate.Attributes.Add("onblur", "DateFormat(this,this.value,event,true,'3'); isCheckValidDate('" + Application["AppCurrentDate"] + "', '" + txtIPTEndDate.ClientID + "', '" + txtIPTEndDate.ClientID + "');");
+
+            txtNextApptDate.Attributes.Add("onkeyup", "DateFormat(this,this.value,event,false,'3')");
+            txtNextApptDate.Attributes.Add("onblur", "DateFormat(this,this.value,event,true,'3'); isCheckValidDate('" + txtNextApptDate.ClientID + "', '" + Application["AppCurrentDate"] + "', '" + txtNextApptDate.ClientID + "');");
+
+            txtDaysToNextAppt.Attributes.Add("onkeyup", "chkNumeric('" + txtDaysToNextAppt.ClientID + "')");
+            txtDaysToNextAppt.Attributes.Add("OnBlur", "CalculateNextAppointment('" + txtNextApptDate.ClientID + "','" + txtDaysToNextAppt.ClientID + "');");
         }
 
         private void JavaScriptFunctionsOnLoad()
@@ -480,13 +496,13 @@ namespace PresentationApp.PharmacyDispense
                 TextBox txtRefillQty = (TextBox)e.Row.FindControl("txtRefillQty");
                 ImageButton delete = (ImageButton)e.Row.FindControl("DeleteButton");
 
-                txtMorning.MaxLength = 2;
-                txtMidday.MaxLength = 2;
-                txtEvening.MaxLength = 2;
-                txtNight.MaxLength = 2;
-                txtDuration.MaxLength = 2;
+                txtMorning.MaxLength = 4;
+                txtMidday.MaxLength = 4;
+                txtEvening.MaxLength = 4;
+                txtNight.MaxLength = 4;
+                txtDuration.MaxLength = 4;
                 txtQtyPrescribed.MaxLength = 4;
-                txtPillCount.MaxLength = 3;
+                txtPillCount.MaxLength = 4;
                 txtQtyDispensed.MaxLength = 4;
 
                 Label lblExpiryDate = (Label)e.Row.FindControl("lblExpiryDate");
@@ -500,8 +516,8 @@ namespace PresentationApp.PharmacyDispense
                 txtQtyDispensed.Attributes.Add("onkeyup", "chkDecimal('" + txtQtyDispensed.ClientID + "');");
                 txtRefillQty.Attributes.Add("onkeyup", "chkDecimal('" + txtRefillQty.ClientID + "');");
                 txtDuration.Attributes.Add("OnBlur", "CalculateDrugsPrescribed('" + txtMorning.ClientID + "','" + txtMidday.ClientID + "','" + txtEvening.ClientID + "','" + txtNight.ClientID + "','" + txtDuration.ClientID + "','" + txtQtyPrescribed.ClientID + "','" + syrup + "','" + QtyUnitDisp + "');");
-                txtQtyDispensed.Attributes.Add("OnBlur", "chkQtyDispGreaterQtyPres('" + txtQtyDispensed.ClientID + "','" + txtQtyPrescribed.ClientID + "');");
-                txtRefillQty.Attributes.Add("OnBlur", "chkQtyDispGreaterQtyPres('" + txtRefillQty.ClientID + "','" + txtQtyPrescribed.ClientID + "');");
+                txtQtyDispensed.Attributes.Add("OnBlur", "chkQtyDispGreaterQtyPres('" + txtQtyPrescribed.ClientID + "','" + txtQtyDispensed.ClientID + "','" + txtRefillQty.ClientID + "');");
+                txtRefillQty.Attributes.Add("OnBlur", "chkQtyDispGreaterQtyPres('" + txtQtyPrescribed.ClientID + "','" + txtQtyDispensed.ClientID + "','" + txtRefillQty.ClientID + "');");
 
 
                 str.Append("DispenseBySelect('" + ddlDispensedBy.ClientID + "', '" + txtQtyDispensed.ClientID + "', '" + txtRefillQty.ClientID + "');");
@@ -590,13 +606,15 @@ namespace PresentationApp.PharmacyDispense
             string sqlQuery = "";
             DataTable dataTable;
             //creating Sql Query
-            sqlQuery = returnquery(prefixText);            
+            sqlQuery = returnquery(prefixText);
 
             dataTable = objRptFields.ReturnDatatableQuery(sqlQuery);
-
-            if (dataTable.Rows.Count > 0)
+            DataTable distinctTable = dataTable.AsEnumerable()
+                       .GroupBy(x => x.Field<string>("DrugName"))
+                       .Select(g => g.First()).CopyToDataTable();
+            if (distinctTable.Rows.Count > 0)
             {
-                foreach (DataRow row in dataTable.Rows)
+                foreach (DataRow row in distinctTable.Rows)
                 {
                     try
                     {
@@ -638,7 +656,7 @@ namespace PresentationApp.PharmacyDispense
                 {
                     sqlQuery = "select md.Drug_pk,convert(varchar(100),md.DrugName)[Drugname], ISNULL(Convert(varchar,SUM(st.Quantity)),0)[QTY] from dtl_stocktransaction st ";
                     sqlQuery += " Right outer join mst_drug md on md.Drug_pk=st.ItemId where DrugName LIKE '%" + prefixText + "%' and st.ExpiryDate > GETDATE() Group by md.Drug_pk,md.Drugname HAVING ISNULL(Convert(varchar,SUM(st.Quantity)),0) > 0";
-                    
+
                 }
             }
             else
@@ -670,9 +688,9 @@ namespace PresentationApp.PharmacyDispense
                         sqlQuery += " Right outer join mst_drug md on md.Drug_pk=st.ItemId where DrugName LIKE '%" + prefixText + "%' Group by md.Drug_pk,md.Drugname";
                     }
                 }
-                
+
             }
-            
+
             return sqlQuery;
         }
 
@@ -748,7 +766,97 @@ namespace PresentationApp.PharmacyDispense
                         }
                         else
                         {
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "alertRegimen", "alert('You have picked a different regimen. This patient is currently on " + txtLastReg.Text + "');", true);
+                            //ScriptManager.RegisterStartupScript(this, this.GetType(), "alertRegimen", "alert('You have picked a different regimen. This patient is currently on " + txtLastReg.Text + "');", true);
+                            /* Changed By: Gaurav
+                             * Dated: 5 May 2016
+                             * Purpose: Alert changed to confirm msg.
+                             */
+                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertRegimen", "AlertRegimen('" + txtLastReg.Text + "');", true);
+                        }
+                    }
+                }
+
+                ScriptManager.RegisterStartupScript(this, GetType(), "ClearTextBox", "ClearTextBox('" + txtDrug.ClientID + "');", true);
+                checkARTDrugs();
+            }
+        }
+
+        protected void ddlRegimenCode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedValue = ddlRegimenCode.SelectedValue;
+            DataSet theDS = new DataSet();
+            theDS.ReadXml(MapPath("..\\XMLFiles\\ALLMasters.con"));
+            IQCareUtils theUtils = new IQCareUtils();
+            if (theDS.Tables["mst_Regimen"] != null)
+            {
+                DataView theDV = new DataView(theDS.Tables["mst_Regimen"]);
+                theDV.RowFilter = "DeleteFlag=0";
+                //
+                if (theDV.Table != null)
+                {
+                    DataTable theDT = (DataTable)theUtils.CreateTableFromDataView(theDV);
+                    var dataRow = theDT.AsEnumerable().Where(x => x.Field<int>("Id") == Convert.ToInt32(selectedValue));
+                    DataTable dt = dataRow.CopyToDataTable<DataRow>();
+                    ddlregimenLine.SelectedValue = dt.Rows[0]["RegimenLineID"].ToString();
+                    ddlTreatmentProg.SelectedValue = dt.Rows[0]["Purpose"].ToString();
+
+                    string showregimen = "true";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "regimendd", "showRegimenDDown('" + showregimen + "');", true);
+                }
+
+            }
+
+        }
+
+        protected void btnHidAddDrug_Click(object sender, EventArgs e)
+        {
+            IDrug thePharmacyManager = (IDrug)ObjectFactory.CreateInstance("BusinessProcess.SCM.BDrug, BusinessProcess.SCM");
+            if (txtDrug.Text.Trim().Length > 0)
+            {
+                int DrugId = 0;
+                bool correctRegimenPicked = true;
+
+                if (hdCustID.Value != "")
+                {
+                    if ((Convert.ToInt32(hdCustID.Value) != 0))
+                    {
+                        DrugId = Convert.ToInt32(hdCustID.Value);
+
+                        //Ken 04-May-2015
+                        var SelectedDrug = thePharmacyManager.GetSelectedDrugDetails(DrugId, Convert.ToInt32(HttpContext.Current.Session["StoreID"])).Tables[0].Rows[0];
+
+                        //Check if the correct regimen has been pick
+                        if (SelectedDrug["GenericAbbrevation"].ToString().Length > 0)
+                        {
+                            string[] sSelectedReg = SelectedDrug["GenericAbbrevation"].ToString().ToLower().Split('/');
+                            string sCurrentReg = txtLastReg.Text.ToLower();
+
+                            foreach (string Regpart in sSelectedReg)
+                            {
+                                if (!sCurrentReg.Contains(Regpart))
+                                {
+                                    correctRegimenPicked = false;
+                                }
+                            }
+                        }
+
+                        if (correctRegimenPicked)
+                        {
+                            PopulateGrid((DataRow)SelectedDrug);
+                        }
+                        else if (!correctRegimenPicked && (ddlTreatmentPlan.SelectedItem.Text.ToLower().Contains("change")
+                            || ddlTreatmentPlan.SelectedItem.Text.ToLower().Contains("substitute")
+                            || ddlTreatmentPlan.SelectedItem.Text.ToLower().Contains("switch")))
+                        {
+                            PopulateGrid((DataRow)SelectedDrug);
+                        }
+                        else if (txtLastReg.Text.Length == 0)
+                        {
+                            PopulateGrid((DataRow)SelectedDrug);
+                        }
+                        else
+                        {
+                            PopulateGrid((DataRow)SelectedDrug);
                         }
                     }
                 }
@@ -768,7 +876,7 @@ namespace PresentationApp.PharmacyDispense
                 IQCareMsgBox.Show("#C1", theBuilder, this);
                 Label lblError = new Label();
                 lblError.Text = (Master.FindControl("lblError") as Label).Text;
-              
+
                 return false;
             }
             if (ddlRegimenCode.SelectedValue == "0" && hdnregimenCode.Value != "hidden")
@@ -785,6 +893,16 @@ namespace PresentationApp.PharmacyDispense
             {
                 MsgBuilder theBuilder = new MsgBuilder();
                 theBuilder.DataElements["MessageText"] = "Please Select Treatment Program ";
+                IQCareMsgBox.Show("#C1", theBuilder, this);
+                Label lblError = new Label();
+                lblError.Text = (Master.FindControl("lblError") as Label).Text;
+                return false;
+            }
+            //Validation for ddlTreatmentPlan 
+            if (ddlTreatmentPlan.SelectedValue == "0")
+            {
+                MsgBuilder theBuilder = new MsgBuilder();
+                theBuilder.DataElements["MessageText"] = "Please Select Treatment Plan ";
                 IQCareMsgBox.Show("#C1", theBuilder, this);
                 Label lblError = new Label();
                 lblError.Text = (Master.FindControl("lblError") as Label).Text;
@@ -900,77 +1018,120 @@ namespace PresentationApp.PharmacyDispense
 
             }
             else if (Convert.ToInt32(Session["Paperless"]) == 1)
-            {                
+            {
                 if (Convert.ToInt32(Session["PatientVisitID"]) != 0)
                 {
-                    if (Session["SCMModule"] != null)
+                    /*
+                     * Modified by : Gaurav 
+                     * Dated: 28 Apr 2016
+                     * Purpose: dispenser or the prescriber to correct the error of the missed dosing if ststus is "New Order"
+                     */
+
+                    if (Session["typeOfDispense"].ToString().ToLower() != "new order")
                     {
-                        if ((Session["SCMModule"] == "PMSCM") && ddlDispensingStore.CssClass != "hidden")
+                        if (Session["SCMModule"] != null)
                         {
-                            if (ddlDispensingStore.SelectedValue == "0")
+                            if ((Session["SCMModule"] == "PMSCM") && ddlDispensingStore.CssClass != "hidden")
                             {
-                                MsgBuilder theBuilder = new MsgBuilder();
-                                theBuilder.DataElements["MessageText"] = "Please Select Dispensing Store";
-                                IQCareMsgBox.Show("#C1", theBuilder, this);
-                                Label lblError = new Label();
-                                lblError.Text = (Master.FindControl("lblError") as Label).Text;
-                                return false;
-                            }
-                        }
-                    }
-                    if (ddlDispensedBy.SelectedValue == "0")
-                    {
-                        MsgBuilder theBuilder = new MsgBuilder();
-                        theBuilder.DataElements["MessageText"] = "Please Select Dispensed by";
-                        IQCareMsgBox.Show("#C1", theBuilder, this);
-                        Label lblError = new Label();
-                        lblError.Text = (Master.FindControl("lblError") as Label).Text;
-                        return false;
-                    }
-                    if (txtDispenseDate.Text == "")
-                    {
-                        MsgBuilder theBuilder = new MsgBuilder();
-                        theBuilder.DataElements["MessageText"] = "Please Enter Dispensed Date";
-                        IQCareMsgBox.Show("#C1", theBuilder, this);
-                        Label lblError = new Label();
-                        lblError.Text = (Master.FindControl("lblError") as Label).Text;
-                        return false;
-                    }
-                    bool error = false;
-                    string Messege = "";
-                    string msg = "Please select the batch number for: ";
-                    foreach (GridViewRow gvRow in gvDispenseDrugs.Rows)
-                    {
-                        Label lblDrugName = (Label)gvRow.FindControl("lblDrugName");
-                        TextBox txtQtyDispensed = (TextBox)gvRow.FindControl("txtQtyDispensed");
-                        DropDownList ddlBatchNo = (DropDownList)gvRow.FindControl("ddlBatchNo");
-                        if ((ddlBatchNo.SelectedValue == null || ddlBatchNo.SelectedValue == "" || ddlBatchNo.SelectedValue == "0"))
-                        {
-                            if (Session["SCMModule"] != null)
-                            {
-                                if (txtQtyDispensed.Text != null && Convert.ToInt32(txtQtyDispensed.Text) > 0 && (Session["SCMModule"] == "PMSCM") && ddlDispensingStore.CssClass != "hidden")
+                                if (ddlDispensingStore.SelectedValue == "0")
                                 {
-                                    Messege += Messege + lblDrugName.Text + "</br>";
-                                    error = true;
+                                    MsgBuilder theBuilder = new MsgBuilder();
+                                    theBuilder.DataElements["MessageText"] = "Please Select Dispensing Store";
+                                    IQCareMsgBox.Show("#C1", theBuilder, this);
+                                    Label lblError = new Label();
+                                    lblError.Text = (Master.FindControl("lblError") as Label).Text;
+                                    return false;
                                 }
                             }
                         }
+                        if (ddlDispensedBy.SelectedValue == "0")
+                        {
+                            MsgBuilder theBuilder = new MsgBuilder();
+                            theBuilder.DataElements["MessageText"] = "Please Select Dispensed by";
+                            IQCareMsgBox.Show("#C1", theBuilder, this);
+                            Label lblError = new Label();
+                            lblError.Text = (Master.FindControl("lblError") as Label).Text;
+                            return false;
+                        }
+                        if (txtDispenseDate.Text == "")
+                        {
+                            MsgBuilder theBuilder = new MsgBuilder();
+                            theBuilder.DataElements["MessageText"] = "Please Enter Dispensed Date";
+                            IQCareMsgBox.Show("#C1", theBuilder, this);
+                            Label lblError = new Label();
+                            lblError.Text = (Master.FindControl("lblError") as Label).Text;
+                            return false;
+                        }
+                        bool error = false;
+                        string Messege = "";
+                        string msg = "Please select the batch number for: ";
+                        foreach (GridViewRow gvRow in gvDispenseDrugs.Rows)
+                        {
+                            Label lblDrugName = (Label)gvRow.FindControl("lblDrugName");
+                            TextBox txtQtyDispensed = (TextBox)gvRow.FindControl("txtQtyDispensed");
+                            DropDownList ddlBatchNo = (DropDownList)gvRow.FindControl("ddlBatchNo");
+                            if ((ddlBatchNo.SelectedValue == null || ddlBatchNo.SelectedValue == "" || ddlBatchNo.SelectedValue == "0"))
+                            {
+                                if (Session["SCMModule"] != null)
+                                {
+                                    if (txtQtyDispensed.Text != null && Convert.ToInt32(txtQtyDispensed.Text) > 0 && (Session["SCMModule"] == "PMSCM") && ddlDispensingStore.CssClass != "hidden")
+                                    {
+                                        Messege += Messege + lblDrugName.Text + "</br>";
+                                        error = true;
+                                    }
+                                }
+                            }
 
+                        }
+                        if (error)
+                        {
+                            MsgBuilder theBuilder = new MsgBuilder();
+                            theBuilder.DataElements["MessageText"] = msg + Messege;
+                            IQCareMsgBox.Show("#C1", theBuilder, this);
+                            Label lblError = new Label();
+                            lblError.Text = (Master.FindControl("lblError") as Label).Text;
+                            return false;
+                        }
                     }
-                    if (error)
+                    else
                     {
-                        MsgBuilder theBuilder = new MsgBuilder();
-                        theBuilder.DataElements["MessageText"] = msg + Messege;
-                        IQCareMsgBox.Show("#C1", theBuilder, this);
-                        Label lblError = new Label();
-                        lblError.Text = (Master.FindControl("lblError") as Label).Text;
-                        return false;
+                        bool error = false;
+                        string Messege = "";
+                        string msg = "Please select the batch number for: ";
+                        foreach (GridViewRow gvRow in gvDispenseDrugs.Rows)
+                        {
+                            Label lblDrugName = (Label)gvRow.FindControl("lblDrugName");
+                            TextBox txtQtyDispensed = (TextBox)gvRow.FindControl("txtQtyDispensed");
+                            DropDownList ddlBatchNo = (DropDownList)gvRow.FindControl("ddlBatchNo");
+                            if ((ddlBatchNo.SelectedValue == null || ddlBatchNo.SelectedValue == "" || ddlBatchNo.SelectedValue == "0"))
+                            {
+                                if (Session["SCMModule"] != null)
+                                {
+                                    if (txtQtyDispensed.Text != null && Convert.ToInt32(txtQtyDispensed.Text) > 0 && (Session["SCMModule"] == "PMSCM") && ddlDispensingStore.CssClass != "hidden")
+                                    {
+                                        Messege += Messege + lblDrugName.Text + "</br>";
+                                        error = true;
+                                    }
+                                }
+                            }
+
+                        }
+                        if (error)
+                        {
+                            MsgBuilder theBuilder = new MsgBuilder();
+                            theBuilder.DataElements["MessageText"] = msg + Messege;
+                            IQCareMsgBox.Show("#C1", theBuilder, this);
+                            Label lblError = new Label();
+                            lblError.Text = (Master.FindControl("lblError") as Label).Text;
+                            return false;
+                        }
                     }
+
                 }
 
             }
 
-            
+
             IQCareMsgBox.HideMessage(this);
             return true;
         }
@@ -1024,6 +1185,7 @@ namespace PresentationApp.PharmacyDispense
                             int DispensedBy = Convert.ToInt32(ddlDispensedBy.SelectedValue);
                             int iStoreID = Convert.ToInt32(ddlDispensingStore.SelectedValue);
                             string NextAppointmentDate = txtNextApptDate.Text;
+                            int therapyPlan = Convert.ToInt32(ddlTreatmentPlan.SelectedValue);
 
                             if (theAge > 15)
                                 theProgId = 116;
@@ -1035,18 +1197,61 @@ namespace PresentationApp.PharmacyDispense
 
                             IDrug thePharmacyManager = (IDrug)ObjectFactory.CreateInstance("BusinessProcess.SCM.BDrug, BusinessProcess.SCM");
 
+                            PrescriptionManager = (IDrug)ObjectFactory.CreateInstance("BusinessProcess.SCM.BDrug,BusinessProcess.SCM");
+                            DataSet dsPharmacyVitals = PrescriptionManager.GetPharmacyVitals(Convert.ToInt32(Session["PatientID"]));
+                            bool IsUpdateIPT = true;
+                            if (dsPharmacyVitals.Tables[3].Rows[0]["OnTBtreatment"].ToString() == "Yes")
+                            {
+                                IsUpdateIPT = false;
+                            }
+                            else
+                            {
+                                IsUpdateIPT = true;
+                            }
 
                             if (Convert.ToInt32(HttpContext.Current.Session["PartialDispense"]) != 1)
                             {
                                 //Save normal dispensing
-                                DataTable dtPharmacyDetails = thePharmacyManager.SavePharmacyDispense_Web(Convert.ToInt32(Session["PatientID"]), Convert.ToInt32(Session["AppLocationId"]), iStoreID, Convert.ToInt32(Session["AppUserId"]), DispensedBy,
-                                    txtDispenseDate.Text, theProgId, Convert.ToInt32(ddlTreatmentProg.SelectedValue), theRegimen, theOrderId, theDT,
-                                    NextAppointmentDate, datastatus, Convert.ToInt32(ddlPrescribedBy.SelectedValue), txtprescriptionDate.Text, ViewState["deleteScript"] == null ? "" : ViewState["deleteScript"].ToString(), int.Parse(ddlregimenLine.SelectedValue), int.Parse(ddlRegimenCode.SelectedValue));
+                                DataTable dtPharmacyDetails = thePharmacyManager.SavePharmacyDispense_Web(
+                                PatientId: Convert.ToInt32(Session["PatientID"]),
+                                LocationId: Convert.ToInt32(Session["AppLocationId"]),
+                                StoreId: iStoreID,
+                                UserId: Convert.ToInt32(Session["AppUserId"]),
+                                dispensedBy: DispensedBy,
+                                DispDate: txtDispenseDate.Text,
+                                OrderType: (int)Convert.ToDouble(Session["PatientAge"].ToString()) >= 15 ? 116 : 117,
+                                ProgramId: theProgId,
+                                    //Convert.ToInt32(ddlTreatmentProg.SelectedValue), 
+                                Regimen: theRegimen,
+                                OrderId: theOrderId,
+                                theDT: theDT,
+                                PharmacyRefillDate: NextAppointmentDate,
+                                DataStatus: datastatus,
+                                orderedBy: Convert.ToInt32(ddlPrescribedBy.SelectedValue),
+                                orderDate: txtprescriptionDate.Text,
+                                deleteScript: ViewState["deleteScript"] == null ? "" : ViewState["deleteScript"].ToString(),
+                                regimenLine: string.IsNullOrEmpty(ddlregimenLine.SelectedValue) == true ? 0 : int.Parse(ddlregimenLine.SelectedValue),
+                                regimenCode: string.IsNullOrEmpty(ddlRegimenCode.SelectedValue) == true ? 0 : int.Parse(ddlRegimenCode.SelectedValue),
+                                therapyPlan: Convert.ToInt32(therapyPlan.ToString()));
                                 int val = theOrderId;
                                 int ptnPharmacyPK = Convert.ToInt32(dtPharmacyDetails.Rows[0]["Ptn_Pharmacy_Pk"].ToString());
 
                                 SaveUpdateArt(ptnPharmacyPK);
-
+                                if (IsUpdateIPT)
+                                {
+                                    int visitId = Convert.ToInt32(dtPharmacyDetails.Rows[0]["VisitId"].ToString());
+                                    string IPTStartdt = string.Empty;
+                                    string IPTEnddt = string.Empty;
+                                    if (string.IsNullOrEmpty(this.txtIPTStartDate.Text) == true || string.IsNullOrWhiteSpace(this.txtIPTStartDate.Text) == true)
+                                        IPTStartdt = "01-01-1900";
+                                    else
+                                        IPTStartdt = this.txtIPTStartDate.Text;
+                                    if (string.IsNullOrEmpty(this.txtIPTEndDate.Text) == true || string.IsNullOrWhiteSpace(this.txtIPTEndDate.Text) == true)
+                                        IPTEnddt = "01-01-1900";
+                                    else
+                                        IPTEnddt = this.txtIPTEndDate.Text;
+                                    thePharmacyManager.SaveUpdateIPTData(Convert.ToInt32(Session["PatientID"]), visitId, Convert.ToDateTime(IPTStartdt), Convert.ToDateTime(IPTEnddt));
+                                }
                                 //Unlock patient
                                 thePharmacyManager.LockpatientForDispensing(Convert.ToInt32(Session["PatientID"]), 0, Session["AppUserName"].ToString(), DateTime.Now.ToString("dd-MMM-yyyy"), false);
 
@@ -1057,12 +1262,28 @@ namespace PresentationApp.PharmacyDispense
                             {
                                 DataTable dtPharmacyDetails = thePharmacyManager.SavePharmacyDispense_Web(Convert.ToInt32(Session["PatientID"]), Convert.ToInt32(Session["AppLocationId"]), iStoreID, Convert.ToInt32(Session["AppUserId"]), DispensedBy,
                                   txtDispenseDate.Text, theProgId, Convert.ToInt32(ddlTreatmentProg.SelectedValue), theRegimen, theOrderId, theDT,
-                                                  NextAppointmentDate, datastatus, Convert.ToInt32(ddlPrescribedBy.SelectedValue), txtprescriptionDate.Text, ViewState["deleteScript"] == null ? "" : ViewState["deleteScript"].ToString(), int.Parse(ddlregimenLine.SelectedValue), int.Parse(ddlRegimenCode.SelectedValue));
+                                                  NextAppointmentDate, datastatus, Convert.ToInt32(ddlPrescribedBy.SelectedValue), txtprescriptionDate.Text, ViewState["deleteScript"] == null ? "" : ViewState["deleteScript"].ToString(), int.Parse(ddlregimenLine.SelectedValue), int.Parse(ddlRegimenCode.SelectedValue)
+                                                  , Convert.ToInt32(therapyPlan.ToString()));
                                 int val = theOrderId;
                                 int ptnPharmacyPK = Convert.ToInt32(dtPharmacyDetails.Rows[0]["Ptn_Pharmacy_Pk"].ToString());
                                 //Session["ptnPharmacyPK"] = ptnPharmacyPK;
                                 SaveUpdateArt(ptnPharmacyPK);
 
+                                if (IsUpdateIPT)
+                                {
+                                    int visitId = Convert.ToInt32(dtPharmacyDetails.Rows[0]["VisitId"].ToString());
+                                    string IPTStartdt = string.Empty;
+                                    string IPTEnddt = string.Empty;
+                                    if (string.IsNullOrEmpty(this.txtIPTStartDate.Text) == true || string.IsNullOrWhiteSpace(this.txtIPTStartDate.Text) == true)
+                                        IPTStartdt = "01-01-1900";
+                                    else
+                                        IPTStartdt = this.txtIPTStartDate.Text;
+                                    if (string.IsNullOrEmpty(this.txtIPTEndDate.Text) == true || string.IsNullOrWhiteSpace(this.txtIPTEndDate.Text) == true)
+                                        IPTEnddt = "01-01-1900";
+                                    else
+                                        IPTEnddt = this.txtIPTEndDate.Text;
+                                    thePharmacyManager.SaveUpdateIPTData(ptnPharmacyPK, visitId, Convert.ToDateTime(IPTStartdt), Convert.ToDateTime(IPTEnddt));
+                                }
                                 //Unlock patient
                                 thePharmacyManager.LockpatientForDispensing(Convert.ToInt32(Session["PatientID"]), 0, Session["AppUserName"].ToString(), DateTime.Now.ToString("dd-MMM-yyyy"), false);
 
@@ -1165,7 +1386,9 @@ namespace PresentationApp.PharmacyDispense
 
             DataSet theDS1 = thePharmacyManager1.SaveHivTreatementPharmacyField(OrderID, theWeight, theHeight,
                                                 Convert.ToInt32(ddlTreatmentProg.SelectedValue), /*Convert.ToInt32(cmdPeriodTaken.SelectedValue)*/ 0,
-                /*Convert.ToInt32(cmbProvider.SelectedValue)*/ 0, Convert.ToInt32(ddlregimenLine.SelectedValue), Convert.ToInt32(ddlRegimenCode.SelectedValue),
+                /*Convert.ToInt32(cmbProvider.SelectedValue)*/ 0,
+                                                string.IsNullOrEmpty(ddlregimenLine.SelectedValue) == true ? 0 : Convert.ToInt32(ddlregimenLine.SelectedValue),
+                                                string.IsNullOrEmpty(ddlRegimenCode.SelectedValue) == true ? 0 : Convert.ToInt32(ddlRegimenCode.SelectedValue),
                                                 Convert.ToDateTime(theNxtApointmentDate), /*Convert.ToInt32(cmbReason.SelectedValue)*/ 0);
             return;
         }
@@ -1333,11 +1556,18 @@ namespace PresentationApp.PharmacyDispense
                     gvDispenseDrugs.DataSource = null;
                     gvDispenseDrugs.DataSource = theDS.Tables[0];
                     gvDispenseDrugs.DataBind();
+                    HttpContext.Current.Session["StoreID"] = theDS.Tables[1].Rows[0]["StoreId"].ToString();
                     Session["ptnPharmacyPK"] = theDS.Tables[1].Rows[0]["ptn_pharmacy_pk"].ToString();
                     ddlPrescribedBy.SelectedValue = theDS.Tables[1].Rows[0]["OrderedBy"].ToString();
                     //added by VY
                     ddlTreatmentProg.SelectedValue = theDS.Tables[0].Rows[0]["TreatmentProgram"].ToString();
                     ddlregimenLine.SelectedValue = theDS.Tables[0].Rows[0]["RegimenLine"].ToString();
+
+                    // Add by Gaurav, Dated 19 May 2016, Purpose: Get treatment plan from pharmacy table
+                    if (Convert.ToInt32(theDS.Tables[0].Rows[0]["TreatmentPlan"].ToString()) != 0)
+                    {
+                        ddlTreatmentPlan.SelectedValue = theDS.Tables[0].Rows[0]["TreatmentPlan"].ToString();
+                    }
 
                     ddlRegimenCode.SelectedValue = theDS.Tables[0].Rows[0]["RegimenId"].ToString();
 
@@ -1361,12 +1591,29 @@ namespace PresentationApp.PharmacyDispense
                     {
                         if (Convert.ToInt16(Session["Paperless"]) == 1)
                         {
-                            (gvRow.FindControl("txtMorning") as TextBox).Enabled = false;
-                            (gvRow.FindControl("txtMidday") as TextBox).Enabled = false;
-                            (gvRow.FindControl("txtEvening") as TextBox).Enabled = false;
-                            (gvRow.FindControl("txtNight") as TextBox).Enabled = false;
-                            (gvRow.FindControl("txtDuration") as TextBox).Enabled = false;
-                            (gvRow.FindControl("txtQtyPrescribed") as TextBox).Enabled = false;
+                            /*
+                             * Modified by : Gaurav 
+                             * Dated: 28 Apr 2016
+                             * Purpose: dispenser or the prescriber to correct the error of the missed dosing if ststus is "New Order"
+                             */
+                            if (Session["typeOfDispense"].ToString().ToLower() == "new order")
+                            {
+                                (gvRow.FindControl("txtMorning") as TextBox).Enabled = true;
+                                (gvRow.FindControl("txtMidday") as TextBox).Enabled = true;
+                                (gvRow.FindControl("txtEvening") as TextBox).Enabled = true;
+                                (gvRow.FindControl("txtNight") as TextBox).Enabled = true;
+                                (gvRow.FindControl("txtDuration") as TextBox).Enabled = true;
+                                (gvRow.FindControl("txtQtyPrescribed") as TextBox).Enabled = true;
+                            }
+                            else
+                            {
+                                (gvRow.FindControl("txtMorning") as TextBox).Enabled = false;
+                                (gvRow.FindControl("txtMidday") as TextBox).Enabled = false;
+                                (gvRow.FindControl("txtEvening") as TextBox).Enabled = false;
+                                (gvRow.FindControl("txtNight") as TextBox).Enabled = false;
+                                (gvRow.FindControl("txtDuration") as TextBox).Enabled = false;
+                                (gvRow.FindControl("txtQtyPrescribed") as TextBox).Enabled = false;
+                            }
 
 
                             if (Session["typeOfDispense"].ToString().ToLower() == "partial dispense")
@@ -1409,7 +1656,7 @@ namespace PresentationApp.PharmacyDispense
                 if (Convert.ToInt16(Session["Paperless"]) == 1)
                 {
                     ddlPrescribedBy.SelectedValue = Session["AppUserEmployeeId"].ToString();
-                    ddlDispensedBy.SelectedValue = Session["AppUserEmployeeId"].ToString();
+                    //ddlDispensedBy.SelectedValue = Session["AppUserEmployeeId"].ToString();
                 }
                 txtprescriptionDate.Text = Application["AppCurrentDate"].ToString();
                 txtDispenseDate.Text = Application["AppCurrentDate"].ToString();
@@ -1527,24 +1774,24 @@ namespace PresentationApp.PharmacyDispense
             theDS.ReadXml(MapPath("..\\XMLFiles\\ALLMasters.con"));
             BindFunctions BindManager = new BindFunctions();
             IQCareUtils theUtils = new IQCareUtils();
-            if (theDS.Tables["Mst_Employee"] != null)
-            {
-                DataView theDV = new DataView(theDS.Tables["Mst_Employee"]);
-                theDV.RowFilter = "DeleteFlag = 0";
-                if (theDV.Table != null)
-                {
-                    DataTable theDT = (DataTable)theUtils.CreateTableFromDataView(theDV);
-                    if (Convert.ToInt32(Session["AppUserEmployeeId"]) > 0)
-                    {
-                        theDV = new DataView(theDT);
-                        theDV.RowFilter = "EmployeeId IN(" + Session["AppUserEmployeeId"].ToString() + "," + EmployeeId + ")";
-                        if (theDV.Count > 0)
-                            theDT = theUtils.CreateTableFromDataView(theDV);
-                    }
-                    //BindManager.BindCombo(ddlDispensedBy, theDT, "EmployeeName", "EmployeeId");
-                    BindUserDropdown(ddlDispensedBy, string.Empty);
-                }
-            }
+            //if (theDS.Tables["Mst_Employee"] != null)
+            //{
+            //    DataView theDV = new DataView(theDS.Tables["Mst_Employee"]);
+            //    theDV.RowFilter = "DeleteFlag = 0";
+            //    if (theDV.Table != null)
+            //    {
+            //        DataTable theDT = (DataTable)theUtils.CreateTableFromDataView(theDV);
+            //        if (Convert.ToInt32(Session["AppUserEmployeeId"]) > 0)
+            //        {
+            //            theDV = new DataView(theDT);
+            //            theDV.RowFilter = "EmployeeId IN(" + Session["AppUserEmployeeId"].ToString() + "," + EmployeeId + ")";
+            //            if (theDV.Count > 0)
+            //                theDT = theUtils.CreateTableFromDataView(theDV);
+            //        }
+            //        //BindManager.BindCombo(ddlDispensedBy, theDT, "EmployeeName", "EmployeeId");
+            //        BindUserDropdown(ddlDispensedBy, string.Empty);
+            //    }
+            //}
             //vy added regimenLine
 
             if (theDS.Tables["mst_RegimenLine"] != null)
@@ -1632,8 +1879,10 @@ namespace PresentationApp.PharmacyDispense
             dtpSpan.Style.Add("display", "inline");
             ddlPrescribedBy.SelectedIndex = 0;
             ddlDispensedBy.SelectedIndex = 0;
-            txtprescriptionDate.Text = "";
-            txtDispenseDate.Text = "";
+            //txtprescriptionDate.Text = "";
+            //txtDispenseDate.Text = "";
+            txtprescriptionDate.Text = Application["AppCurrentDate"].ToString();
+            txtDispenseDate.Text = Application["AppCurrentDate"].ToString();
             txtDrug.Enabled = true;
         }
 

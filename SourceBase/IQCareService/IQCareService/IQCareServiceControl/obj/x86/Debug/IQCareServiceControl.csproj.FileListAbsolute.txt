@@ -1,0 +1,1 @@
+C:\Projects\IQCare 3.8.1\SourceBase\IQCareService\IQCareService\IQCareServiceControl\bin\Debug\IQCareServiceControl.exe.config

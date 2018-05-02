@@ -111,7 +111,7 @@
                 <tr>
                     <td class="pad5 formbg border" colspan="2">
                         <div id="divbtnPriorART" class="whitebg" align="center">
-                            <asp:Button ID="btnAddPriorART" Text="Add Prior ART" runat="server" OnClick="btnAddPriorART_Click" /></div>
+                            <asp:Button ID="btnAddPriorART" Text="Add Prior ART" runat="server" OnClick="btnAddPriorART_Click" CssClass="btn btn-primary" Height="26px"/></div>
                     </td>
                 </tr>
                 <caption>

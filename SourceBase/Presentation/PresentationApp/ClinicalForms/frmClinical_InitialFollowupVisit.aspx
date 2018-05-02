@@ -437,7 +437,7 @@
                                         <asp:DropDownList ID="ddlFamilyPanningStatus" onchange="fnfamilyplanning();" runat="server">
                                         </asp:DropDownList>
                                         <div class="divborder checkbox" id="divFamilyPlanningMethod" style="display: none">
-                                            <asp:Panel ID="PnlFamilyPlanningMethod" runat="server">
+                                            <asp:Panel ID="PnlFamilyPlanningMethod" runat="server" Style="margin-left: 5.5%;">
                                             </asp:Panel>
                                         </div>
                                     </td>
@@ -774,6 +774,24 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="form" colspan="2">
+                            <asp:Panel ID="pnlCustomList" Visible="false" runat="server" Height="100%" Width="100%"
+                                Wrap="true">
+                            </asp:Panel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="pad5 center whitebg border" colspan="2">
+                            <br />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="divNextAppDate" class="border center formbg">
+            <table class="table-condensed" width="100%" border="0">
+                <tbody>
+                    <tr>
                         <td class="border pad5 whitebg" align="center" width="50%">
                             <label id="lblNextAppointment" class="center" runat="server">
                                 Date of Next Appointment:
@@ -790,18 +808,6 @@
                             </label>
                             <asp:DropDownList ID="ddlattendingclinician" runat="server">
                             </asp:DropDownList>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="form" colspan="2">
-                            <asp:Panel ID="pnlCustomList" Visible="false" runat="server" Height="100%" Width="100%"
-                                Wrap="true">
-                            </asp:Panel>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="pad5 center whitebg border" colspan="2">
-                            <br />
                         </td>
                     </tr>
                 </tbody>

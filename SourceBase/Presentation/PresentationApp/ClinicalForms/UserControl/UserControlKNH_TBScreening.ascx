@@ -1208,10 +1208,10 @@
         </tr>
         <tr>
             <td class="form" align="center">
-                <asp:Button ID="btnTBSave" runat="server" Text="Save" OnClick="btnTBSave_Click" /><asp:Button
+                <asp:Button ID="btnTBSave" runat="server" Text="Save" OnClick="btnTBSave_Click" CssClass="btn btn-primary" Height="26px"/><asp:Button
                     ID="btnTBDQC" runat="server" Text="Data Quality Check" Visible="False" />
-                <asp:Button ID="btnTBClose" runat="server" Text="Close" OnClick="btnTBClose_Click" /><asp:Button
-                    ID="btnTBPrint" runat="server" Text="Print" OnClientClick="WindowPrint();" />
+                <asp:Button ID="btnTBClose" runat="server" Text="Close" OnClick="btnTBClose_Click" CssClass="btn btn-primary" Height="26px"/><asp:Button
+                    ID="btnTBPrint" runat="server" Text="Print" OnClientClick="WindowPrint();" CssClass="btn btn-primary" Height="26px"/>
             </td>
         </tr>
     </table>

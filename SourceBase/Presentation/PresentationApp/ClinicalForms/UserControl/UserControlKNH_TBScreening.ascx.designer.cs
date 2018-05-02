@@ -325,7 +325,7 @@ namespace PresentationApp.ClinicalForms.UserControl {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCXRResults;
+        public global::System.Web.UI.WebControls.DropDownList ddlCXRResults;
         
         /// <summary>
         /// txtOtherCXRResults control.
@@ -334,7 +334,7 @@ namespace PresentationApp.ClinicalForms.UserControl {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtOtherCXRResults;
+        public global::System.Web.UI.WebControls.TextBox txtOtherCXRResults;
         
         /// <summary>
         /// lblTissueBiopsy control.
@@ -460,7 +460,7 @@ namespace PresentationApp.ClinicalForms.UserControl {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtOtherTreatmentOutcome;
+        public global::System.Web.UI.WebControls.TextBox txtOtherTreatmentOutcome;
         
         /// <summary>
         /// CollapsiblePanelExtender2 control.
@@ -514,7 +514,7 @@ namespace PresentationApp.ClinicalForms.UserControl {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlReasonDeclinedIPT;
+        public global::System.Web.UI.WebControls.DropDownList ddlReasonDeclinedIPT;
         
         /// <summary>
         /// txtOtherReasonDeclinedIPT control.
@@ -523,7 +523,7 @@ namespace PresentationApp.ClinicalForms.UserControl {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtOtherReasonDeclinedIPT;
+        public global::System.Web.UI.WebControls.TextBox txtOtherReasonDeclinedIPT;
         
         /// <summary>
         /// txtINHStartDate control.
@@ -631,7 +631,7 @@ namespace PresentationApp.ClinicalForms.UserControl {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList cblSignsOfHepatitis;
+        public global::System.Web.UI.WebControls.CheckBoxList cblSignsOfHepatitis;
         
         /// <summary>
         /// txtSpecifyOtherTBSideEffects control.
@@ -685,7 +685,7 @@ namespace PresentationApp.ClinicalForms.UserControl {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList cblStopTBReason;
+        public global::System.Web.UI.WebControls.CheckBoxList cblStopTBReason;
         
         /// <summary>
         /// CollapsiblePanelExtender4 control.

@@ -22,6 +22,33 @@ namespace PresentationApp.AdminForms {
         protected global::System.Web.UI.WebControls.Label lblH2;
         
         /// <summary>
+        /// txtLabName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtLabName;
+        
+        /// <summary>
+        /// ddDepartment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddDepartment;
+        
+        /// <summary>
+        /// ddStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddStatus;
+        
+        /// <summary>
         /// grdLabs control.
         /// </summary>
         /// <remarks>

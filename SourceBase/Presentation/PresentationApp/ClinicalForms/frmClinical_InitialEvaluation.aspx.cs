@@ -160,6 +160,7 @@ public partial class frmClinical_InitialEvaluation : BasePage, ICallbackEventHan
             return false;
         }
 
+
         IQCareUtils theUtil = new IQCareUtils();
         if (Convert.ToDateTime(Application["AppCurrentDate"]) < Convert.ToDateTime(theUtil.MakeDate(txtvisitDate.Text)))
         {
@@ -206,16 +207,19 @@ public partial class frmClinical_InitialEvaluation : BasePage, ICallbackEventHan
             return false;
         }
 
-        if (this.lstappPeriod.SelectedIndex != 0 || this.lstappPeriod.SelectedIndex == 0)
+        if (Session["PaperLess"].ToString() == "1")
         {
-            if (txtappDate.Value != "")
+            if (this.lstappPeriod.SelectedIndex != 0 || this.lstappPeriod.SelectedIndex == 0)
             {
-                //if (Convert.ToDateTime(theUtil.MakeDate(txtappDate.Value)) < Convert.ToDateTime(theUtil.MakeDate(txtvisitDate.Text)))
-                //{
-                //    IQCareMsgBox.Show("App_Visit", this);
-                //    txtappDate.Focus();
-                //    return false;
-                //}
+                if (txtappDate.Value != "")
+                {
+                    if (Convert.ToDateTime(theUtil.MakeDate(txtappDate.Value)) < Convert.ToDateTime(theUtil.MakeDate(DateTime.Today.ToString())))
+                    {
+                        IQCareMsgBox.Show("Appointment date cannot be in past.", "", "OK", this);
+                        txtappDate.Focus();
+                        return false;
+                    }
+                }
             }
         }
 
@@ -514,7 +518,7 @@ public partial class frmClinical_InitialEvaluation : BasePage, ICallbackEventHan
             return false;
         }
         //Current ART Validation
-        if (dateconstraint)
+        if (!dateconstraint)
         {
             if (txtcurrentART.Value.Trim() == "")
             {
@@ -4378,11 +4382,11 @@ public partial class frmClinical_InitialEvaluation : BasePage, ICallbackEventHan
             }
 
             //Privilages for Care End
-            if (Convert.ToString(Session["CareEndFlag"]) == "1" && Convert.ToString(Session["CareendedStatus"]) == "1")
-            {
-                btnsave.Enabled = true;
-                btncomplete.Enabled = true;
-            }
+            //if (Convert.ToString(Session["CareEndFlag"]) == "1" && Convert.ToString(Session["CareendedStatus"]) == "1")
+            //{
+            //    btnsave.Enabled = true;
+            //    btncomplete.Enabled = true;
+            //}
 
         }
 
@@ -4698,11 +4702,12 @@ public partial class frmClinical_InitialEvaluation : BasePage, ICallbackEventHan
     protected void btnRegimen_Click(object sender, EventArgs e)
     {
         string theScript;
-        //Application.Add("MasterData", ViewState["MasterData"]);
-        Application.Add("MasterData", ViewState["ARVMasterData"]);
+        Application.Add("MasterData", ViewState["MasterData"]);
+        Session["DrugData"] = ViewState["MasterData"];
+        //Application.Add("MasterData", ViewState["ARVMasterData"]);ViewState["MasterData"]
         Application.Add("SelectedDrug", (DataTable)ViewState["SelectedData"]);
-        //ViewState.Remove("MasterData");
-        ViewState.Remove("ARVMasterData");
+        ViewState.Remove("MasterData");
+        //ViewState.Remove("ARVMasterData");
         theScript = "<script language='javascript' id='DrgPopup'>\n";
         theScript += "window.open('../Pharmacy/frmDrugSelector.aspx?DrugType=37&btnreg=" + btnRegimen.ID + "' ,'DrugSelection','toolbars=no,location=no,directories=no,dependent=yes,top=10,left=30,maximize=no,resize=no,width=700,height=350,scrollbars=yes');\n";
         theScript += "</script>\n";

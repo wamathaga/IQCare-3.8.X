@@ -1677,7 +1677,8 @@ public partial class frmFacilityHome : LogPage
         GetSQLAuditData();
         (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblheader") as Label).Text = "Facility Home";
         (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblRoot") as Label).Visible = false;
-       
+        IQWebUtils Utils = new IQWebUtils();
+        Utils.HidePatientLevelheader();
         //(Master.FindControl("lblheaderfacility") as Label).Visible = false;
         //(Master.FindControl("lblheader") as Label).Text = "Facility Home";
         try

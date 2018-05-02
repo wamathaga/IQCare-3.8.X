@@ -15,6 +15,6 @@ namespace Interface.SCM
         DataSet GetStockLedgerData(int StoreId, DateTime FromDate, DateTime ToDate);
         DataSet GetBINCard(int StoreId, int ItemId, DateTime FromDate, DateTime ToDate, int LocationId);
         DataSet PharmacyDashBoard(int StoreId);
-        DataTable GetStocksPerStore(int StoreId);
+        DataTable GetStocksPerStore(int StoreId, int SupplierFlag);
     }
 }

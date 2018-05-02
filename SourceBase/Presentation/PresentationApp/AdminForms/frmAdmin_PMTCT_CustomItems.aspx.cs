@@ -30,6 +30,9 @@ public partial class AdminForms_frmAdmin_PMTCT_CustomItems : LogPage
         }
         (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblRoot") as Label).Visible = false;
         (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblheader") as Label).Text = "Customize Lists";
+        IQWebUtils Utils = new IQWebUtils();
+        Utils.HidePatientLevelheader();
+
     }
     private void BindGrid()
     {

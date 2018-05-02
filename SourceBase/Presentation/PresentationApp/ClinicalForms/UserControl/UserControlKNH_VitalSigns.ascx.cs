@@ -24,11 +24,12 @@ namespace PresentationApp.ClinicalForms.UserControl
         protected void Page_Load(object sender, EventArgs e)
         {
             KNHStatic = (IKNHStaticForms)ObjectFactory.CreateInstance("BusinessProcess.Clinical.BKNHStaticForms, BusinessProcess.Clinical");
-
+           
             if (!IsPostBack)
             {
                 addAttributes();
                 Bind_Select_Lists();
+                showHideZscores();
             }
             JavaScriptFunctionsOnLoad();
 
@@ -126,33 +127,33 @@ namespace PresentationApp.ClinicalForms.UserControl
 
         public void showHideZscores()
         {
-            if (Convert.ToDouble(Session["patientageinyearmonth"].ToString()) >= 5)
+            if (Convert.ToDouble(Session["patientageinyearmonth"].ToString()) <= 5)
             {
-                lblWALabel.Visible = false;
-                lblWA.Visible = false;
-                lblWAClassification.Visible = false;
+                lblWALabel.Style.Add("display", "none");
+                lblWA.Style.Add("display", "none");
+                lblWAClassification.Style.Add("display", "none");
 
-                lblWHLabel.Visible = false;
-                lblWH.Visible = false;
-                lblWHClassification.Visible = false;
+                lblWHLabel.Style.Add("display", "none");
+                lblWH.Style.Add("display", "none");
+                lblWHClassification.Style.Add("display", "none");
 
-                lblBMIzLabel.Visible = true;
-                lblBMIz.Visible = true;
-                lblBMIzClassification.Visible = true;
+                lblBMIzLabel.Style.Add("display", "none");
+                lblBMIz.Style.Add("display", "none");
+                lblBMIzClassification.Style.Add("display", "none");
             }
             else
             {
-                lblWALabel.Visible = true;
-                lblWA.Visible = true;
-                lblWAClassification.Visible = true;
+                lblWALabel.Style.Add("display", "block");
+                lblWA.Style.Add("display", "block");
+                lblWAClassification.Style.Add("display", "block");
 
-                lblWHLabel.Visible = true;
-                lblWH.Visible = true;
-                lblWHClassification.Visible = true;
+                lblWHLabel.Style.Add("display", "block");
+                lblWH.Style.Add("display", "block");
+                lblWHClassification.Style.Add("display", "block");
 
-                lblBMIzLabel.Visible = false;
-                lblBMIz.Visible = false;
-                lblBMIzClassification.Visible = false;
+                lblBMIzLabel.Style.Add("display", "block");
+                lblBMIz.Style.Add("display", "block");
+                lblBMIzClassification.Style.Add("display", "block");
             }
         }
 

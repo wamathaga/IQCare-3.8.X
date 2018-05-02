@@ -392,7 +392,7 @@
                                 <td width="50%" align="right">
                                     <div class="whitebg" id="divdateconstraint" runat="server">
                                         <label class="center">
-                                            Turn off Date Constraint:
+                                            Date Constraint (Check to Activate):
                                         </label>
                                     </div>
                                 </td>
@@ -450,6 +450,18 @@
                                 </td>
                                 <td width="50%" align="left">
                                     <input type="checkbox" id="chkwards" runat="server" />
+                                </td>
+                            </tr>
+                             <tr>
+                                <td width="50%" align="right">
+                                    <div class="whitebg" id="divLMIS" runat="server">
+                                        <label class="center">
+                                            LMIS (Check to Activate):
+                                        </label>
+                                    </div>
+                                </td>
+                                <td width="50%" align="left">
+                                    <input type="checkbox" id="chkLMIS" runat="server" />
                                 </td>
                             </tr>
                         </table>

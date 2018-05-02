@@ -70,7 +70,8 @@ public partial class frmAdmin_UserGroupList : LogPage
        //(Master.FindControl("lblMark") as Label).Visible = false;
         (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblRoot") as Label).Visible = false;
         (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblheader") as Label).Text = "User Group Administration";
-
+        IQWebUtils Utils = new IQWebUtils();
+        Utils.HidePatientLevelheader();
         IUserRole UserRoleManager;
         try
         {

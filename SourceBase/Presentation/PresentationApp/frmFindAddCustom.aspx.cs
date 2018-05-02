@@ -47,6 +47,11 @@ namespace IQCare.Web
                     ((Button)FindPatient.FindControl("btnAdd")).Enabled = false;
                     (FindPatient.FindControl("ddCareEndedStatus") as DropDownList).Visible = false;
                     (FindPatient.FindControl("lblCareendedstatus") as HtmlGenericControl).Visible = false;
+                    (Master.FindControl("levelTwoNavigationUserControl1").FindControl("UserControl_Alerts1") as UserControl).Visible = false;
+                    (Master.FindControl("levelTwoNavigationUserControl1").FindControl("PanelPatiInfo") as Panel).Visible = false;
+                    (Master.FindControl("patientBanner") as Control).Visible = false;
+                    (Master.FindControl("level2Navigation") as Control).Visible = false;
+                    (Master.FindControl("imageFlipLevel2") as Control).Visible = false;
                 }
             }
             catch (Exception ex)
@@ -153,6 +158,7 @@ namespace IQCare.Web
             HttpContext.Current.Session["PatientVisitId"] = 0;
             HttpContext.Current.Session["ServiceLocationId"] = 0;
             HttpContext.Current.Session["LabId"] = 0;
+            HttpContext.Current.Session["CareEndFlag"] = "0";
             /* Session["TechnicalAreaName"] = null;
              Session["TechnicalAreaId"] = 0;*/
 
@@ -163,6 +169,10 @@ namespace IQCare.Web
 
 
             HttpContext.Current.Session["PatientInformation"] = thePDS.Tables[0];
+            if (thePDS.Tables[40].Rows.Count > 0)
+            {
+                HttpContext.Current.Session["CareEndFlag"] = thePDS.Tables[40].Rows[0]["CareEnded"].ToString();
+            }            
             #endregion
             string theUrl = "";
             if (Request.QueryString["srvNm"] == "Records")

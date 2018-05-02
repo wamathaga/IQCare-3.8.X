@@ -55,7 +55,7 @@ namespace BusinessProcess.Clinical
 
                //Appointment Scheduling
                if (hashTable["visitDate"].ToString() != "")
-                   ClsUtility.AddParameters("@visitDate", SqlDbType.DateTime, hashTable["visitDate"].ToString());
+                   ClsUtility.AddParameters("@visitDate", SqlDbType.VarChar, hashTable["visitDate"].ToString());
                ClsUtility.AddParameters("@TypeofVisit", SqlDbType.Int, hashTable["TypeofVisit"].ToString());
                ClsUtility.AddParameters("@Scheduled", SqlDbType.Int, hashTable["Scheduled"].ToString());
                ClsUtility.AddParameters("@treatmentSupporterName", SqlDbType.VarChar, hashTable["treatmentSupporterName"].ToString());
@@ -83,19 +83,19 @@ namespace BusinessProcess.Clinical
                if (hashTable["pregnant"].ToString() == "89")
                {
                    if (hashTable["EDD"].ToString() != "")
-                       ClsUtility.AddParameters("@EDD", SqlDbType.DateTime, hashTable["EDD"].ToString());
+                       ClsUtility.AddParameters("@EDD", SqlDbType.VarChar, hashTable["EDD"].ToString());
                    ClsUtility.AddParameters("@ANCNo", SqlDbType.Int, hashTable["ANCNo"].ToString());
                    ClsUtility.AddParameters("@ReferredtoPMTCT", SqlDbType.Int, hashTable["ReferredtoPMTCT"].ToString());
                }
                if (hashTable["pregnant"].ToString() == "91")
                {
                    if (hashTable["DateofInducedAbortion"].ToString() != "")
-                       ClsUtility.AddParameters("@DateofInducedAbortion", SqlDbType.DateTime, hashTable["DateofInducedAbortion"].ToString());
+                       ClsUtility.AddParameters("@DateofInducedAbortion", SqlDbType.VarChar, hashTable["DateofInducedAbortion"].ToString());
                }
                if (hashTable["pregnant"].ToString() == "92")
                {
                    if (hashTable["DateofMiscarriage"].ToString() != "")
-                       ClsUtility.AddParameters("@DateofMiscarriage", SqlDbType.DateTime, hashTable["DateofMiscarriage"].ToString());
+                       ClsUtility.AddParameters("@DateofMiscarriage", SqlDbType.VarChar, hashTable["DateofMiscarriage"].ToString());
                }
 
                //Family planning
@@ -111,7 +111,7 @@ namespace BusinessProcess.Clinical
                if (hashTable.ContainsKey("TBStartDate"))
                {
                    if (hashTable["TBStartDate"].ToString() != "")
-                       ClsUtility.AddParameters("@TBRxStart", SqlDbType.DateTime, hashTable["TBStartDate"].ToString());
+                       ClsUtility.AddParameters("@TBRxStart", SqlDbType.VarChar, hashTable["TBStartDate"].ToString());
                }
                if (hashTable.ContainsKey("TBTreatmentNo"))
                {
@@ -138,7 +138,7 @@ namespace BusinessProcess.Clinical
                ClsUtility.AddParameters("@TherapyReasonCode", SqlDbType.Int, hashTable["TherapyReasonCode"].ToString());
                ClsUtility.AddParameters("@TherapyOther", SqlDbType.VarChar, hashTable["TherapyOther"].ToString());
                if (hashTable["PrescribedARVStartDate"].ToString() != "")
-                   ClsUtility.AddParameters("@PrescribedARVStartDate", SqlDbType.DateTime, hashTable["PrescribedARVStartDate"].ToString());
+                   ClsUtility.AddParameters("@PrescribedARVStartDate", SqlDbType.VarChar, hashTable["PrescribedARVStartDate"].ToString());
 
 
                ClsUtility.AddParameters("@numOfDaysHospitalized", SqlDbType.VarChar, hashTable["numOfDaysHospitalized"].ToString());
@@ -147,7 +147,7 @@ namespace BusinessProcess.Clinical
 
                ClsUtility.AddParameters("@attendingClinician", SqlDbType.Int, hashTable["attendingClinician"].ToString());
                if (hashTable["Datenextappointment"].ToString() != "")
-                   ClsUtility.AddParameters("@Datenextappointment", SqlDbType.DateTime, hashTable["Datenextappointment"].ToString());
+                   ClsUtility.AddParameters("@Datenextappointment", SqlDbType.VarChar, hashTable["Datenextappointment"].ToString());
 
 
 

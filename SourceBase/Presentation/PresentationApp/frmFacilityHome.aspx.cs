@@ -33,7 +33,7 @@ namespace IQCare.Web
                 {
                     Init_page();
                 }
-
+                createserviceButtons();
             }
             catch (Exception ex)
             {
@@ -67,7 +67,7 @@ namespace IQCare.Web
         {
             Session["PatientId"] = 0;
 
-            createserviceButtons();
+            //createserviceButtons();
         }
         private Boolean setBillingRights()
         {
@@ -146,7 +146,7 @@ namespace IQCare.Web
                 recordsCell.Attributes.Add("align", "center");
                 recordsCell.Attributes.Add("width", "25%");
                 recordsCell.Attributes.Add("height", "100px");
-              
+
                 Boolean Records = GetRecords("RECORDS", theDT);
                 if (Records == true)
                 {
@@ -187,7 +187,7 @@ namespace IQCare.Web
                     billingCell.Attributes.Add("align", "center");
                     billingCell.Attributes.Add("width", "25%");
                     billingCell.Attributes.Add("height", "100");
-                   
+
 
                     //align="center" width="25%" height =100
                     Button btnBilling = new Button();
@@ -196,7 +196,7 @@ namespace IQCare.Web
                     btnBilling.ForeColor = Color.White;
                     btnBilling.Font.Bold = true;
                     btnBilling.BorderStyle = BorderStyle.None;
-                   
+
                     btnBilling.Text = "Billing".ToUpper();
                     btnBilling.OnClientClick = "'showPopup();'";
                     btnBilling.Height = Unit.Pixel(100);
@@ -218,7 +218,7 @@ namespace IQCare.Web
                     wardCell.Attributes.Add("align", "center");
                     wardCell.Attributes.Add("width", "25%");
                     wardCell.Attributes.Add("height", "100");
-                   
+
                     //align="center" width="25%" height =100
                     Button btnWard = new Button();
                     btnWard.BackColor = System.Drawing.ColorTranslator.FromHtml(aTileBackgroundColor[cntr].ToString());
@@ -259,7 +259,7 @@ namespace IQCare.Web
                         serviceCell.Attributes.Add("align", "center");
                         serviceCell.Attributes.Add("width", "25%");
                         serviceCell.Attributes.Add("height", "100px");
-                      
+
                         Button btnService = new Button();
                         btnService.Text = dr[2].ToString().ToUpper();
                         btnService.Attributes.Add("data-moduleID", dr[1].ToString());
@@ -281,7 +281,8 @@ namespace IQCare.Web
                             if (Convert.ToInt32(dr["ModuleID"]) != 206)
                                 btnService.OnClientClick = String.Format("window.location = 'frmFindAddCustom.aspx?srvNm={0}&mod={1}'; return false;", btnService.Text, dr[1]);
                             else
-                                btnService.OnClientClick = String.Format("window.location = 'PharmacyDispense/frmPharmacyDispense_FindPatient.aspx'; return false;");
+                                //btnService.OnClientClick = String.Format("window.location = 'PharmacyDispense/frmPharmacyDispense_FindPatient.aspx'; return false;");
+                                btnService.OnClientClick = String.Format("window.location = 'PharmacyDispense/frmPharmacy_Dashboard.aspx'; return false;");
                         }
                         btnService.Height = Unit.Pixel(100);
                         //if (theDT.Rows.Count == 1)

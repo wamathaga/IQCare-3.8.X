@@ -693,7 +693,10 @@ namespace BusinessProcess.Laboratory
                         {
                             ClsUtility.AddParameters("@ReportedByDate", SqlDbType.VarChar, String.Format("{0:dd-MMM-yyyy}", Value.ReportedByDate));
                         }
-                        ClsUtility.AddParameters("@LabOrderId", SqlDbType.Int, Value.LabOrderId.ToString());
+                        if(LabId>0)
+                            ClsUtility.AddParameters("@LabOrderId", SqlDbType.Int, LabId.ToString());
+                        else
+                            ClsUtility.AddParameters("@LabOrderId", SqlDbType.Int, Value.LabOrderId.ToString());
                         ClsUtility.AddParameters("@TestResults", SqlDbType.VarChar, Value.TestResults);
                         ClsUtility.AddParameters("@TestResultId", SqlDbType.Int, Value.TestResultId.ToString());
                         ClsUtility.AddParameters("@DeleteFlag", SqlDbType.Char, Value.Flag.ToString());
@@ -701,9 +704,11 @@ namespace BusinessProcess.Laboratory
                         ClsUtility.AddParameters("@UrgentFlag", SqlDbType.Int, Value.UrgentId.ToString());
                         if (Value.LabReportByDate.Year.ToString() != "1900")
                         {
-                            ClsUtility.AddParameters("@LabReportByDate", SqlDbType.VarChar, String.Format("{0:dd-MMM-yyyy}", Value.LabReportByDate));
+                            ClsUtility.AddParameters("@LabReportByDate", SqlDbType.VarChar, String.Format("{0:dd-MMM-yyyy}", Value.OrderedByDate));
                         }
                         ClsUtility.AddParameters("@LabReportByName", SqlDbType.Int, Value.LabReportByName.ToString());
+                        ClsUtility.AddParameters("@Confirmed", SqlDbType.Int, Value.Confirmed.ToString());
+                        ClsUtility.AddParameters("@Confirmedby", SqlDbType.Int, Value.Confirmedby.ToString());
                         theRowAffected = (int)labManagerTest.ReturnObject(ClsUtility.theParams, "Pr_IQTouch_Laboratory_AddLabOrderTests", ClsDBUtility.ObjectEnum.ExecuteNonQuery);
                         totalRowInserted = totalRowInserted + theRowAffected;
                     }
@@ -756,7 +761,7 @@ namespace BusinessProcess.Laboratory
                         ClsUtility.AddParameters("@StatusId", SqlDbType.Int, theDR["StatusId"].ToString());
                         ClsUtility.AddParameters("@RejectedReasonId", SqlDbType.Int, theDR["RejectedReasonId"].ToString());
                         ClsUtility.AddParameters("@OtherReason", SqlDbType.Int, theDR["OtherReason"].ToString());
-                        ClsUtility.AddParameters("@UserId", SqlDbType.Int, objLabFields.UserId.ToString());
+                        ClsUtility.AddParameters("@UserId", SqlDbType.Int, objLabFields.UserId.ToString());                        
                         DataTable theReturnDT = (DataTable)labManagerTest.ReturnObject(ClsUtility.theParams, "Pr_InsertTestInitTableValues", ClsDBUtility.ObjectEnum.DataTable);
                     }
                 }

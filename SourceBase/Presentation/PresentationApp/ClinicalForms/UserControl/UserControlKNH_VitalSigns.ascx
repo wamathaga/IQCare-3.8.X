@@ -499,18 +499,18 @@
 
             if (checkBoxList[i].checked) {
                 if (arrayOfCheckBoxLabels[i].innerHTML == 'Other Specialist Clinic') {
-                    //alert(arrayOfCheckBoxLabels[i].innerHTML + ' show ' + strdivId);
+                    //alert(arrayOfCheckBoxLabels[i].innerHTML + ' show ' + strcblcontrolId);
                     ShowHide('TriagedivReferToSpecialistClinic', "show");
                     return;
                 }
                 else {
-                    //alert(arrayOfCheckBoxLabels[i].innerHTML + ' hide ' + strdivId);
+                    //alert(arrayOfCheckBoxLabels[i].innerHTML + ' hide ' + strcblcontrolId);
                     document.getElementById(txtControlId).value = '';
                     ShowHide('TriagedivReferToSpecialistClinic', "hide");
                 }
             }
             else {
-                //alert(arrayOfCheckBoxLabels[i].innerHTML + ' hide ' + strdivId);
+                //alert(arrayOfCheckBoxLabels[i].innerHTML + ' hide ' + strcblcontrolId);
                 document.getElementById(txtControlId).value = '';
                 ShowHide('TriagedivReferToSpecialistClinic', "hide");
             }
@@ -528,25 +528,43 @@
 
             if (checkBoxList[i].checked) {
                 if (arrayOfCheckBoxLabels[i].innerHTML == 'Other (Specify)') {
-                    //alert(arrayOfCheckBoxLabels[i].innerHTML + ' show ' + strdivId);
+                    //alert(arrayOfCheckBoxLabels[i].innerHTML + ' show ' + strcblcontrolId);
                     ShowHide('TriagedivReferToOther', "show");
                     return;
                 }
                 else {
-                    //alert(arrayOfCheckBoxLabels[i].innerHTML + ' hide ' + strdivId);
+                    //alert(arrayOfCheckBoxLabels[i].innerHTML + ' hide ' + strcblcontrolId);
                     document.getElementById(txtControlId).value = '';
                     ShowHide('TriagedivReferToOther', "hide");
                 }
             }
             else {
-                //alert(arrayOfCheckBoxLabels[i].innerHTML + ' hide ' + strdivId);
+                //alert(arrayOfCheckBoxLabels[i].innerHTML + ' hide ' + strcblcontrolId);
                 document.getElementById(txtControlId).value = '';
                 ShowHide('TriagedivReferToOther', "hide");
             }
         }
     }
 
-    
+    function ShowHide(theDiv, YN, theFocus) {
+
+        $(document).ready(function () {
+
+            if (YN == "show") {
+                //                    $("#" + theDiv).slideDown();
+                $("#" + theDiv).show();
+
+            }
+            if (YN == "hide") {
+                //                    $("#" + theDiv).slideUp();
+                $("#" + theDiv).hide();
+
+
+            }
+
+        });
+
+    }
 
 </script>
 <div class="center formbg">
@@ -600,14 +618,13 @@
                                         OnTextChanged="txtWeight_TextChanged"></asp:TextBox>
                                     &nbsp;<span class="smallerlabel">kg</span>
                                 </td>
-                                <td width="25%" align="left" id="tdBMI">
-                                    <label class="margin5">
-                                        BMI:</label>
+                                <td width="25%" align="left">
+                                    <asp:Label ID="lblBMI" runat="server" Text="BMI: "></asp:Label>
                                     <asp:TextBox ID="txtBMI" runat="server" Width="50px" ReadOnly="True"></asp:TextBox>
                                     &nbsp;
                                     <asp:Label ID="lblBMIClassification" runat="server"></asp:Label>
                                 </td>
-                                <td width="25%" align="left" id="td1">
+                                <td width="25%" align="left">
                                 </td>
                             </tr>
                         </table>

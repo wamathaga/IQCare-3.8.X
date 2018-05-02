@@ -33,8 +33,8 @@ namespace PresentationApp.ClinicalForms.UserControl
         DataView theDV, theDVCodeID;
         DataTable theDT;
         String startTime;
-        string availableTBResults, chestXRay, tissueBiopsy, IPT, AdherenceAddressed, missedAnyDoses, ReferredForAdherence, ContactsScreenedForTB;
-        string sputumSmearDate, GeneExpertDate, SputumDSTDate, chestXRayDate, TissueBiopsyDate, TBRegimenStartDate, TBRegimenEndDate, INHStartDate, INHEndDate,
+        public string availableTBResults, chestXRay, tissueBiopsy, IPT, AdherenceAddressed, missedAnyDoses, ReferredForAdherence, ContactsScreenedForTB;
+        public string sputumSmearDate, GeneExpertDate, SputumDSTDate, chestXRayDate, TissueBiopsyDate, TBRegimenStartDate, TBRegimenEndDate, INHStartDate, INHEndDate,
                 PyridoxineStartDate, PyridoxineEndDate;
         string TBFindingsScript;
 

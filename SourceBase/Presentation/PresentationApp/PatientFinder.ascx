@@ -184,7 +184,7 @@
                                                 <td>
                                                     <asp:Button ID="btnView" runat="server" OnClick="btnView_Click" Text="Find" CssClass="btn btn-primary"
                                                         Height="30px" Width="99%" Style="text-align: left;" /><span class="glyphicon glyphicon-search"
-                                                            style="margin-left: -35%; vertical-align: middle; color: #fff; margin-top:3%;"></span>
+                                                            style="margin-left: -35%; vertical-align: middle; color: #fff; margin-top: 3%;"></span>
                                                     <asp:HiddenField ID="HIncludeEnrollment" runat="server" />
                                                     <asp:HiddenField ID="HFilterByServiceLine" runat="server" />
                                                     <asp:HiddenField ID="HSelectedServiceLine" runat="server" />
@@ -203,7 +203,7 @@
                                                     <asp:Button ID="btnCancel" runat="server" OnClick="btnCancel_Click" Text="Cancel"
                                                         CssClass="btn btn-primary" Height="30px" Width="88%" Style="text-align: left;" />
                                                     <span class="glyphicon glyphicon-remove" style="margin-left: -24%; vertical-align: middle;
-                                                        color: #fff; margin-top:2.5%;"></span>
+                                                        color: #fff; margin-top: 2.5%;"></span>
                                                 </td>
                                             </tr>
                                         </table>
@@ -240,7 +240,7 @@
                                                 HorizontalAlign="Left"></HeaderStyle>
                                             <RowStyle CssClass="row" Height="30" />
                                             <Columns>
-                                                <asp:TemplateField Visible="false">
+                                                <asp:TemplateField>
                                                     <ItemTemplate>
                                                         <asp:ImageButton ID="ExpandGridButton" runat="server" CommandName="Expand" ImageUrl="~/Images/plus.png"
                                                             CommandArgument="<%# Container.DataItemIndex %>" /></ItemTemplate>
@@ -257,56 +257,60 @@
                                                 <asp:BoundField DataField="Status" HeaderText="Status" />
                                                 <asp:TemplateField>
                                                     <ItemTemplate>
-                                                        <asp:Panel ID="ContainerDiv" runat="server" Style="display: none; position: relative;
-                                                            left: 5px;" CssClass="panel panel-info">
-                                                            <asp:GridView ID="gridPatientServiceList" runat="server" AllowSorting="False" AutoGenerateColumns="False"
-                                                                BorderColor="White" BorderWidth="1px" CellPadding="0" CssClass="datatable" DataKeyNames="moduleid,patientid,locationid"
-                                                                Enabled="true" EnableModelValidation="True" GridLines="None" HorizontalAlign="Left"
-                                                                ShowFooter="True" ShowHeaderWhenEmpty="True" Width="100%">
-                                                                <Columns>
-                                                                    <asp:BoundField DataField="ModuleName" ItemStyle-Width="22%" HeaderText="Service Area" />
-                                                                    <asp:BoundField DataField="EnrollmentDate" DataFormatString="{0:dd-MMM-yyyy}" ItemStyle-Width="12%"
-                                                                        HeaderText="Enrollment Date" />
-                                                                    <asp:BoundField DataField="CareStatus" HeaderText="Status" ItemStyle-Width="8%" />
-                                                                    <asp:TemplateField HeaderText="Identifiers" ItemStyle-Width="58%">
-                                                                        <ItemTemplate>
-                                                                            <asp:Repeater ID="repeaterIdentifiers" runat="server">
-                                                                                <HeaderTemplate>
-                                                                                </HeaderTemplate>
+                                                        </td></tr>
+                                                        <tr>
+                                                            <td colspan="100%">
+                                                                <asp:Panel ID="ContainerDiv" runat="server" Style="display: none; position: relative;
+                                                                    left: 5px;">
+                                                                    <asp:GridView ID="gridPatientServiceList" runat="server" AllowSorting="False" AutoGenerateColumns="False"
+                                                                        BorderColor="White" BorderWidth="1px" CellPadding="0" CssClass="datatable" DataKeyNames="moduleid,patientid,locationid"
+                                                                        Enabled="true" EnableModelValidation="True" GridLines="None" HorizontalAlign="Left"
+                                                                        ShowFooter="True" ShowHeaderWhenEmpty="True" Width="100%">
+                                                                        <Columns>
+                                                                            <asp:BoundField DataField="ModuleName" ItemStyle-Width="22%" HeaderText="Service Area" />
+                                                                            <asp:BoundField DataField="EnrollmentDate" DataFormatString="{0:dd-MMM-yyyy}" ItemStyle-Width="12%"
+                                                                                HeaderText="Enrollment Date" />
+                                                                            <asp:BoundField DataField="CareStatus" HeaderText="Status" ItemStyle-Width="8%" />
+                                                                            <asp:TemplateField HeaderText="Identifiers" ItemStyle-Width="58%">
                                                                                 <ItemTemplate>
-                                                                                    <div class="row">
-                                                                                        <div class="col-md-8">
-                                                                                            <asp:Label ID="labelIdentifier" Style="color: blue; font-size: 9pt; font-weight: bold;
-                                                                                                display: inline-block;" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "[IdentifierName]")%>' />
-                                                                                        </div>
-                                                                                        <div class="col-md-4">
-                                                                                            <asp:Label ID="identifierName" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "[IdentifierValue]")%>'
-                                                                                                Font-Bold="true" />
-                                                                                        </div>
-                                                                                    </div>
+                                                                                    <asp:Repeater ID="repeaterIdentifiers" runat="server">
+                                                                                        <HeaderTemplate>
+                                                                                        </HeaderTemplate>
+                                                                                        <ItemTemplate>
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-8">
+                                                                                                    <asp:Label ID="labelIdentifier" Style="color: blue; font-size: 9pt; font-weight: bold;
+                                                                                                        display: inline-block;" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "[IdentifierName]")%>' />
+                                                                                                </div>
+                                                                                                <div class="col-md-4">
+                                                                                                    <asp:Label ID="identifierName" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "[IdentifierValue]")%>'
+                                                                                                        Font-Bold="true" />
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </ItemTemplate>
+                                                                                        <AlternatingItemTemplate>
+                                                                                            <div class="row" style="background-color: #EFEFEF">
+                                                                                                <div class="col-md-8">
+                                                                                                    <asp:Label ID="labelIdentifier" Style="color: blue; font-size: 9pt; font-weight: bold;
+                                                                                                        display: inline-block;" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "[IdentifierName]")%>' />
+                                                                                                </div>
+                                                                                                <div class="col-md-4">
+                                                                                                    <asp:Label ID="identifierName" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "[IdentifierValue]")%>'
+                                                                                                        Font-Bold="true" />
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </AlternatingItemTemplate>
+                                                                                        <FooterTemplate>
+                                                                                        </FooterTemplate>
+                                                                                    </asp:Repeater>
+                                                                                    </td> </tr>
                                                                                 </ItemTemplate>
-                                                                                <AlternatingItemTemplate>
-                                                                                    <div class="row" style="background-color: #EFEFEF">
-                                                                                        <div class="col-md-8">
-                                                                                            <asp:Label ID="labelIdentifier" Style="color: blue; font-size: 9pt; font-weight: bold;
-                                                                                                display: inline-block;" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "[IdentifierName]")%>' />
-                                                                                        </div>
-                                                                                        <div class="col-md-4">
-                                                                                            <asp:Label ID="identifierName" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "[IdentifierValue]")%>'
-                                                                                                Font-Bold="true" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </AlternatingItemTemplate>
-                                                                                <FooterTemplate>
-                                                                                </FooterTemplate>
-                                                                            </asp:Repeater>
-                                                                        </ItemTemplate>
-                                                                    </asp:TemplateField>
-                                                                </Columns>
-                                                                <HeaderStyle ForeColor="#3399FF" HorizontalAlign="Left" />
-                                                                <RowStyle CssClass="row" />
-                                                            </asp:GridView>
-                                                        </asp:Panel>
+                                                                            </asp:TemplateField>
+                                                                        </Columns>
+                                                                        <HeaderStyle ForeColor="#3399FF" HorizontalAlign="Left" />
+                                                                        <RowStyle CssClass="row" />
+                                                                    </asp:GridView>
+                                                                </asp:Panel>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                             </Columns>

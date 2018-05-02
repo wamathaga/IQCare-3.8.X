@@ -79,13 +79,13 @@
 <tr align="left" id="trNextAppointment" style="display: none">
     <td class="form" 
         align="left">
-        <asp:Button ID="btnNextAppointment" runat="server" Text="Next Appointment"  CssClass="btn btn-primary" Height="30px" Width="15%" Style="text-align: left;"
+        <asp:Button ID="btnNextAppointment" runat="server" Text="Next Appointment"  CssClass="btn btn-primary" Height="30px" Width="100%" Style="text-align: left;"
             onclick="btnPrescribeDrugs_Click" />
     </td>
 </tr>
  <tr id="trCareEnd" style="display: none">
     <td class="border pad5 whitebg" align="left">
-        <asp:Button ID="btnCareEnd" runat="server" Text="Care End" onclick="btnCareEnd_Click"   CssClass="btn btn-primary" Height="30px" Width="9%" Style="text-align: left;"
+        <asp:Button ID="btnCareEnd" runat="server" Text="Care End" onclick="btnCareEnd_Click"   CssClass="btn btn-primary" Height="30px" Width="100%" Style="text-align: left;"
              />
      </td>
 </tr>

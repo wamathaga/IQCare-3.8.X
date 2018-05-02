@@ -291,13 +291,13 @@
         Has the patient been admitted in the last 2 weeks ?
     </div>
     <div class="footer" align="right">
-        <asp:Button ID="btnYes" runat="server" Text="Yes" />
-        <asp:Button ID="btnNo" runat="server" Text="No" />
+        <asp:Button ID="btnYes" runat="server" Text="Yes" CssClass="btn btn-primary" Height="26px" />
+        <asp:Button ID="btnNo" runat="server" Text="No" CssClass="btn btn-primary" Height="26px" />
     </div>
 </asp:Panel>
 <input type="hidden" id="_ispostback" value="<%=Page.IsPostBack.ToString()%>" />
 
-<div style="padding: 8px;">
+<div style="padding: 8px; width:100%;" class="container">
 <div class="border center formbg">
 <table cellspacing="6" cellpadding="0" width="100%" border="0">
 <tr>
@@ -328,11 +328,11 @@
     <tr>
         <td>
             <asp:Panel ID="ClientInfoHeader" runat="server" CssClass="border center formbg" style="padding:6px">
-            <h2 class="forms" align="left">
+            <h4 class="forms" align="left">
                 <asp:ImageButton ID="imgClientInfo" runat="server" 
                     ImageUrl="~/images/arrow-up.gif" />
                 &nbsp;<asp:Label ID="lblClientInfo" runat="server" Text="Client Information"></asp:Label>
-                </h2>
+                </h4>
             </asp:Panel>
                    
         </td>
@@ -372,10 +372,10 @@
          <tr>
          <td>
          <asp:Panel ID="VitalSignsHeader" runat="server" style="padding:6px" cssclass="border">
-        <h2 class="forms" align="left">
+        <h4 class="forms" align="left">
             <asp:ImageButton ID="imgVitalSigns" runat="server" ImageUrl="~/images/arrow-up.gif" />
             &nbsp;<asp:Label ID="lblVitalSigns" runat="server" Text="Vital Signs"></asp:Label>
-        </h2>
+        </h4>
     </asp:Panel>
          </td>
          </tr>
@@ -399,13 +399,13 @@
          <tr>
          <td>
          <asp:Panel ID="PreexistingConditionsHeader" runat="server" CssClass="border center formbg" style="padding: 6px">
-         <h2 class="forms" align="left">
+         <h4 class="forms" align="left">
          <asp:ImageButton ID="imgPreExistingConditions" runat="server" 
         ImageUrl="~/images/arrow-up.gif" />
              &nbsp;Pre-Existing (Known Conditions)
              <asp:Label ID="Label4" runat="server" Text="Medical Conditions?" 
                  Visible="False"></asp:Label>
-             &nbsp;</h2>
+             &nbsp;</h4>
          </asp:Panel>
          </td>
          </tr>
@@ -490,15 +490,15 @@
         </td>
         </tr>
         <tr id="tblSaveButton"><td class="form" align="center"><asp:Button ID="btnTriageSave" runat="server" Text="Save" 
-                onclick="btnTriageSave_Click" />
+                onclick="btnTriageSave_Click" CssClass="btn btn-primary" Height="26px" />
             <asp:Button ID="btnTraigeDQC" 
-                runat="server" Text="Data Quality Check" Visible="False" /><asp:Button ID="btnTriageClose" 
-                runat="server" Text="Close" onclick="btnTriageClose_Click" />
+                runat="server" Text="Data Quality Check" Visible="False" CssClass="btn btn-primary" Height="26px" /><asp:Button ID="btnTriageClose" 
+                runat="server" Text="Close" onclick="btnTriageClose_Click" CssClass="btn btn-primary" Height="26px" />
             <asp:Button ID="btnTraigePrint" runat="server" 
-                Text="Print" OnClientClick="WindowPrint();" /></td></tr>
+                Text="Print" OnClientClick="WindowPrint();" CssClass="btn btn-primary" Height="26px" /></td></tr>
             <tr id="tblDeleteButton" style="display: none; width: 100%;" align="center">
                 <td align="center" class="form" width="100%">
-                    <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" 
+                    <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" CssClass="btn btn-primary" Height="26px"
                         Text="Delete" />
                 </td>
             </tr>
@@ -516,10 +516,10 @@
          <tr>
          <td>
          <asp:Panel ID="DrugAllergiesHeader" runat="server" style="padding:6px" CssClass="border">
-    <h2 class="forms" align="left">
+    <h4 class="forms" align="left">
         <asp:ImageButton ID="imgDrugAllergies" runat="server" 
             ImageUrl="~/images/arrow-up.gif" />
-        &nbsp;Drug Allergies</h2>
+        &nbsp;Drug Allergies</h4>
         </asp:Panel>
          </td>
          </tr>
@@ -540,10 +540,10 @@
          <tr>
          <td>
          <asp:Panel ID="ARVSideEffectsHeader" runat="server" style="padding:6px" CssClass="border">
-    <h2 class="forms" align="left">
+    <h4 class="forms" align="left">
         <asp:ImageButton ID="imgARVSideEffects" runat="server" 
             ImageUrl="~/images/arrow-up.gif" />
-        &nbsp;ARV Side Effects</h2>
+        &nbsp;ARV Side Effects</h4>
         </asp:Panel>
          </td>
          </tr>
@@ -625,10 +625,10 @@
          <tr>
          <td>
          <asp:Panel ID="RegimenPrescribedHeader" runat="server" style="padding:6px" CssClass="border">
-    <h2 class="forms" align="left">
+    <h4 class="forms" align="left">
         <asp:ImageButton ID="imgRegimenPrescribed" runat="server" 
             ImageUrl="~/images/arrow-up.gif" />
-        &nbsp;<asp:Label ID="lblRegimenPrescribed" runat="server" Text="Regimen Prescribed"></asp:Label></h2>
+        &nbsp;<asp:Label ID="lblRegimenPrescribed" runat="server" Text="Regimen Prescribed"></asp:Label></h4>
         </asp:Panel>
          </td>
          </tr>
@@ -695,10 +695,10 @@
          <td>
          <asp:Panel ID="AdherenceHeader" runat="server" style="padding:6px" 
                  CssClass="border">
-        <h2 class="forms" align="left">
+        <h4 class="forms" align="left">
             <asp:ImageButton ID="imgAdherence" runat="server" 
                 ImageUrl="~/images/arrow-up.gif" />
-            &nbsp;Adherence</h2>
+            &nbsp;Adherence</h4>
             </asp:Panel>
          </td>
          </tr>
@@ -737,7 +737,7 @@
          <tr>
          <td>
          <asp:Panel ID="LabEvaluationHeader" runat="server" style="padding:6px" CssClass="border">
-        <h2 class="forms" align="left">
+        <h4 class="forms" align="left">
         <asp:ImageButton ID="imgLabEvaluation" runat="server" 
                 ImageUrl="~/images/arrow-up.gif" />
             Lab Evaluation 
@@ -746,7 +746,7 @@
                 oncheckedchanged="rdoLabEvaluationYes_CheckedChanged" Visible="False" />
             <asp:RadioButton ID="rdoLabEvaluationNo" runat="server" Text="No" 
                 GroupName="rdoLabEvaluation" 
-                oncheckedchanged="rdoLabEvaluationNo_CheckedChanged" Visible="False" /></h2>
+                oncheckedchanged="rdoLabEvaluationNo_CheckedChanged" Visible="False" /></h4>
                 </asp:Panel>
          </td>
          </tr>
@@ -770,10 +770,10 @@
          <tr>
          <td>
          <asp:Panel ID="WorkPlanHeader" runat="server" style="padding:6px" CssClass="border">
-            <h2 class="forms" align="left">
+            <h4 class="forms" align="left">
             <asp:ImageButton ID="imgWorkPlan" runat="server" 
                 ImageUrl="~/images/arrow-up.gif" />
-                &nbsp;Work Plan</h2>
+                &nbsp;Work Plan</h4>
             </asp:Panel>
          </td>
          </tr>
@@ -797,10 +797,10 @@
          <tr>
          <td>
          <asp:Panel ID="PwPHeader" runat="server" style="padding:6px" cssclass="border">
-                    <h2 class="forms" align="left">
+                    <h4 class="forms" align="left">
             <asp:ImageButton ID="imgPwP" runat="server" 
                 ImageUrl="~/images/arrow-up.gif" />
-                        &nbsp;PwP Intervention </h2>
+                        &nbsp;PwP Intervention </h4>
             </asp:Panel>
          </td>
          </tr>
@@ -889,10 +889,10 @@
                     </tr>
                     <tr>
                     <td class="form" align="center">
-                    <asp:Button ID="btnCASave" runat="server" Text="Save" onclick="btnCASave_Click"  />
-                    <asp:Button ID="btnCADQC" runat="server" Text="Data Quality Check" Visible="False" />
-                    <asp:Button ID="btnCAClose" runat="server" Text="Close" onclick="btnCAClose_Click" />
-                    <asp:Button ID="btnCAPrint" runat="server" Text="Print" OnClientClick="WindowPrint();" />
+                    <asp:Button ID="btnCASave" runat="server" Text="Save" onclick="btnCASave_Click" CssClass="btn btn-primary" Height="26px"  />
+                    <asp:Button ID="btnCADQC" runat="server" Text="Data Quality Check" Visible="False" CssClass="btn btn-primary" Height="26px" />
+                    <asp:Button ID="btnCAClose" runat="server" Text="Close" onclick="btnCAClose_Click" CssClass="btn btn-primary" Height="26px"/>
+                    <asp:Button ID="btnCAPrint" runat="server" Text="Print" OnClientClick="WindowPrint();" CssClass="btn btn-primary" Height="26px"/>
                     </td>
                     </tr>
                     </table>

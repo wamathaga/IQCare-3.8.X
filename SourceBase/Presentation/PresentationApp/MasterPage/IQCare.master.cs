@@ -236,23 +236,26 @@ public partial class MasterPage_IQCare : System.Web.UI.MasterPage
             }
             else
             {
-                facilityBanner.Style.Add("display", "inline");
-                patientBanner.Style.Add("display", "none");
-                username1.Attributes["class"] = "usernameLevel1"; //Style.Add("display", "inline");
-                currentdate1.Attributes["class"] = "currentdateLevel1"; //Style.Add("display", "inline");
-                facilityName.Attributes["class"] = "facilityLevel1"; //Style.Add("display", "inline");
-                //userNameLevel2.Style.Add("display", "none");
-                //currentDateLevel2.Style.Add("display", "none");
-                imageFlipLevel2.Style.Add("display", "none");
-                //facilityLevel2.Style.Add("display", "none");
-                level2Navigation.Style.Add("display", "none");
-                //VY added 2014-10-14 for changing level one navigation Menu depending on whether patient has been selected or not
-                MenuItem facilityHome = (levelOneNavigationUserControl1.FindControl("mainMenu") as Menu).FindItem("Facility Home");
-                facilityHome.Text = "Select Service";
-                facilityHome.NavigateUrl = "~/frmFacilityHome.aspx";
-                MenuItem facilityStats = (levelOneNavigationUserControl1.FindControl("mainMenu") as Menu).FindItem("Facility Statistics");
-                facilityStats.Text = "Facility Statistics";
-                facilityStats.NavigateUrl = "~/frmFacilityStatistics.aspx";
+                if (Session["TechnicalAreaId"] == null || Session["TechnicalAreaId"].ToString() != "206" || pageName.Equals("frmFacilityHome.aspx"))
+                {
+                    facilityBanner.Style.Add("display", "inline");
+                    patientBanner.Style.Add("display", "none");
+                    username1.Attributes["class"] = "usernameLevel1"; //Style.Add("display", "inline");
+                    currentdate1.Attributes["class"] = "currentdateLevel1"; //Style.Add("display", "inline");
+                    facilityName.Attributes["class"] = "facilityLevel1"; //Style.Add("display", "inline");
+                    //userNameLevel2.Style.Add("display", "none");
+                    //currentDateLevel2.Style.Add("display", "none");
+                    imageFlipLevel2.Style.Add("display", "none");
+                    //facilityLevel2.Style.Add("display", "none");
+                    level2Navigation.Style.Add("display", "none");
+                    //VY added 2014-10-14 for changing level one navigation Menu depending on whether patient has been selected or not
+                    MenuItem facilityHome = (levelOneNavigationUserControl1.FindControl("mainMenu") as Menu).FindItem("Facility Home");
+                    facilityHome.Text = "Select Service";
+                    facilityHome.NavigateUrl = "~/frmFacilityHome.aspx";
+                    MenuItem facilityStats = (levelOneNavigationUserControl1.FindControl("mainMenu") as Menu).FindItem("Facility Statistics");
+                    facilityStats.Text = "Facility Statistics";
+                    facilityStats.NavigateUrl = "~/frmFacilityStatistics.aspx";
+                }
             }
         }
         else

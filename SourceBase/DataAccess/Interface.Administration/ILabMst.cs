@@ -30,12 +30,12 @@ namespace Interface.Administration
         /// <param name="userID">The user identifier.</param>
         /// <param name="itemList">The item list.</param>
         /// <param name="labGroupID">The lab group identifier.</param>
-        void SaveLabGroupItems(int userID, DataTable itemList, int labGroupID);
+        void SaveLabGroupItems(int userID, DataTable itemList, int labGroupID, string LabName, int DepartmentID);
         /// <summary>
         /// Gets the lab group tests.
         /// </summary>
         /// <param name="labGroupID">The lab group identifier.</param>
         /// <returns></returns>
-        DataTable GetLabGroupTests(int labGroupID);
+        DataSet GetLabGroupTests(int labGroupID);
     }
 }

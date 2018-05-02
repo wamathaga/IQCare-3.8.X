@@ -231,9 +231,9 @@
                                         <td class="border pad5 whitebg" align="left">
                                             <label for="Age">
                                                 Age:</label>
-                                            <asp:TextBox ID="txtageCurrentYears" MaxLength="2" runat="server" Width="10%" ReadOnly="true"></asp:TextBox>
+                                            <asp:TextBox ID="txtageCurrentYears" MaxLength="2" runat="server" Width="10%" ReadOnly="false"></asp:TextBox>
                                             <span class="smallerlabel">yrs</span>
-                                            <asp:TextBox ID="txtageCurrentMonths" MaxLength="2" runat="server" Width="10%" ReadOnly="true"></asp:TextBox>
+                                            <asp:TextBox ID="txtageCurrentMonths" MaxLength="2" runat="server" Width="10%" ReadOnly="false"></asp:TextBox>
                                             <span class="smallerlabel">mths</span> <span style="width: 10px"></span>
                                             <asp:Button ID="btncalculate_DOB" runat="server" Text="Calculate DOB" OnClick="btncalculate_DOB_Click"
                                                 CssClass="btn btn-info" Height="30px" Width="45%" />

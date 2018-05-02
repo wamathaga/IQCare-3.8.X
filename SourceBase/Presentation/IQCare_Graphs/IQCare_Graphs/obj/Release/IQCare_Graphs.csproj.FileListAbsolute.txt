@@ -11,15 +11,3 @@ C:\IQCare 3.6.0\SourceBase\Presentation\IQCare_Graphs\IQCare_Graphs\obj\Release\
 C:\IQCare 3.6.0\SourceBase\Presentation\IQCare_Graphs\IQCare_Graphs\obj\Release\IQCare_Graphs.pdb
 C:\IQCare 3.6.0\SourceBase\Presentation\IQCare_Graphs\IQCare_Graphs\obj\Release\XapCacheFile.xml
 C:\IQCare 3.6.0\SourceBase\Presentation\IQCare_Graphs\IQCare_Graphs\obj\Release\IQCare_Graphs.csprojResolveAssemblyReference.cache
-C:\Projects\IQCare 3.8.0\SourceBase\Presentation\IQCare_Graphs\IQCare_Graphs\Bin\Release\IQCare_Graphs.dll
-C:\Projects\IQCare 3.8.0\SourceBase\Presentation\IQCare_Graphs\IQCare_Graphs\Bin\Release\IQCare_Graphs.pdb
-C:\Projects\IQCare 3.8.0\SourceBase\Presentation\IQCare_Graphs\IQCare_Graphs\Bin\Release\AppManifest.xaml
-C:\Projects\IQCare 3.8.0\SourceBase\Presentation\IQCare_Graphs\IQCare_Graphs\Bin\Release\Facility.Reports.xap
-C:\Projects\IQCare 3.8.0\SourceBase\Presentation\IQCare_Graphs\IQCare_Graphs\Bin\Release\TestPage.html
-C:\Projects\IQCare 3.8.0\SourceBase\Presentation\IQCare_Graphs\IQCare_Graphs\Bin\Release\Microsoft.Windows.Controls.DataVisualization.dll
-C:\Projects\IQCare 3.8.0\SourceBase\Presentation\IQCare_Graphs\IQCare_Graphs\obj\Release\App.g.i.cs
-C:\Projects\IQCare 3.8.0\SourceBase\Presentation\IQCare_Graphs\IQCare_Graphs\obj\Release\MainPage.g.i.cs
-C:\Projects\IQCare 3.8.0\SourceBase\Presentation\IQCare_Graphs\IQCare_Graphs\obj\Release\IQCare_Graphs.g.resources
-C:\Projects\IQCare 3.8.0\SourceBase\Presentation\IQCare_Graphs\IQCare_Graphs\obj\Release\IQCare_Graphs.dll
-C:\Projects\IQCare 3.8.0\SourceBase\Presentation\IQCare_Graphs\IQCare_Graphs\obj\Release\IQCare_Graphs.pdb
-C:\Projects\IQCare 3.8.0\SourceBase\Presentation\IQCare_Graphs\IQCare_Graphs\obj\Release\XapCacheFile.xml

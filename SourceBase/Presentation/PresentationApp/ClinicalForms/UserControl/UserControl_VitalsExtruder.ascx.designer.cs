@@ -121,6 +121,42 @@ namespace PresentationApp.ClinicalForms.UserControl {
         public global::System.Web.UI.WebControls.Label lblBMI;
         
         /// <summary>
+        /// IPTSDLable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        public global::System.Web.UI.WebControls.Label IPTSDLable;
+        
+        /// <summary>
+        /// IPTSD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        public global::System.Web.UI.WebControls.Label IPTSD;
+        
+        /// <summary>
+        /// IPTEDLable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        public global::System.Web.UI.WebControls.Label IPTEDLable;
+        
+        /// <summary>
+        /// IPTED control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        public global::System.Web.UI.WebControls.Label IPTED;
+        
+        /// <summary>
         /// UserControl_AllergyExtruder1 control.
         /// </summary>
         /// <remarks>

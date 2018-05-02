@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Presentation", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IQCareCustomReportConfig", "IQCareReport\IQCareCustomReportConfig.csproj", "{9F4331B2-E623-48EC-AD04-7F7CFD8195E1}"
 EndProject
-Project("{2CFEAB61-6A3B-4EB8-B523-560B4BEEF521}") = "PresentationApp.csproj_deploy2", "PresentationApp.csproj_deploy2\PresentationApp.csproj_deploy2.wdproj", "{6DAE3322-E2D9-4D6A-8C31-354ED5B4C9A9}"
+Project("{2CFEAB61-6A3B-4EB8-B523-560B4BEEF521}") = "PresentationApp.csproj_deploy1", "PresentationApp.csproj_deploy2\PresentationApp.csproj_deploy1.wdproj", "{6DAE3322-E2D9-4D6A-8C31-354ED5B4C9A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

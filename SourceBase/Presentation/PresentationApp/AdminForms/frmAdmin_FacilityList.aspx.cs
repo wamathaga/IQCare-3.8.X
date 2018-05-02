@@ -160,6 +160,8 @@ public partial class FacilityMaster_List : LogPage
                     //(Master.FindControl("lblheader") as Label).Text = "Facility/Satellite";
                     (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblRoot") as Label).Visible = false;
                     (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblheader") as Label).Text = "Facility/Satellite";
+                    IQWebUtils Utils = new IQWebUtils();
+                    Utils.HidePatientLevelheader();
                 }
                 else
                 {

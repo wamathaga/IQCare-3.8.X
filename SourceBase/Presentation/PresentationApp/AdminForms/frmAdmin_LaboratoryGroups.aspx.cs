@@ -95,7 +95,7 @@ namespace PresentationApp.AdminForms
 
             int LabId = Convert.ToInt32(theRow.Cells[0].Text.ToString());
             String LabName = theRow.Cells[3].Text;
-            string theUrl = string.Format("{0}?Name={1}&LabId={2}&Fid={3}", "frmAdminLaboratoryGroupItems.aspx", LabName, LabId, ViewState["FID"].ToString());
+            string theUrl = string.Format("{0}?Name={1}&LabId={2}&Fid={3}", "frmAdminLaboratoryGroupItems.aspx", "Edit", LabId, ViewState["FID"].ToString());
             // string theUrl = string.Format("./frmAdminLaboratoryGroupItems.aspx");
             Response.Redirect(theUrl, false);
         }
@@ -204,6 +204,12 @@ namespace PresentationApp.AdminForms
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             Response.Redirect("frmAdmin_PMTCT_CustomItems.aspx");
+        }
+
+        protected void btnAddLabGroup_Click(object sender, EventArgs e)
+        {
+            string theUrl = string.Format("{0}?Name={1}&LabId={2}&Fid={3}", "frmAdminLaboratoryGroupItems.aspx", "Add", "0", ViewState["FID"].ToString());            
+            Response.Redirect(theUrl, false);
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using Interface.Administration;
 using Application.Presentation;
+using Application.Common;
 
 namespace PresentationApp.AdminForms
 {
@@ -28,26 +29,68 @@ namespace PresentationApp.AdminForms
                 Response.Redirect("~/frmlogin.aspx",true);
             }
             if (IsPostBack) return;
+            FillDropDowns();
             BindGrid();
-            lblH2.Text = "Edit " + Request.QueryString["Name"];
+            lblH2.Text = Request.QueryString["Name"];
+        }
+        protected void FillDropDowns()
+        {
+            ILabMst LabManager = (ILabMst)ObjectFactory.CreateInstance("BusinessProcess.Administration.BLabMst, BusinessProcess.Administration");
+            DataSet theDS = LabManager.GetDropDowns();
+            BindFunctions BindManager = new BindFunctions();
+            BindManager.BindCombo(ddDepartment, theDS.Tables[0], "LabDepartmentName", "LabDepartmentID");
         }
         /// <summary>
         /// Binds the grid.
         /// </summary>
         private void BindGrid()
         {
+            int LabId = 0;
+            if (Request.QueryString["LabId"] != "")
+            {
+                LabId = int.Parse(Request.QueryString["LabId"]);
+            }
             (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblRoot") as Label).Text = "Customize Lists >> ";
             (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblheader") as Label).Text = "Laboratory Group Items";
             ILabMst LabManager = (ILabMst)ObjectFactory.CreateInstance("BusinessProcess.Administration.BLabMst, BusinessProcess.Administration");
-            DataTable theMainDt = LabManager.GetLabGroupTests(int.Parse(Request.QueryString["LabId"]));
-            DataView theDV = new DataView(theMainDt);
+            DataSet theMainDt = LabManager.GetLabGroupTests(LabId);
+            DataView theDV = new DataView(theMainDt.Tables[0]);
             theDV.RowFilter = "DataType <>'Group' OR DataType IS NULL ";
             DataTable theDt = theDV.ToTable();
             grdLabs.DataSource = theDt;
             grdLabs.DataBind();
+            if (LabId > 0 && theMainDt.Tables[1].Rows.Count>0)
+            {
+                txtLabName.Text = theMainDt.Tables[1].Rows[0]["LabName"].ToString();
+                ddDepartment.SelectedValue = theMainDt.Tables[1].Rows[0]["LabDepartmentID"].ToString();
+                ddStatus.SelectedValue = theMainDt.Tables[1].Rows[0]["DeleteFlag"].ToString();
+                txtLabName.Enabled = false;
+                ddDepartment.Enabled = false;
+            }
 
         }
+        private Boolean FieldValidation()
+        {
+            //Validate fields input values
+            if (txtLabName.Text.Trim() == "")
+            {
+                MsgBuilder theBuilder = new MsgBuilder();
+                theBuilder.DataElements["Control"] = "Laboratory Test";
+                IQCareMsgBox.Show("BlankTextBox", theBuilder, this);
+                txtLabName.Focus();
+                return false;
+            }
+            if (ddDepartment.SelectedValue == "0")
+            {
+                MsgBuilder theBuilder = new MsgBuilder();
+                theBuilder.DataElements["Control"] = "Laboratory Department";
+                IQCareMsgBox.Show("BlankDropDown", theBuilder, this);
+                ddDepartment.Focus();
+                return false;
+            }  
 
+            return true;
+        }
         /// <summary>
         /// Handles the Click event of the btnSave control.
         /// </summary>
@@ -55,33 +98,30 @@ namespace PresentationApp.AdminForms
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            using (DataTable theDT = new DataTable())
+            if (FieldValidation())
             {
-                theDT.Columns.AddRange(new DataColumn[2] { new DataColumn("LabgroupID", typeof(int)), new DataColumn("LabTestID", typeof(int)) });
-                foreach (GridViewRow row in grdLabs.Rows)
-                    if (row.RowType == DataControlRowType.DataRow)
-                    {
-                        CheckBox chkRow = (row.Cells[1].FindControl("chkLabTest") as CheckBox);
-                        if (chkRow.Checked)
+                using (DataTable theDT = new DataTable())
+                {
+                    theDT.Columns.AddRange(new DataColumn[2] { new DataColumn("LabgroupID", typeof(int)), new DataColumn("LabTestID", typeof(int)) });
+                    foreach (GridViewRow row in grdLabs.Rows)
+                        if (row.RowType == DataControlRowType.DataRow)
                         {
-                            string LabID = (row.Cells[0].FindControl("lblLabTestID") as Label).Text;
-                            string LabGroupID = Request.QueryString["LabId"];
-                            theDT.Rows.Add(LabGroupID, LabID);
+                            CheckBox chkRow = (row.Cells[1].FindControl("chkLabTest") as CheckBox);
+                            if (chkRow.Checked)
+                            {
+                                string LabID = (row.Cells[0].FindControl("lblLabTestID") as Label).Text;
+                                string LabGroupID = Request.QueryString["LabId"];
+                                theDT.Rows.Add(LabGroupID, LabID);
+                            }
                         }
-                    }
-                ILabMst LabManager = (ILabMst)ObjectFactory.CreateInstance("BusinessProcess.Administration.BLabMst, BusinessProcess.Administration");
-                LabManager.SaveLabGroupItems(Convert.ToInt32(Session["AppUserId"]), theDT, int.Parse(Request.QueryString["LabId"]));
+                    ILabMst LabManager = (ILabMst)ObjectFactory.CreateInstance("BusinessProcess.Administration.BLabMst, BusinessProcess.Administration");
+                    LabManager.SaveLabGroupItems(Convert.ToInt32(Session["AppUserId"]), theDT, int.Parse(Request.QueryString["LabId"]), txtLabName.Text, Convert.ToInt32(ddDepartment.SelectedValue));
 
-                string theUrl = "frmAdmin_LaboratoryGroups.aspx?Fid=" + Request.QueryString["Fid"];
-                IQCareMsgBox.NotifyAction("Saved successfully.", Header.InnerText, true, this, theUrl);
+                    string theUrl = "window.location.href='frmAdmin_LaboratoryGroups.aspx?Fid=" + Request.QueryString["Fid"]+"'";
+                    IQCareMsgBox.NotifyAction("Saved successfully.", "Lab Groups", false, this, theUrl);
 
-                //string script = "<script language = 'javascript' defer ='defer' id = 'confirm'>\n";
-                //script += "window.alert('Saved successfully.');\n";
-                //script += "window.location.href='" + theUrl + "';\n";
-                //script += "</script>\n";
-                //ClientScript.RegisterStartupScript(this.GetType(), "success", script);
+                }
             }
-
 
         }
 

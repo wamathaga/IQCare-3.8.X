@@ -280,7 +280,7 @@
   <Message Id ="NoRecordSelected" Type ="!" Buttons ="" Text ="Please enter at least one result."/>
 
   <Message Id ="NonARTNextAppDate" Type ="!" Buttons ="" Text ="Next appointment date cannot be less than or equal to visit date."/>
-  <Message Id ="Initialfollowupvisitnextappointment" Type ="!" Buttons ="" Text ="Next appointment date must be greater then visit date."/>
+  <Message Id ="Initialfollowupvisitnextappointment" Type ="!" Buttons ="" Text ="Next appointment date must be greater then visit date or Today's Date."/>
   <Message Id ="NonARTLMPDate" Type ="!" Buttons ="" Text ="LMP date cannot be greater than current date."/>
   <Message Id ="ErrorinSavingPaediatricDetail" Type ="!" Buttons ="" Text ="There was an error in saving the Pharmacy record."/>
   <Message Id ="EnrolDate" Type ="!" Buttons ="" Text ="Enrollment date cannot be greater than the current date."/>

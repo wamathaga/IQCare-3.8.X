@@ -42,6 +42,8 @@ public partial class Reports_frmIQToolsReports : LogPage
         //(Master.FindControl("lblheader") as Label).Text = "QueryBuilder Reports";
         (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblRoot") as Label).Text = "Reports >> ";
         (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblheader") as Label).Text = "Reports";
+        IQWebUtils Utils = new IQWebUtils();
+        Utils.HidePatientLevelheader();
         if (!IsPostBack)
         {
             DateTime today = DateTime.Today;

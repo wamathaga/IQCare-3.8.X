@@ -1173,10 +1173,10 @@
             </tr>
             <tr align="center">
                 <td class="form">
-                    <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
-                    <asp:Button ID="btnSubmitPositive" runat="server" Text="Data Quality Check" Visible="False" />
-                    <asp:Button ID="btnPwPClose" runat="server" OnClick="Button1_Click" Text="Close" />
-                    <asp:Button ID="btnPrintPositive" Text="Print" OnClientClick="WindowPrint()" runat="server" />
+                    <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn btn-primary" Height="26px"/>
+                    <asp:Button ID="btnSubmitPositive" runat="server" Text="Data Quality Check" Visible="False" CssClass="btn btn-primary" Height="26px"/>
+                    <asp:Button ID="btnPwPClose" runat="server" OnClick="Button1_Click" Text="Close" CssClass="btn btn-primary" Height="26px"/>
+                    <asp:Button ID="btnPrintPositive" Text="Print" OnClientClick="WindowPrint()" runat="server" CssClass="btn btn-primary" Height="26px"/>
                 </td>
             </tr>
         </tbody>

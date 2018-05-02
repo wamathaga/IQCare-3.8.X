@@ -20,8 +20,8 @@ public class AuthenticationManager
 {
     
     #region "Application Parameters"
-    public static string AppVersion = "3.8.0";
-    public static string ReleaseDate = "05-Feb-2016";
+    public static string AppVersion = "3.8.1";
+    public static string ReleaseDate = "02-Dec-2016";
     #endregion
 
 
@@ -47,22 +47,36 @@ public class AuthenticationManager
 
     public Boolean HasFunctionRight(int FeatureId, int FunctionId, DataTable theDT)
     {
-        DataView theDV = new DataView(theDT);
-        theDV.RowFilter = "FeatureId = " + FeatureId.ToString() + " and FunctionId = " + FunctionId.ToString();
-        if (theDV.Count > 0)
-            return true;
-        else
+        if ((HttpContext.Current.Session["CareEndFlag"].ToString() == "1") && ((FunctionId == 2) || (FunctionId == 4)) && (Convert.ToInt32(HttpContext.Current.Session["PatientId"]) > 0))
+        {
             return false;
+        }
+        else
+        {
+            DataView theDV = new DataView(theDT);
+            theDV.RowFilter = "FeatureId = " + FeatureId.ToString() + " and FunctionId = " + FunctionId.ToString();
+            if (theDV.Count > 0)
+                return true;
+            else
+                return false;
+        }
     }
 
     public Boolean HasFunctionRight(string FeatureName, int FunctionId, DataTable theDT)
     {
-        DataView theDV = new DataView(theDT);
-        theDV.RowFilter = "FeatureName = '" + FeatureName + "' and FunctionId = " + FunctionId.ToString();
-        if (theDV.Count > 0)
-            return true;
-        else
+        if ((HttpContext.Current.Session["CareEndFlag"].ToString() == "1") && ((FunctionId == 2) || (FunctionId == 4)) && (Convert.ToInt32(HttpContext.Current.Session["PatientId"]) > 0))
+        {
             return false;
+        }
+        else
+        {
+            DataView theDV = new DataView(theDT);
+            theDV.RowFilter = "FeatureName = '" + FeatureName + "' and FunctionId = " + FunctionId.ToString();
+            if (theDV.Count > 0)
+                return true;
+            else
+                return false;
+        }
     }
     
     public Boolean HasModuleRight(int ModuleId, DataTable theDT)
@@ -77,23 +91,37 @@ public class AuthenticationManager
 
     public Boolean HasTabFunctionRight(int TabId, int FunctionId, DataTable theDT)
     {
-        DataView theDV = new DataView(theDT);
-        theDV.RowFilter = "TabId = " + TabId.ToString() + " and FunctionId = " + FunctionId.ToString();
-        if (theDV.Count > 0)
-            return true;
-        else
+        if ((HttpContext.Current.Session["CareEndFlag"].ToString() == "1") && ((FunctionId == 2) || (FunctionId == 4)) && (Convert.ToInt32(HttpContext.Current.Session["PatientId"]) > 0))
+        {
             return false;
+        }
+        else
+        {
+            DataView theDV = new DataView(theDT);
+            theDV.RowFilter = "TabId = " + TabId.ToString() + " and FunctionId = " + FunctionId.ToString();
+            if (theDV.Count > 0)
+                return true;
+            else
+                return false;
+        }
     }
 
     public Boolean HasFunctionRight(int FeatureId, int TabId, int FunctionId, DataTable theDT)
     {
-        DataView theDV = new DataView(theDT);
-        theDV.RowFilter = "FeatureId = " + FeatureId.ToString() + " and TabId= "+TabId.ToString()+" and FunctionId = " + FunctionId.ToString() ;
-    
-        if (theDV.Count > 0)
-            return true;
-        else
+        if ((HttpContext.Current.Session["CareEndFlag"].ToString() == "1") && ((FunctionId == 2) || (FunctionId == 4)) && (Convert.ToInt32(HttpContext.Current.Session["PatientId"]) > 0))
+        {
             return false;
+        }
+        else
+        {
+            DataView theDV = new DataView(theDT);
+            theDV.RowFilter = "FeatureId = " + FeatureId.ToString() + " and TabId= " + TabId.ToString() + " and FunctionId = " + FunctionId.ToString();
+
+            if (theDV.Count > 0)
+                return true;
+            else
+                return false;
+        }
     }
 
     public void TabUserRights(Button save, Button print, int FeatureID, int TabID)

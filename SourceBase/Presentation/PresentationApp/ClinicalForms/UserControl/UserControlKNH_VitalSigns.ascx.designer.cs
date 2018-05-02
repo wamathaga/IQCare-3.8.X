@@ -139,6 +139,15 @@ namespace PresentationApp.ClinicalForms.UserControl {
         public global::System.Web.UI.WebControls.TextBox txtWeight;
         
         /// <summary>
+        /// lblBMI control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        public global::System.Web.UI.WebControls.Label lblBMI;
+        
+        /// <summary>
         /// txtBMI control.
         /// </summary>
         /// <remarks>
@@ -154,7 +163,7 @@ namespace PresentationApp.ClinicalForms.UserControl {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBMIClassification;
+        public global::System.Web.UI.WebControls.Label lblBMIClassification;
         
         /// <summary>
         /// txtheadcircumference control.

@@ -429,7 +429,8 @@ public partial class frmFindAddPatient : BasePage
                     tHeading.InnerText = "Delete Patient";
                     //(Master.FindControl("lblheader") as Label).Text = "Delete Patient";
                     (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblheader") as Label).Text = "Delete Patient";
-
+                    IQWebUtils Utils = new IQWebUtils();
+                    Utils.HidePatientLevelheader();
                     btnAdd.Visible = false;
                     spanBtnAdd.Visible = false;
                     tdPatientOtherDetails.Visible = false;

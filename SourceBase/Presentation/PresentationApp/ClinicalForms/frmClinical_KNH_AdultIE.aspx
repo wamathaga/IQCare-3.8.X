@@ -142,7 +142,8 @@
 
         }
     </script>
-    <div style="padding-left: 8px; padding-right: 8px; padding-top: 2px;">
+    <div style="padding-left: 8px; padding-right: 8px; padding-top: 2px; width: 100%"
+        class="container">
         <div class="border center formbg">
             <table cellspacing="6" cellpadding="0" width="100%" border="0">
                 <tr>
@@ -154,8 +155,7 @@
                             onfocus="javascript:vDateType='3'" maxlength="11" size="11" runat="server" type="text" />
                         <img id="appDateimg1" onclick="w_displayDatePicker('<%=txtVisitDate.ClientID%>');"
                             height="22 " alt="Date Helper" hspace="5" src="../images/cal_icon.gif" width="22"
-                            name="appDateimg" style="vertical-align: bottom;
-                            margin-bottom: 2px;" />
+                            name="appDateimg" style="vertical-align: bottom; margin-bottom: 2px;" />
                         <span class="smallerlabel" id="appDatespan1">(DD-MMM-YYYY)</span>
                     </td>
                 </tr>
@@ -176,10 +176,10 @@
                                 <tr>
                                     <td>
                                         <asp:Panel ID="pnlHIVCare" CssClass="border center formbg" runat="server" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="imgHIVCare" ImageUrl="~/images/arrow-up.gif" runat="server" />
                                                 <asp:Label ID="lblheadTriage" runat="server" Text="HIV Care and Support Evaluation"></asp:Label>
-                                            </h2>
+                                            </h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -438,10 +438,10 @@
                                 <tr>
                                     <td>
                                         <asp:Panel ID="pnlvitalsign" runat="server" CssClass="border center formbg" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="imgvitalsign" ImageUrl="~/images/arrow-up.gif" runat="server" />
                                                 <asp:Label ID="lblVitalSigns" runat="server" Text="Vital Signs"></asp:Label>
-                                            </h2>
+                                            </h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -463,13 +463,11 @@
                         <act:CollapsiblePanelExtender ID="CPEHIVCare" runat="server" SuppressPostBack="True"
                             ExpandedImage="~/images/arrow-dn.gif" TargetControlID="pnlHivCareDetail" CollapseControlID="pnlHIVCare"
                             ExpandControlID="pnlHIVCare" CollapsedImage="~/images/arrow-up.gif" Collapsed="True"
-                            ImageControlID="imgHIVCare" Enabled="True">
-                        </act:CollapsiblePanelExtender>
+                            ImageControlID="imgHIVCare" Enabled="True"></act:CollapsiblePanelExtender>
                         <act:CollapsiblePanelExtender ID="CPEVitalSign" runat="server" SuppressPostBack="True"
                             ExpandedImage="~/images/arrow-dn.gif" TargetControlID="pnlVitalSignDetail" CollapseControlID="pnlVitalSign"
                             ExpandControlID="pnlVitalSign" CollapsedImage="~/images/arrow-up.gif" Collapsed="True"
-                            ImageControlID="imgVitalSign" Enabled="True">
-                        </act:CollapsiblePanelExtender>
+                            ImageControlID="imgVitalSign" Enabled="True"></act:CollapsiblePanelExtender>
                         <br />
                         <div class="border center formbg">
                             <table cellspacing="6" cellpadding="0" width="100%" border="0">
@@ -481,14 +479,14 @@
                                     </tr>
                                     <tr id="tblSaveButton" align="center">
                                         <td class="form">
-                                            <asp:Button ID="btnSaveTriage" runat="server" Text="Save" OnClick="btnSaveTriage_Click" />
-                                            <asp:Button ID="btnCloseTriage" Text="Close" runat="server" OnClick="btncloseTriage_Click" />
-                                            <asp:Button ID="btnPrintTriage" Text="Print" OnClientClick="WindowPrint()" runat="server" />
+                                            <asp:Button ID="btnSaveTriage" runat="server" Text="Save" OnClick="btnSaveTriage_Click" CssClass="btn btn-primary" Height="26px" />
+                                            <asp:Button ID="btnCloseTriage" Text="Close" runat="server" OnClick="btncloseTriage_Click" CssClass="btn btn-primary" Height="26px"/>
+                                            <asp:Button ID="btnPrintTriage" Text="Print" OnClientClick="WindowPrint()" runat="server" CssClass="btn btn-primary" Height="26px" />
                                         </td>
                                     </tr>
                                     <tr id="tblDeleteButton" style="display: none" align="center">
                                         <td align="center" class="form" width="100%">
-                                            <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete" />
+                                            <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete" CssClass="btn btn-primary" Height="26px"/>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -506,9 +504,9 @@
                                 <tr>
                                     <td colspan="2">
                                         <asp:Panel ID="pnlPComp" runat="server" CssClass="border center formbg" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="ImgPC" ImageUrl="~/images/arrow-up.gif" runat="server" />
-                                                <asp:Label ID="lblPresComp" runat="server" Text="Presenting Complaints"></asp:Label></h2>
+                                                <asp:Label ID="lblPresComp" runat="server" Text="Presenting Complaints"></asp:Label></h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -530,9 +528,9 @@
                                 <tr>
                                     <td colspan="2">
                                         <asp:Panel ID="pnlFP" CssClass="border center formbg" runat="server" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="ImgFP" ImageUrl="~/images/arrow-up.gif" runat="server" />
-                                                <asp:Label ID="lblheadMedicalCond" runat="server" Text="Pre-Existing (Known Conditions)-Medical Conditions"></asp:Label></h2>
+                                                <asp:Label ID="lblheadMedicalCond" runat="server" Text="Pre-Existing (Known Conditions)-Medical Conditions"></asp:Label></h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -608,9 +606,9 @@
                                     </tr>
                                     <tr align="center">
                                         <td class="form">
-                                            <asp:Button ID="btnSaveCHistory" runat="server" Text="Save" OnClick="btnSaveCHistory_Click" />
-                                            <asp:Button ID="btncloseCHistory" Text="Close" runat="server" OnClick="btncloseCHistory_Click" />
-                                            <asp:Button ID="btnPrintCHistory" Text="Print" OnClientClick="WindowPrint()" runat="server" />
+                                            <asp:Button ID="btnSaveCHistory" runat="server" Text="Save" OnClick="btnSaveCHistory_Click" CssClass="btn btn-primary" Height="26px" />
+                                            <asp:Button ID="btncloseCHistory" Text="Close" runat="server" OnClick="btncloseCHistory_Click" CssClass="btn btn-primary" Height="26px" />
+                                            <asp:Button ID="btnPrintCHistory" Text="Print" OnClientClick="WindowPrint()" runat="server" CssClass="btn btn-primary" Height="26px" />
                                         </td>
                                     </tr>
                                 </tbody>
@@ -653,9 +651,9 @@
                                 <tr>
                                     <td>
                                         <asp:Panel ID="pnlLTM" CssClass="border center formbg" runat="server" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="ImgLTM" ImageUrl="~/images/arrow-up.gif" runat="server" />
-                                                <asp:Label ID="lblCurrentLongTermMedications" runat="server" Text="Current Long Term Medications"></asp:Label></h2>
+                                                <asp:Label ID="lblCurrentLongTermMedications" runat="server" Text="Current Long Term Medications"></asp:Label></h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -689,9 +687,9 @@
                                 <tr>
                                     <td align="left">
                                         <asp:Panel ID="pnlPE" CssClass="border center formbg" runat="server" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="imgPE" ImageUrl="~/images/arrow-up.gif" runat="server" />
-                                                <asp:Label ID="lblPhysicalExamination" runat="server" Text="Physical Examination"></asp:Label></h2>
+                                                <asp:Label ID="lblPhysicalExamination" runat="server" Text="Physical Examination"></asp:Label></h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -709,9 +707,9 @@
                                 <tr>
                                     <td align="left">
                                         <asp:Panel ID="PnlHReHis" CssClass="border center formbg" runat="server" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="ImgRH" ImageUrl="~/images/arrow-up.gif" runat="server" />
-                                                HIV Related History</h2>
+                                                HIV Related History</h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -772,7 +770,8 @@
                                                             size="11" type="text" /></input>
                                                         <img id="Img3" alt="Date Helper" border="0" height="22 " hspace="5" name="appDateimg"
                                                             onclick="w_displayDatePicker('<%=dtInitialCD4Date.ClientID%>');" src="../images/cal_icon.gif"
-                                                            style="vertical-align: bottom; margin-bottom: 2px;"  width="22" /><span class="smallerlabel" id="Span3">(DD-MMM-YYYY)</span>
+                                                            style="vertical-align: bottom; margin-bottom: 2px;" width="22" /><span class="smallerlabel"
+                                                                id="Span3">(DD-MMM-YYYY)</span>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -834,7 +833,8 @@
                                                             size="11" type="text" /></input>
                                                         <img id="Img23" alt="Date Helper" border="0" height="22 " hspace="5" name="appDateimg"
                                                             onclick="w_displayDatePicker('<%=dtHighestCD4Date.ClientID%>');" src="../images/cal_icon.gif"
-                                                            style="vertical-align: bottom; margin-bottom: 2px;" width="22" /><span class="smallerlabel" id="Span23">(DD-MMM-YYYY)</span>
+                                                            style="vertical-align: bottom; margin-bottom: 2px;" width="22" /><span class="smallerlabel"
+                                                                id="Span23">(DD-MMM-YYYY)</span>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -896,7 +896,8 @@
                                                             size="11" type="text" /></input>
                                                         <img id="Img24" alt="Date Helper" border="0" height="22 " hspace="5" name="appDateimg"
                                                             onclick="w_displayDatePicker('<%=dtCD4atARTinitiationDate.ClientID%>');" src="../images/cal_icon.gif"
-                                                            style="vertical-align: bottom; margin-bottom: 2px;" width="22" /><span class="smallerlabel" id="Span24">(DD-MMM-YYYY)</span>
+                                                            style="vertical-align: bottom; margin-bottom: 2px;" width="22" /><span class="smallerlabel"
+                                                                id="Span24">(DD-MMM-YYYY)</span>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -958,7 +959,8 @@
                                                             size="11" type="text" /></input>
                                                         <img id="Img25" alt="Date Helper" border="0" height="22 " hspace="5" name="appDateimg"
                                                             onclick="w_displayDatePicker('<%=dtMostRecentCD4Date.ClientID%>');" src="../images/cal_icon.gif"
-                                                            style="vertical-align: bottom; margin-bottom: 2px;" width="22" /><span class="smallerlabel" id="Span25">(DD-MMM-YYYY)</span>
+                                                            style="vertical-align: bottom; margin-bottom: 2px;" width="22" /><span class="smallerlabel"
+                                                                id="Span25">(DD-MMM-YYYY)</span>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -993,7 +995,8 @@
                                                             size="11" type="text" /></input>
                                                         <img id="Img26" alt="Date Helper" border="0" height="22 " hspace="5" name="appDateimg"
                                                             onclick="w_displayDatePicker('<%=dtPreviousViralLoadDate.ClientID%>');" src="../images/cal_icon.gif"
-                                                            style="vertical-align: bottom; margin-bottom: 2px;" width="22" /><span class="smallerlabel" id="Span26">(DD-MMM-YYYY)</span>
+                                                            style="vertical-align: bottom; margin-bottom: 2px;" width="22" /><span class="smallerlabel"
+                                                                id="Span26">(DD-MMM-YYYY)</span>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -1021,9 +1024,9 @@
                                 <tr>
                                     <td align="left">
                                         <asp:Panel ID="pnlARVExposure" CssClass="border center formbg" runat="server" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="imgARVExposure" ImageUrl="~/images/arrow-up.gif" runat="server" />
-                                                ARV Exposure</h2>
+                                                ARV Exposure</h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -1057,7 +1060,8 @@
                                                             size="11" type="text" /></input>
                                                         <img id="Img27" alt="Date Helper" border="0" height="22 " hspace="5" name="appDateimg"
                                                             onclick="w_displayDatePicker('<%=dtPMTCTStartDate.ClientID%>');" src="../images/cal_icon.gif"
-                                                            style="vertical-align: bottom; margin-bottom: 2px;" width="22" /><span class="smallerlabel" id="Span27">(DD-MMM-YYYY)</span>
+                                                            style="vertical-align: bottom; margin-bottom: 2px;" width="22" /><span class="smallerlabel"
+                                                                id="Span27">(DD-MMM-YYYY)</span>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -1092,7 +1096,8 @@
                                                             size="11" type="text" /></input>
                                                         <img id="Img28" alt="Date Helper" border="0" height="22 " hspace="5" name="appDateimg"
                                                             onclick="w_displayDatePicker('<%=dtPEP1StartDate.ClientID%>');" src="../images/cal_icon.gif"
-                                                            style="vertical-align: bottom; margin-bottom: 2px;" /><span class="smallerlabel" id="Span28">(DD-MMM-YYYY)</span>
+                                                            style="vertical-align: bottom; margin-bottom: 2px;" /><span class="smallerlabel"
+                                                                id="Span28">(DD-MMM-YYYY)</span>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -1127,7 +1132,8 @@
                                                             size="11" type="text" /></input>
                                                         <img id="Img29" alt="Date Helper" border="0" height="22 " hspace="5" name="appDateimg"
                                                             onclick="w_displayDatePicker('<%=dtHAART1StartDate.ClientID%>');" src="../images/cal_icon.gif"
-                                                            style="vertical-align: bottom; margin-bottom: 2px;" width="22" /><span class="smallerlabel" id="Span29">(DD-MMM-YYYY)</span>
+                                                            style="vertical-align: bottom; margin-bottom: 2px;" width="22" /><span class="smallerlabel"
+                                                                id="Span29">(DD-MMM-YYYY)</span>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -1178,9 +1184,9 @@
                                 <tr>
                                     <td align="left">
                                         <asp:Panel ID="pnlWHOStage" CssClass="border center formbg" runat="server" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="imgWHOStage" ImageUrl="~/images/arrow-up.gif" runat="server" />
-                                                <asp:Label ID="lblheadWHOStage" runat="server" Text="WHO Stage"></asp:Label></h2>
+                                                <asp:Label ID="lblheadWHOStage" runat="server" Text="WHO Stage"></asp:Label></h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -1198,9 +1204,9 @@
                                 <tr>
                                     <td align="left">
                                         <asp:Panel ID="pnlDiagnosis" CssClass="border center formbg" runat="server" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="imgDiagnosis" ImageUrl="~/images/arrow-up.gif" runat="server" />
-                                                Diagnosis</h2>
+                                                Diagnosis</h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -1272,33 +1278,27 @@
                         <act:CollapsiblePanelExtender ID="CPELTM" runat="server" SuppressPostBack="True"
                             ExpandedImage="~/images/arrow-dn.gif" TargetControlID="pnlLTMedicine" CollapseControlID="pnlLTM"
                             ExpandControlID="pnlLTM" CollapsedImage="~/images/arrow-up.gif" Collapsed="True"
-                            ImageControlID="ImgLTM" Enabled="True">
-                        </act:CollapsiblePanelExtender>
+                            ImageControlID="ImgLTM" Enabled="True"></act:CollapsiblePanelExtender>
                         <act:CollapsiblePanelExtender ID="CPEPE" runat="server" SuppressPostBack="True" ExpandedImage="~/images/arrow-dn.gif"
                             TargetControlID="pnlPEDetail" CollapseControlID="pnlPE" ExpandControlID="pnlPE"
                             CollapsedImage="~/images/arrow-up.gif" Collapsed="True" ImageControlID="ImgLTM"
-                            Enabled="True">
-                        </act:CollapsiblePanelExtender>
+                            Enabled="True"></act:CollapsiblePanelExtender>
                         <act:CollapsiblePanelExtender ID="CPEHIVRH1" runat="server" SuppressPostBack="True"
                             ExpandedImage="~/images/arrow-dn.gif" TargetControlID="PnlTHReHis" CollapseControlID="pnlHReHis"
                             ExpandControlID="pnlHReHis" CollapsedImage="~/images/arrow-up.gif" Collapsed="True"
-                            ImageControlID="ImgRH" Enabled="True">
-                        </act:CollapsiblePanelExtender>
+                            ImageControlID="ImgRH" Enabled="True"></act:CollapsiblePanelExtender>
                         <act:CollapsiblePanelExtender ID="CPARVExposure" runat="server" SuppressPostBack="True"
                             ExpandedImage="~/images/arrow-dn.gif" TargetControlID="pnlARVExposureDetail"
                             CollapseControlID="pnlARVExposure" ExpandControlID="pnlARVExposure" CollapsedImage="~/images/arrow-up.gif"
-                            Collapsed="True" ImageControlID="ImgARVExposure" Enabled="True">
-                        </act:CollapsiblePanelExtender>
+                            Collapsed="True" ImageControlID="ImgARVExposure" Enabled="True"></act:CollapsiblePanelExtender>
                         <act:CollapsiblePanelExtender ID="CPDiagnosis" runat="server" SuppressPostBack="True"
                             ExpandedImage="~/images/arrow-dn.gif" TargetControlID="pnlDiagnosisDetail" CollapseControlID="pnlDiagnosis"
                             ExpandControlID="pnlDiagnosis" CollapsedImage="~/images/arrow-up.gif" Collapsed="True"
-                            ImageControlID="ImgDiagnosis" Enabled="True">
-                        </act:CollapsiblePanelExtender>
+                            ImageControlID="ImgDiagnosis" Enabled="True"></act:CollapsiblePanelExtender>
                         <act:CollapsiblePanelExtender ID="CPWHOStage" runat="server" SuppressPostBack="True"
                             ExpandedImage="~/images/arrow-dn.gif" TargetControlID="pnlWHOStageDetail" CollapseControlID="pnlWHOStage"
                             ExpandControlID="pnlWHOStage" CollapsedImage="~/images/arrow-up.gif" Collapsed="True"
-                            ImageControlID="ImgWHOStage" Enabled="True">
-                        </act:CollapsiblePanelExtender>
+                            ImageControlID="ImgWHOStage" Enabled="True"></act:CollapsiblePanelExtender>
                         <br />
                         <div class="border center formbg">
                             <table cellspacing="6" cellpadding="0" width="100%" border="0">
@@ -1310,9 +1310,9 @@
                                     </tr>
                                     <tr align="center">
                                         <td class="form">
-                                            <asp:Button ID="btnSaveExam" runat="server" Text="Save" OnClick="btnSaveExam_Click" />
-                                            <asp:Button ID="btncloseExam" Text="Close" runat="server" OnClick="btncloseExam_Click" />
-                                            <asp:Button ID="btnPrintExam" Text="Print" OnClientClick="WindowPrint()" runat="server" />
+                                            <asp:Button ID="btnSaveExam" runat="server" Text="Save" OnClick="btnSaveExam_Click" CssClass="btn btn-primary" Height="26px" />
+                                            <asp:Button ID="btncloseExam" Text="Close" runat="server" OnClick="btncloseExam_Click" CssClass="btn btn-primary" Height="26px"/>
+                                            <asp:Button ID="btnPrintExam" Text="Print" OnClientClick="WindowPrint()" runat="server" CssClass="btn btn-primary" Height="26px" />
                                         </td>
                                     </tr>
                                 </tbody>
@@ -1331,9 +1331,9 @@
                                 <tr>
                                     <td colspan="2" align="left">
                                         <asp:Panel ID="pnlDAToxities" CssClass="border center formbg" runat="server" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="imgDAToxities" ImageUrl="~/images/arrow-up.gif" runat="server" />
-                                                Drug Allergies</h2>
+                                                Drug Allergies</h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -1352,9 +1352,9 @@
                                     <td colspan="2" align="left">
                                         <asp:Panel ID="pnlARVSideeffects" CssClass="border center formbg" runat="server"
                                             Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="ImgARVSideEffect" ImageUrl="~/images/arrow-up.gif" runat="server" />
-                                                ARV Side Effects</h2>
+                                                ARV Side Effects</h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -1409,9 +1409,9 @@
                                 <tr>
                                     <td colspan="2" align="left">
                                         <asp:Panel ID="PnlWupplan" CssClass="border center formbg" runat="server" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="Imgwupplan" ImageUrl="~/images/arrow-up.gif" runat="server" />
-                                                Work up plan</h2>
+                                                Work up plan</h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -1439,9 +1439,9 @@
                                 <tr>
                                     <td colspan="2" align="left">
                                         <asp:Panel ID="pnllabEvaluation" CssClass="border center formbg" runat="server" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="imglabevaluation" ImageUrl="~/images/arrow-up.gif" runat="server" />
-                                                Lab Evaluation</h2>
+                                                Lab Evaluation</h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -1464,10 +1464,10 @@
                                 <tr>
                                     <td colspan="2" align="left">
                                         <asp:Panel ID="pnlTreatment" CssClass="border center formbg" runat="server" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="imgtreatment" ImageUrl="~/images/arrow-up.gif" runat="server" />
                                                 <asp:Label ID="lblheadregimenpresc" runat="server" Text="Treatment"></asp:Label>
-                                            </h2>
+                                            </h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -1485,10 +1485,10 @@
                                 <tr>
                                     <td colspan="2" align="left">
                                         <asp:Panel ID="pnlOITreatment" CssClass="border center formbg" runat="server" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="imgOITreatment" ImageUrl="~/images/arrow-up.gif" runat="server" />
                                                 OI Treatment
-                                            </h2>
+                                            </h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -1580,33 +1580,27 @@
                         <act:CollapsiblePanelExtender ID="CPLWupplan" runat="server" SuppressPostBack="true"
                             ExpandedImage="~/images/arrow-dn.gif" TargetControlID="PnlWupplandetails" CollapseControlID="PnlWupplan"
                             ExpandControlID="PnlWupplan" CollapsedImage="~/images/arrow-up.gif" Collapsed="true"
-                            ImageControlID="ImgWupplan">
-                        </act:CollapsiblePanelExtender>
+                            ImageControlID="ImgWupplan"></act:CollapsiblePanelExtender>
                         <act:CollapsiblePanelExtender ID="CPEDAT" runat="server" SuppressPostBack="true"
                             ExpandedImage="~/images/arrow-dn.gif" TargetControlID="pnlDAToxitiesDetail" CollapseControlID="pnlDAToxities"
                             ExpandControlID="pnlDAToxities" CollapsedImage="~/images/arrow-up.gif" Collapsed="true"
-                            ImageControlID="imgDAToxities">
-                        </act:CollapsiblePanelExtender>
+                            ImageControlID="imgDAToxities"></act:CollapsiblePanelExtender>
                         <act:CollapsiblePanelExtender ID="CPEARVSE" runat="server" SuppressPostBack="true"
                             ExpandedImage="~/images/arrow-dn.gif" TargetControlID="pnlARVSideEffectDetail"
                             CollapseControlID="pnlARVSideeffects" ExpandControlID="pnlARVSideeffects" CollapsedImage="~/images/arrow-up.gif"
-                            Collapsed="true" ImageControlID="ImgARVSideEffect">
-                        </act:CollapsiblePanelExtender>
+                            Collapsed="true" ImageControlID="ImgARVSideEffect"></act:CollapsiblePanelExtender>
                         <act:CollapsiblePanelExtender ID="CPELabEval" runat="server" SuppressPostBack="true"
                             ExpandedImage="~/images/arrow-dn.gif" TargetControlID="pnllabEvaluationDetail"
                             CollapseControlID="pnllabEvaluation" ExpandControlID="pnllabEvaluation" CollapsedImage="~/images/arrow-up.gif"
-                            Collapsed="true" ImageControlID="imglabevaluation">
-                        </act:CollapsiblePanelExtender>
+                            Collapsed="true" ImageControlID="imglabevaluation"></act:CollapsiblePanelExtender>
                         <act:CollapsiblePanelExtender ID="CPETreatment" runat="server" SuppressPostBack="true"
                             ExpandedImage="~/images/arrow-dn.gif" TargetControlID="pnlTreatmentdetail" CollapseControlID="pnlTreatment"
                             ExpandControlID="pnlTreatment" CollapsedImage="~/images/arrow-up.gif" Collapsed="true"
-                            ImageControlID="imgtreatment">
-                        </act:CollapsiblePanelExtender>
+                            ImageControlID="imgtreatment"></act:CollapsiblePanelExtender>
                         <act:CollapsiblePanelExtender ID="CPEOITreatment" runat="server" SuppressPostBack="true"
                             ExpandedImage="~/images/arrow-dn.gif" TargetControlID="pnlOITreatmentDetail"
                             CollapseControlID="pnlOITreatment" ExpandControlID="pnlOITreatment" CollapsedImage="~/images/arrow-up.gif"
-                            Collapsed="true" ImageControlID="imgOITreatment">
-                        </act:CollapsiblePanelExtender>
+                            Collapsed="true" ImageControlID="imgOITreatment"></act:CollapsiblePanelExtender>
                         <br />
                         <div class="border center formbg">
                             <table cellspacing="6" cellpadding="0" width="100%" border="0">
@@ -1618,9 +1612,9 @@
                                     </tr>
                                     <tr align="center">
                                         <td class="form">
-                                            <asp:Button ID="btnSaveManagement" runat="server" Text="Save" OnClick="btnSaveManagement_Click" />
-                                            <asp:Button ID="btncloseMgt" Text="Close" runat="server" OnClick="btncloseMgt_Click" />
-                                            <asp:Button ID="btnPrintManagement" Text="Print" OnClientClick="WindowPrint()" runat="server" />
+                                            <asp:Button ID="btnSaveManagement" runat="server" Text="Save" OnClick="btnSaveManagement_Click" CssClass="btn btn-primary" Height="26px" />
+                                            <asp:Button ID="btncloseMgt" Text="Close" runat="server" OnClick="btncloseMgt_Click" CssClass="btn btn-primary" Height="26px" />
+                                            <asp:Button ID="btnPrintManagement" Text="Print" OnClientClick="WindowPrint()" runat="server"  CssClass="btn btn-primary" Height="26px"/>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -1651,10 +1645,10 @@
                     <tbody>
                         <tr align="center">
                             <td class="form">
-                                <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
-                                <asp:Button ID="btncomplete" runat="server" Text="Data Quality Check" />
+                                <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn btn-primary" Height="26px" />
+                                <asp:Button ID="btncomplete" runat="server" Text="Data Quality Check" CssClass="btn btn-primary" Height="26px" />
                                 <%--<asp:Button ID="btnback" runat="server" Text="Close" />--%>
-                                <asp:Button ID="btnPrint" Text="Print" OnClientClick="WindowPrint()" runat="server" />
+                                <asp:Button ID="btnPrint" Text="Print" OnClientClick="WindowPrint()" runat="server" CssClass="btn btn-primary" Height="26px" />
                             </td>
                         </tr>
                     </tbody>
@@ -1669,4 +1663,5 @@
             <uc1:UserControlKNH_BackToTop ID="UserControlKNH_BackToTop1" runat="server" />
             <%--<uc10:UserControlKNH_Extruder ID="UserControlKNH_Extruder1" runat="server" />--%>
         </div>
+    </div>
 </asp:Content>

@@ -133,9 +133,9 @@
 
         }
     </script>
-    <div style="padding-left: 8px; padding-right: 8px; padding-top: 2px;">
+    <div style="padding-left: 8px; padding-right: 8px; padding-top: 2px; width:100%;" class="container">
         <div class="border center formbg">
-            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+            <table cellspacing="6" cellpadding="0" width="100%" border="0" class="table-condensed">
                 <tr>
                     <td class="form" align="center">
                         <label class="required">
@@ -165,9 +165,9 @@
                                     <td>
                                         <asp:Panel ID="pnlNigeriaMedical" runat="server" CssClass="border center formbg"
                                             Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="imgNigeriaMedical" ImageUrl="~/images/arrow-up.gif" runat="server" />
-                                                <asp:Label ID="lblNigeriaMedical" runat="server" Text="Medical History"></asp:Label></h2>
+                                                <asp:Label ID="lblNigeriaMedical" runat="server" Text="Medical History"></asp:Label></h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -259,9 +259,9 @@
                                 <tr>
                                     <td>
                                         <asp:Panel ID="pnlpriorart" runat="server" CssClass="border center formbg" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="imgpriorart" ImageUrl="~/images/arrow-up.gif" runat="server" />
-                                                <asp:Label ID="lblpriorart" runat="server" Text="Prior ART"></asp:Label></h2>
+                                                <asp:Label ID="lblpriorart" runat="server" Text="Prior ART"></asp:Label></h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -351,9 +351,9 @@
                                 <tr>
                                     <td colspan="2">
                                         <asp:Panel ID="PnlAdherence" runat="server" CssClass="border center formbg" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="imgAdherence" ImageUrl="~/images/arrow-up.gif" runat="server" />
-                                                <asp:Label ID="lbladherence" runat="server" Text="Adherence"></asp:Label></h2>
+                                                <asp:Label ID="lbladherence" runat="server" Text="Adherence"></asp:Label></h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -398,9 +398,9 @@
                                 <tr id="Tr2" runat="server" align="center">
                                     <td id="Td2" runat="server" class="form">
                                         <asp:Button ID="btnClinicalHistorySave" runat="server" OnClick="btnClinicalHistorySave_Click"
-                                            Text="Save" />                                        
+                                            Text="Save" CssClass="btn btn-primary" Height="26px" />                                        
                                         <asp:Button ID="btnClinicalHistoryPrint" runat="server" OnClientClick="WindowPrintAll()"
-                                            Text="Print" />
+                                            Text="Print" CssClass="btn btn-primary" Height="26px" />
                                     </td>
                                 </tr>
                             </table>
@@ -414,10 +414,10 @@
                                 <tr>
                                     <td>
                                         <asp:Panel ID="pnlvitalsign" runat="server" CssClass="border center formbg" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="imgvitalsign" ImageUrl="~/images/arrow-up.gif" runat="server" />
                                                 <asp:Label ID="lblVitalSigns" runat="server" Text="Vital Signs"></asp:Label>
-                                            </h2>
+                                            </h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -439,9 +439,9 @@
                                 <tr>
                                     <td align="left">
                                         <asp:Panel ID="pnlPE" CssClass="border center formbg" runat="server" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="imgPE" ImageUrl="~/images/arrow-up.gif" runat="server" />
-                                                <asp:Label ID="lblPhysicalExamination" runat="server" Text="Physical Examination"></asp:Label></h2>
+                                                <asp:Label ID="lblPhysicalExamination" runat="server" Text="Physical Examination"></asp:Label></h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -459,9 +459,9 @@
                                 <tr>
                                     <td align="left">
                                         <asp:Panel ID="PnlAssessment" CssClass="border center formbg" runat="server" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="ImgAssessment" ImageUrl="~/images/arrow-up.gif" runat="server" />
-                                                <asp:Label ID="lblPnlAssessment" runat="server" Text="Assessment"></asp:Label></h2>
+                                                <asp:Label ID="lblPnlAssessment" runat="server" Text="Assessment"></asp:Label></h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -519,9 +519,9 @@
                                     <tr runat="server" align="center">
                                         <td runat="server" class="form">
                                             <asp:Button ID="btnExaminationSave" runat="server" OnClick="btnExaminationSave_Click"
-                                                Text="Save" />                                            
+                                                Text="Save" CssClass="btn btn-primary" Height="26px" />                                            
                                             <asp:Button ID="btnExaminationPrint" runat="server" OnClientClick="WindowPrintAll();"
-                                                Text="Print" />
+                                                Text="Print" CssClass="btn btn-primary" Height="26px" />
                                         </td>
                                     </tr>
                                 </tbody>
@@ -536,10 +536,10 @@
                                 <tr>
                                     <td align="left">
                                         <asp:Panel ID="pnlTreatment" CssClass="border center formbg" runat="server" Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="imgtreatment" ImageUrl="~/images/arrow-up.gif" runat="server" />
                                                 <asp:Label ID="lblheadregimenpresc" runat="server" Text="Treatment Plan"></asp:Label>
-                                            </h2>
+                                            </h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -558,10 +558,10 @@
                                     <td align="left">
                                         <asp:Panel ID="pnlAppointmentsHeader" CssClass="border center formbg" runat="server"
                                             Style="padding: 6px">
-                                            <h2 class="forms" align="left">
+                                            <h4 class="forms" align="left">
                                                 <asp:ImageButton ID="imgAppointments" ImageUrl="~/images/arrow-up.gif" runat="server" />
                                                 <asp:Label ID="lblAppointment" runat="server" Text="Next Appointment"></asp:Label>
-                                            </h2>
+                                            </h4>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -588,7 +588,7 @@
                         </div>
                         <br />
                         <div class="border center formbg">
-                            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+                            <table cellspacing="6" cellpadding="0" width="100%" border="0" class="table-condensed">
                                 <tbody>
                                     <tr align="center">
                                         <td class="form">
@@ -597,8 +597,8 @@
                                     </tr>
                                     <tr id="tblSaveButton" align="center">
                                         <td class="form">
-                                            <asp:Button ID="btnSaveMgt" runat="server" Text="Save" OnClick="btnSaveTriage_Click" />                                            
-                                            <asp:Button ID="btnPrintMgt" Text="Print" OnClientClick="WindowPrintAll();" runat="server" />
+                                            <asp:Button ID="btnSaveMgt" runat="server" Text="Save" OnClick="btnSaveTriage_Click" CssClass="btn btn-primary" Height="26px" />                                            
+                                            <asp:Button ID="btnPrintMgt" Text="Print" OnClientClick="WindowPrintAll();" runat="server" CssClass="btn btn-primary" Height="26px" />
                                         </td>
                                     </tr>
                                 </tbody>
@@ -613,7 +613,7 @@
             <tbody>
                 <tr>
                     <td class="form pad5">
-                        <asp:Button ID="btnClose" Text="Close" runat="server" OnClick="btnClose_Click" />
+                        <asp:Button ID="btnClose" Text="Close" runat="server" OnClick="btnClose_Click" CssClass="btn btn-primary" Height="26px" />
                     </td>
                 </tr>
             </tbody>

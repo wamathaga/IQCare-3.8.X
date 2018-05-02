@@ -63,7 +63,7 @@ namespace BusinessProcess.Clinical
                         ClsUtility.AddParameters("@EDD", SqlDbType.VarChar, theHT["EDD"].ToString());
                         ClsUtility.AddParameters("@Parity", SqlDbType.Int, theHT["Parity"].ToString());
                         ClsUtility.AddParameters("@Gravidae", SqlDbType.Int, theHT["Gravidae"].ToString());
-                        ClsUtility.AddParameters("@Gestation", SqlDbType.Decimal, theHT["Gestation"].ToString());
+                        ClsUtility.AddParameters("@Gestation", SqlDbType.VarChar, theHT["Gestation"].ToString());
                         ClsUtility.AddParameters("@VisitNumber", SqlDbType.Int, theHT["VisitNumber"].ToString());
                         ClsUtility.AddParameters("@Temp", SqlDbType.Decimal, theHT["Temp"].ToString());
                         ClsUtility.AddParameters("@RR", SqlDbType.Decimal, theHT["RR"].ToString());
@@ -73,6 +73,10 @@ namespace BusinessProcess.Clinical
                         ClsUtility.AddParameters("@Height", SqlDbType.Decimal, theHT["Height"].ToString());
                         ClsUtility.AddParameters("@Weight", SqlDbType.Decimal, theHT["Weight"].ToString());
                         ClsUtility.AddParameters("@UserID", SqlDbType.Int, theHT["UserId"].ToString());
+                        ClsUtility.AddParameters("@tetanustoxoid", SqlDbType.Int, theHT["tetanustoxoid"].ToString());
+                        ClsUtility.AddParameters("@TetanusVaccineDose", SqlDbType.Int, theHT["tetanustoxoidVaccine"].ToString());
+                        ClsUtility.AddParameters("@TetanusVaccineReason", SqlDbType.Int, theHT["tetanustoxoidVaccineNo"].ToString());
+                        ClsUtility.AddParameters("@Mernarche", SqlDbType.Int, theHT["Mernarche"].ToString());
                         retval = (DataSet)KNHMEIManager.ReturnObject(ClsUtility.theParams, "pr_Clinical_SaveUpdateKNHMEITriage_Futures", ClsDBUtility.ObjectEnum.DataSet);
                         break;
 
@@ -87,6 +91,7 @@ namespace BusinessProcess.Clinical
                         ClsUtility.AddParameters("@PreTestCounseling", SqlDbType.Int, theHT["PreTestCounseling"].ToString());
                         ClsUtility.AddParameters("@PostTestCounseling", SqlDbType.Int, theHT["PostTestCounseling"].ToString());
                         ClsUtility.AddParameters("@HIVTestingToday", SqlDbType.Int, theHT["HIVTestingToday"].ToString());
+                        ClsUtility.AddParameters("@HIVTestingTodayDone", SqlDbType.Int, theHT["HIVTestingTodayDone"].ToString());
                         ClsUtility.AddParameters("@FinalHIVResult", SqlDbType.Int, theHT["FinalHIVResult"].ToString());
                         ClsUtility.AddParameters("@Patientaccompaniedpartner", SqlDbType.Int, theHT["Patientaccompaniedpartner"].ToString());
                         ClsUtility.AddParameters("@partnerpretestcounselling", SqlDbType.Int, theHT["partnerpretestcounselling"].ToString());
@@ -202,12 +207,31 @@ namespace BusinessProcess.Clinical
                         ClsUtility.AddParameters("@ContactsScreenedForTB", SqlDbType.Int, theHT["ContactsScreenedForTB"].ToString());
                         ClsUtility.AddParameters("@SpecifyWhyContactNotScreenedForTB", SqlDbType.VarChar, theHT["txtSpecifyWhyContactNotScreenedForTB"].ToString());
                         ClsUtility.AddParameters("@PatientReferredForTreatment", SqlDbType.Int, theHT["PatientReferredForTreatment"].ToString());
-                        ClsUtility.AddParameters("@tetanustoxoid", SqlDbType.Int, theHT["tetanustoxoid"].ToString());
-                        ClsUtility.AddParameters("@TetanusVaccineDose", SqlDbType.Int, theHT["tetanustoxoidVaccine"].ToString());
-                        ClsUtility.AddParameters("@TetanusVaccineReason", SqlDbType.Int, theHT["tetanustoxoidVaccineNo"].ToString());
+
+                        ClsUtility.AddParameters("@IPT", SqlDbType.Int, theHT["IPT"].ToString());
+                        ClsUtility.AddParameters("@ReasonDeclinedIPT", SqlDbType.Int, theHT["ReasonDeclinedIPT"].ToString());
+                        ClsUtility.AddParameters("@OtherReasonDeclinedIPT", SqlDbType.VarChar, theHT["OtherReasonDeclinedIPT"].ToString());
+                        if (!String.IsNullOrEmpty(theHT["PyridoxineEndDate"].ToString()))
+                            ClsUtility.AddParameters("@PyridoxineEndDate", SqlDbType.VarChar, theHT["PyridoxineEndDate"].ToString());
+                        if (!String.IsNullOrEmpty(theHT["INHStartDate"].ToString()))
+                            ClsUtility.AddParameters("@INHStartDate", SqlDbType.VarChar, theHT["INHStartDate"].ToString());
+                        if (!String.IsNullOrEmpty(theHT["INHEndDate"].ToString()))
+                            ClsUtility.AddParameters("@INHEndDate", SqlDbType.VarChar, theHT["INHEndDate"].ToString());
+                        if (!String.IsNullOrEmpty(theHT["PyridoxineStartDate"].ToString()))
+                            ClsUtility.AddParameters("@PyridoxineStartDate", SqlDbType.VarChar, theHT["PyridoxineStartDate"].ToString());
+                        if (theHT["AdherenceAddressed"] != null)
+                            ClsUtility.AddParameters("@AdherenceAddressed", SqlDbType.Int, theHT["AdherenceAddressed"].ToString());
+                        if (theHT["missedAnyDoses"] != null)
+                            ClsUtility.AddParameters("@AnyMissedDoses", SqlDbType.Int, theHT["missedAnyDoses"].ToString());
+                        if (theHT["ReferredForAdherence"] != null)
+                            ClsUtility.AddParameters("@ReferredForAdherence", SqlDbType.Int, theHT["ReferredForAdherence"].ToString());
+                        ClsUtility.AddParameters("@OtherTBSideEffects", SqlDbType.VarChar, theHT["SpecifyOtherTBSideEffects"].ToString());
+                        //ClsUtility.AddParameters("@tetanustoxoid", SqlDbType.Int, theHT["tetanustoxoid"].ToString());
+                        //ClsUtility.AddParameters("@TetanusVaccineDose", SqlDbType.Int, theHT["tetanustoxoidVaccine"].ToString());
+                        //ClsUtility.AddParameters("@TetanusVaccineReason", SqlDbType.Int, theHT["tetanustoxoidVaccineNo"].ToString());
                         ClsUtility.AddParameters("@Currentwhostage", SqlDbType.Int, theHT["Currentwhostage"].ToString());
                         ClsUtility.AddParameters("@WABStage", SqlDbType.Int, theHT["WABStage"].ToString());
-                        ClsUtility.AddParameters("@Mernarche", SqlDbType.Int, theHT["Mernarche"].ToString());
+                        //ClsUtility.AddParameters("@Mernarche", SqlDbType.Int, theHT["Mernarche"].ToString());
                         ClsUtility.AddParameters("@MernarcheDate", SqlDbType.VarChar, theHT["MernarcheDate"].ToString());
                         ClsUtility.AddParameters("@tannerstaging", SqlDbType.Int, theHT["tannerstaging"].ToString());
                         ClsUtility.AddParameters("@UserID", SqlDbType.Int, theHT["UserId"].ToString());
@@ -222,7 +246,10 @@ namespace BusinessProcess.Clinical
                     {
                         ClsUtility.Init_Hashtable();
                         ClsUtility.AddParameters("@patientid", SqlDbType.Int, theHT["PatientId"].ToString());
-                        ClsUtility.AddParameters("@Visit_ID", SqlDbType.Int, theHT["visitPk"].ToString());
+                        if (theHT["visitPk"].ToString() == "0" && retval.Tables[0].Rows.Count > 0)
+                            ClsUtility.AddParameters("@Visit_ID", SqlDbType.Int, retval.Tables[0].Rows[0]["VisitId"].ToString());                       
+                        else
+                            ClsUtility.AddParameters("@Visit_ID", SqlDbType.Int, theHT["visitPk"].ToString());
                         ClsUtility.AddParameters("@Id", SqlDbType.Int, theDR["ID"].ToString());
                         ClsUtility.AddParameters("@CodeName", SqlDbType.VarChar, "VitalSign");
                         ClsUtility.AddParameters("@OtherNotes", SqlDbType.VarChar, "");
@@ -399,6 +426,50 @@ namespace BusinessProcess.Clinical
                         ClsUtility.AddParameters("@OtherNotes", SqlDbType.VarChar, "");
                         ClsUtility.AddParameters("@UserId", SqlDbType.Int, theHT["UserId"].ToString());
                         int temp = (int)KNHMEIManager.ReturnObject(ClsUtility.theParams, "pr_KNHPMTCTHEI_SavecheckedlistItems", ClsDBUtility.ObjectEnum.ExecuteNonQuery);
+                    }
+                }
+
+                //IPT Stop Reason
+                if (theDS.Tables["TBStopReason"] != null && theDS.Tables["TBStopReason"].Rows.Count > 0)
+                {
+                    foreach (DataRow theDR in theDS.Tables["TBStopReason"].Rows)
+                    {
+                        ClsUtility.Init_Hashtable();
+                        ClsUtility.AddParameters("@Ptn_pk", SqlDbType.Int, theHT["PatientId"].ToString());
+                        ClsUtility.AddParameters("@Visit_Pk", SqlDbType.Int, theHT["visitPk"].ToString());
+                        ClsUtility.AddParameters("@ValueID", SqlDbType.Int, theDR["ID"].ToString());
+                        ClsUtility.AddParameters("@UserId", SqlDbType.Int, theHT["UserId"].ToString());
+                        int IPTStop = (int)KNHMEIManager.ReturnObject(ClsUtility.theParams, "pr_Clinical_SaveUpdate_IPTStopReason", ClsDBUtility.ObjectEnum.ExecuteNonQuery);
+                    }
+                }
+
+
+                //TB Review Checklist
+                if (theDS.Tables["TBReview"] != null && theDS.Tables["TBReview"].Rows.Count > 0)
+                {
+                    foreach (DataRow theDR in theDS.Tables["TBReview"].Rows)
+                    {
+                        ClsUtility.Init_Hashtable();
+                        ClsUtility.AddParameters("@Ptn_pk", SqlDbType.Int, theHT["PatientId"].ToString());
+                        ClsUtility.AddParameters("@Visit_Pk", SqlDbType.Int, theHT["visitPk"].ToString());
+                        ClsUtility.AddParameters("@ValueID", SqlDbType.Int, theDR["ID"].ToString());
+                        ClsUtility.AddParameters("@UserId", SqlDbType.Int, theHT["UserId"].ToString());
+                        int IPTStop = (int)KNHMEIManager.ReturnObject(ClsUtility.theParams, "pr_Clinical_SaveUpdate_TBReviewCheckList", ClsDBUtility.ObjectEnum.ExecuteNonQuery);
+                    }
+                }
+
+                if (theDS.Tables["TBSignsOfHepatitis"] != null && theDS.Tables["TBSignsOfHepatitis"].Rows.Count > 0)
+                {
+                    foreach (DataRow theDR in theDS.Tables["TBSignsOfHepatitis"].Rows)
+                    {
+                        ClsUtility.Init_Hashtable();
+                        ClsUtility.AddParameters("@Ptn_pk", SqlDbType.Int, theHT["PatientId"].ToString());
+                        ClsUtility.AddParameters("@Visit_Pk", SqlDbType.Int, theHT["visitPk"].ToString());
+                        ClsUtility.AddParameters("@ValueID", SqlDbType.Int, theDR["ID"].ToString());
+                        ClsUtility.AddParameters("@UserId", SqlDbType.Int, theHT["UserId"].ToString());
+                        ClsUtility.AddParameters("@fieldName", SqlDbType.Int, "SignsOfHepatitis");
+                        int SignsHepatitis = (int)KNHMEIManager.ReturnObject(ClsUtility.theParams, "pr_Clinical_SaveUpdate_MultiSelect", ClsDBUtility.ObjectEnum.ExecuteNonQuery);
+
                     }
                 }
                 

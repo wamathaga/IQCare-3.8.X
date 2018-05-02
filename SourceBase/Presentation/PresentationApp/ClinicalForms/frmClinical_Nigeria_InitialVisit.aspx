@@ -3,7 +3,7 @@
 
 <%@ Register TagPrefix="UcDrugAllergies" TagName="Uc6" Src="~/ClinicalForms/UserControl/UserControlKNH_DrugAllergies.ascx" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="IQCareContentPlaceHolder" runat="server">
-    <div style="padding-left: 8px; padding-right: 8px;">
+    <div style="padding-left: 8px; padding-right: 8px; width:100%;" class="container">
         <script language="javascript" type="text/javascript">
             function ShowHide(theDiv, YN, theFocus) {
                 $(document).ready(function () {
@@ -44,7 +44,7 @@
             <br />
             <h2 class="forms" align="left">
                 Clinical Status</h2>
-            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+            <table cellspacing="6" cellpadding="0" width="100%" border="0" class="table-condensed">
                 <tbody>
                     <tr>
                         <td class="border pad5 center whitebg" colspan="2" width="100%" id="tdFamilyPlanning"
@@ -115,7 +115,7 @@
             <br />
             <h2 class="forms" align="left">
                 ART Commencement</h2>
-            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+            <table cellspacing="6" cellpadding="0" width="100%" border="0" class="table-condensed">
                 <tbody>
                     <tr>
                         <td class="border pad5 whitebg" width="50%">
@@ -152,8 +152,8 @@
                             <label class="margin20" id="Label2" runat="server">
                                 Date Transferred In:</label>
                             <input id="txtTransferedIn" maxlength="11" size="11" runat="server" type="text" />
-                            <img onclick="w_displayDatePicker('<%=txtTransferedIn.ClientID%>');" height="22" alt="Date Helper"
-                                hspace="3" src="../images/cal_icon.gif" width="22" border="0" />
+                            <img onclick="w_displayDatePicker('<%=txtTransferedIn.ClientID%>');" height="22"
+                                alt="Date Helper" hspace="3" src="../images/cal_icon.gif" width="22" border="0" />
                         </td>
                         <td class="border pad5 whitebg" width="50%">
                             <label id="Label3" runat="server">
@@ -168,8 +168,8 @@
         <br />
         <div class="border center formbg">
             <br />
-            <h2 id="H3" class="forms" align="left">
-                Drug Allergies</h2>
+            <h4 id="H3" class="forms" align="left">
+                Drug Allergies</h4>
             <table cellspacing="6" cellpadding="0" width="100%" border="0">
                 <tbody>
                     <tr>
@@ -182,16 +182,18 @@
         </div>
         <br />
         <div class="border center formbg">
-            <table cellspacing="6" cellpadding="0" width="100%" border="0" id="Table4" runat="server">
+            <table cellspacing="6" cellpadding="0" width="100%" border="0" id="Table4" runat="server"
+                class="table-condensed">
                 <tr id="Tr2" runat="server" align="center">
                     <td id="Td3" runat="server" class="form">
-                        <asp:Button ID="btnSave" runat="server" Text="Save" onclick="btnSave_Click" />
-                        <asp:Button ID="btndataquality" Text="Data Quality check" runat="server" 
-                            onclick="btndataquality_Click" />
-                        <asp:Button ID="btnclose" runat="server" Text="Close" 
-                            onclick="btnclose_Click" />
-                        <asp:Button ID="btnPrint" runat="server" OnClientClick="WindowPrint()" 
-                            Text="Print" onclick="btnPrint_Click" />
+                        <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn btn-primary"
+                            Height="26px" />
+                        <asp:Button ID="btndataquality" Text="Data Quality check" runat="server" CssClass="btn btn-primary"
+                            Height="26px" OnClick="btndataquality_Click" />
+                        <asp:Button ID="btnclose" runat="server" Text="Close" CssClass="btn btn-primary"
+                            Height="26px" OnClick="btnclose_Click" />
+                        <asp:Button ID="btnPrint" runat="server" OnClientClick="WindowPrint()" CssClass="btn btn-primary"
+                            Height="26px" Text="Print" OnClick="btnPrint_Click" />
                     </td>
                 </tr>
             </table>

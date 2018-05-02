@@ -82,4 +82,23 @@ public class IQWebUtils
     //    //}
     //    //return System.Web.HttpContext.Current.Session[theSession.ToString() + "GBLUserInstance"];
     //}
+    public void HidePatientLevelheader()
+    {
+        var pageHandler = HttpContext.Current.CurrentHandler;
+        if (pageHandler is System.Web.UI.Page)
+        {
+            (((System.Web.UI.Page)pageHandler).Master.FindControl("levelTwoNavigationUserControl1").FindControl("patientLevelMenu") as Menu).Visible = false;
+            (((System.Web.UI.Page)pageHandler).Master.FindControl("levelTwoNavigationUserControl1").FindControl("PharmacyDispensingMenu") as Menu).Visible = false;
+            (((System.Web.UI.Page)pageHandler).Master.FindControl("levelTwoNavigationUserControl1").FindControl("UserControl_Alerts1") as UserControl).Visible = false;
+            (((System.Web.UI.Page)pageHandler).Master.FindControl("levelTwoNavigationUserControl1").FindControl("PanelPatiInfo") as Panel).Visible = false;
+
+            (((System.Web.UI.Page)pageHandler).Master.FindControl("level2Navigation") as Control).Visible = false;
+            (((System.Web.UI.Page)pageHandler).Master.FindControl("facilityBanner") as Control).Visible = true;
+            (((System.Web.UI.Page)pageHandler).Master.FindControl("patientBanner") as Control).Visible = false;
+            (((System.Web.UI.Page)pageHandler).Master.FindControl("username1") as Control).Visible = true;
+            (((System.Web.UI.Page)pageHandler).Master.FindControl("currentdate1") as Control).Visible = true;
+            (((System.Web.UI.Page)pageHandler).Master.FindControl("facilityName") as Control).Visible = true;
+            (((System.Web.UI.Page)pageHandler).Master.FindControl("imageFlipLevel2") as Control).Visible = false;
+        }
+    }
 }

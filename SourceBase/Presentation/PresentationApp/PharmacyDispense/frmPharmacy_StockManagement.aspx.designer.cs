@@ -85,6 +85,24 @@ namespace PresentationApp.PharmacyDispense {
         protected global::System.Web.UI.WebControls.DropDownList ddlSourceStore;
         
         /// <summary>
+        /// lblsupplier control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblsupplier;
+        
+        /// <summary>
+        /// ddlSupplier control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSupplier;
+        
+        /// <summary>
         /// Label22 control.
         /// </summary>
         /// <remarks>

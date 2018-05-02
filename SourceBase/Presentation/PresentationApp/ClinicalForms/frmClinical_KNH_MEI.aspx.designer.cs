@@ -121,6 +121,15 @@ namespace PresentationApp.ClinicalForms {
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtEDD;
         
         /// <summary>
+        /// txtAgeMernarche control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtAgeMernarche;
+        
+        /// <summary>
         /// lblparity control.
         /// </summary>
         /// <remarks>
@@ -172,7 +181,7 @@ namespace PresentationApp.ClinicalForms {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtGestation;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtGestation;
         
         /// <summary>
         /// lblVisitNumber control.
@@ -191,6 +200,51 @@ namespace PresentationApp.ClinicalForms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlVisitNumber;
+        
+        /// <summary>
+        /// Label89 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label89;
+        
+        /// <summary>
+        /// rdotetanustoxoidyes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton rdotetanustoxoidyes;
+        
+        /// <summary>
+        /// rdotetanustoxoidno control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton rdotetanustoxoidno;
+        
+        /// <summary>
+        /// ddlTTVaccine control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlTTVaccine;
+        
+        /// <summary>
+        /// txtNoTTReason control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea txtNoTTReason;
         
         /// <summary>
         /// pnl1VitalSigns control.
@@ -373,6 +427,33 @@ namespace PresentationApp.ClinicalForms {
         protected global::System.Web.UI.WebControls.Panel pnl2HTC;
         
         /// <summary>
+        /// lblHIVTesting control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblHIVTesting;
+        
+        /// <summary>
+        /// rdoHIVTestingTodayYes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton rdoHIVTestingTodayYes;
+        
+        /// <summary>
+        /// rdoHIVTestingTodayNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton rdoHIVTestingTodayNo;
+        
+        /// <summary>
         /// Label2 control.
         /// </summary>
         /// <remarks>
@@ -463,49 +544,22 @@ namespace PresentationApp.ClinicalForms {
         protected global::System.Web.UI.WebControls.DropDownList ddlPosttestcounselling;
         
         /// <summary>
-        /// pnl2MaternalTesting control.
+        /// Label4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnl2MaternalTesting;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label4;
         
         /// <summary>
-        /// lblHIVTesting control.
+        /// ddlHIVTestDoneToday control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblHIVTesting;
-        
-        /// <summary>
-        /// rdoHIVTestingTodayYes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton rdoHIVTestingTodayYes;
-        
-        /// <summary>
-        /// rdoHIVTestingTodayNo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton rdoHIVTestingTodayNo;
-        
-        /// <summary>
-        /// pnl2HIVTestResultsToday control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnl2HIVTestResultsToday;
+        protected global::System.Web.UI.WebControls.DropDownList ddlHIVTestDoneToday;
         
         /// <summary>
         /// Label6 control.
@@ -757,7 +811,7 @@ namespace PresentationApp.ClinicalForms {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton rdofamilyinformationFilledYes;
+        protected global::System.Web.UI.WebControls.RadioButton rdofamilyinformationFilledYes;
         
         /// <summary>
         /// rdofamilyinformationFilledNo control.
@@ -766,7 +820,7 @@ namespace PresentationApp.ClinicalForms {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton rdofamilyinformationFilledNo;
+        protected global::System.Web.UI.WebControls.RadioButton rdofamilyinformationFilledNo;
         
         /// <summary>
         /// Label19 control.
@@ -1489,6 +1543,24 @@ namespace PresentationApp.ClinicalForms {
         protected global::System.Web.UI.WebControls.DropDownList ddlMaternalBloodGroup;
         
         /// <summary>
+        /// Label92 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label92;
+        
+        /// <summary>
+        /// ddlRhesusFactor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlRhesusFactor;
+        
+        /// <summary>
         /// Label43 control.
         /// </summary>
         /// <remarks>
@@ -1523,24 +1595,6 @@ namespace PresentationApp.ClinicalForms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlHistoryChronicIllness;
-        
-        /// <summary>
-        /// Label92 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label92;
-        
-        /// <summary>
-        /// ddlRhesusFactor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRhesusFactor;
         
         /// <summary>
         /// Label45 control.
@@ -1604,6 +1658,60 @@ namespace PresentationApp.ClinicalForms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton rdoHistoryOfTwinsNo;
+        
+        /// <summary>
+        /// pnl1PresentingComplaints control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnl1PresentingComplaints;
+        
+        /// <summary>
+        /// ImageButton10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton10;
+        
+        /// <summary>
+        /// Label48 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label48;
+        
+        /// <summary>
+        /// pnl2PresentingComplaints control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnl2PresentingComplaints;
+        
+        /// <summary>
+        /// Label49 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label49;
+        
+        /// <summary>
+        /// txtPresentingcomplaints control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPresentingcomplaints;
         
         /// <summary>
         /// pnl1PhysicalExaminationFindings control.
@@ -1876,24 +1984,6 @@ namespace PresentationApp.ClinicalForms {
         protected global::System.Web.UI.WebControls.TextBox txtOedema;
         
         /// <summary>
-        /// Label49 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label49;
-        
-        /// <summary>
-        /// txtPresentingcomplaints control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPresentingcomplaints;
-        
-        /// <summary>
         /// pnl1LabGrid control.
         /// </summary>
         /// <remarks>
@@ -2047,6 +2137,24 @@ namespace PresentationApp.ClinicalForms {
         protected global::System.Web.UI.WebControls.TextBox txtPlan;
         
         /// <summary>
+        /// pnl2Pharmacy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnl2Pharmacy;
+        
+        /// <summary>
+        /// btnPharmacylink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPharmacylink;
+        
+        /// <summary>
         /// Label68 control.
         /// </summary>
         /// <remarks>
@@ -2110,24 +2218,6 @@ namespace PresentationApp.ClinicalForms {
         protected global::System.Web.UI.WebControls.DropDownList ddlDiagnosisandPlanWardAdmitted;
         
         /// <summary>
-        /// pnl2Pharmacy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnl2Pharmacy;
-        
-        /// <summary>
-        /// btnPharmacylink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPharmacylink;
-        
-        /// <summary>
         /// CPEPreviousObstreticsHistory control.
         /// </summary>
         /// <remarks>
@@ -2135,6 +2225,15 @@ namespace PresentationApp.ClinicalForms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.CollapsiblePanelExtender CPEPreviousObstreticsHistory;
+        
+        /// <summary>
+        /// CPEPresentingComplaints control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CollapsiblePanelExtender CPEPresentingComplaints;
         
         /// <summary>
         /// CPEPhysicalExaminationFindings control.
@@ -2740,6 +2839,96 @@ namespace PresentationApp.ClinicalForms {
         protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton rdoPwpMessageGivenNo;
         
         /// <summary>
+        /// pnl1WHOStaging control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnl1WHOStaging;
+        
+        /// <summary>
+        /// ImageButton14 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton14;
+        
+        /// <summary>
+        /// Label71 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label71;
+        
+        /// <summary>
+        /// pnl2WHOStaging control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnl2WHOStaging;
+        
+        /// <summary>
+        /// UCWHOStage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::PresentationApp.ClinicalForms.UserControl.UserControlKNH_WHOStaging UCWHOStage;
+        
+        /// <summary>
+        /// Pnl1TBScreening control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Pnl1TBScreening;
+        
+        /// <summary>
+        /// ImageButton19 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton19;
+        
+        /// <summary>
+        /// Label88 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label88;
+        
+        /// <summary>
+        /// Pnl2TBScreening control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Pnl2TBScreening;
+        
+        /// <summary>
+        /// UCTBScreen control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::PresentationApp.ClinicalForms.UserControl.UserControlKNH_TBScreening UCTBScreen;
+        
+        /// <summary>
         /// pnl1TreatmentPlan control.
         /// </summary>
         /// <remarks>
@@ -2947,139 +3136,22 @@ namespace PresentationApp.ClinicalForms {
         protected global::System.Web.UI.WebControls.DropDownList ddlWardAdmitted;
         
         /// <summary>
-        /// pnl1WHOStaging control.
+        /// Panel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnl1WHOStaging;
+        protected global::System.Web.UI.WebControls.Panel Panel1;
         
         /// <summary>
-        /// ImageButton14 control.
+        /// btnPharmacy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton14;
-        
-        /// <summary>
-        /// Label71 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label71;
-        
-        /// <summary>
-        /// pnl2WHOStaging control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnl2WHOStaging;
-        
-        /// <summary>
-        /// UCWHOStage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::PresentationApp.ClinicalForms.UserControl.UserControlKNH_WHOStaging UCWHOStage;
-        
-        /// <summary>
-        /// Pnl1TBScreening control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Pnl1TBScreening;
-        
-        /// <summary>
-        /// ImageButton19 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton19;
-        
-        /// <summary>
-        /// Label88 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label88;
-        
-        /// <summary>
-        /// Pnl2TBScreening control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Pnl2TBScreening;
-        
-        /// <summary>
-        /// UCTBScreen control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::PresentationApp.ClinicalForms.UserControl.UserControlKNH_TBScreening UCTBScreen;
-        
-        /// <summary>
-        /// Label89 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label89;
-        
-        /// <summary>
-        /// rdotetanustoxoidyes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton rdotetanustoxoidyes;
-        
-        /// <summary>
-        /// rdotetanustoxoidno control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton rdotetanustoxoidno;
-        
-        /// <summary>
-        /// ddlTTVaccine control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTTVaccine;
-        
-        /// <summary>
-        /// txtNoTTReason control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea txtNoTTReason;
+        protected global::System.Web.UI.WebControls.Button btnPharmacy;
         
         /// <summary>
         /// CPEManagementHIVPositiveClientOtherFacility control.

@@ -848,7 +848,7 @@
                                                         <table width="100%" class="table-condensed">
                                                             <tr>
                                                                 <td align="right" style="width: 50%;">
-                                                                    <label>
+                                                                    <label class="required">
                                                                         Effective Date :</label>
                                                                 </td>
                                                                 <td align="left">

@@ -25,8 +25,8 @@ using Application.Presentation;
         public static DateTime dtmAppVersion;
 
         #region "Application Paramete>rs"
-        public static string AppVersion = "3.8.0";
-        public static string ReleaseDate = "05-Feb-2016";
+        public static string AppVersion = "3.8.1";
+        public static string ReleaseDate = "02-Dec-2016";
         #endregion
 
         #region "Public Variables"

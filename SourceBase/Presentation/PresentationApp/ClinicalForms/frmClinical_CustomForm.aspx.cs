@@ -2481,77 +2481,73 @@ public partial class frmClinical_CustomForm : BasePage, ICallbackEventHandler
         }
         else if (ControlID == "11") ///  Drug Selection 
         {
-            DIVCustomItem.Controls.Add(new LiteralControl("<table width='100%' class='table-condensed'>"));
+            DIVCustomItem.Controls.Add(new LiteralControl("<table width='100%'>"));
             DIVCustomItem.Controls.Add(new LiteralControl("<tr>"));
             DIVCustomItem.Controls.Add(new LiteralControl("<td style='width:100%' align='left'>"));
             IQCareUtils theUtils = new IQCareUtils();
             DrugType = GetFilterId(FieldId, Column);
             DataView theDVName = new DataView((DataTable)Session["DrugTypeName"]);
-            //if (DrugType > 0)
-            //{
-            theDVName.RowFilter = "DrugTypeId=" + DrugType + "";
-            HiddenField theHF = new HiddenField();
-            Label theLabel = new Label();
-            theLabel.ID = "lblDrg-" + Column + "-" + DrugType;
-            theHF.ID = "hfDrg-11-" + FieldId + "-" + Column + "-" + DrugType;
+            if (DrugType > 0)
+            {
+                theDVName.RowFilter = "DrugTypeId=" + DrugType + "";
+                HiddenField theHF = new HiddenField();
+                Label theLabel = new Label();
+                theLabel.ID = "lblDrg-" + Column + "-" + DrugType;
+                theHF.ID = "hfDrg-11-" + FieldId + "-" + Column + "-" + DrugType;
+                theLabel.Text = Label + " - " + theDVName.ToTable().Rows[0]["DrugTypeName"].ToString();
+                theLabel.Font.Bold = true;
+                if (SetBusinessrule(FieldId, Column) == true)
+                {
+                    DIVCustomItem.Controls.Add(new LiteralControl("<label class='required' align='left' id='lbl" + Label + "-" + FieldId + "'>" + Label + " - " + theDVName.ToTable().Rows[0]["DrugTypeName"].ToString() + " :</label>"));
+                    ARLHeader.Add(theLabel.Text);
+                }
+                else
+                {
+                    DIVCustomItem.Controls.Add(new LiteralControl("<label align='left' id='lbl" + Label + "-" + FieldId + "'>" + Label + " - " + theDVName.ToTable().Rows[0]["DrugTypeName"].ToString() + " :</label>"));
+                }
+                theHF.Value = Label + " - " + theDVName.ToTable().Rows[0]["DrugTypeName"].ToString();
+                DIVCustomItem.Controls.Add(theHF);
+                DIVCustomItem.Controls.Add(new LiteralControl("</td>"));
+                DIVCustomItem.Controls.Add(new LiteralControl("</tr>"));
+                DIVCustomItem.Controls.Add(new LiteralControl("<tr>"));
+                DIVCustomItem.Controls.Add(new LiteralControl("<td style='width:100%' align='center'>"));
+                Button theBtn = new Button();
+                theBtn.Width = 120;
+                theBtn.ID = "BtnDrg-" + Column + "-" + Table + "-" + FieldId + "-" + TabID;
+                theBtn.Text = "Drug Selection";
+                theBtn.Attributes.Add("class", "btn btn-primary");
+                theBtn.Style.Add("height", "28px");
+                if (Session["Selected" + DrugType + ""] == null)
+                {
+                    DataView theDV = new DataView((DataTable)Session["MasterCustomfrmReg"]);
+                    theDV.RowFilter = "DrugTypeId=" + DrugType + " and Generic=0";
+                    DataTable theDT = theUtils.CreateTableFromDataView(theDV);
+                    Session["" + DrugType + ""] = theDT;
+                }
+                theBtn.Enabled = theEnable;
+                theBtn.Attributes.Add("onclick", "javascript:OpenPharmacyDialog('" + DrugType + "'); return false");
+                DIVCustomItem.Controls.Add(theBtn);
+                DIVCustomItem.Controls.Add(new LiteralControl("</td>"));
+                DIVCustomItem.Controls.Add(new LiteralControl("</tr>"));
+                DIVCustomItem.Controls.Add(new LiteralControl("<tr>"));
+                DIVCustomItem.Controls.Add(new LiteralControl("<td style='width:100%' align='left'>"));
+                DrugsHeading(DrugType);
+                ApplyBusinessRules(theBtn, theBtn.ID, theEnable);
+                if (Convert.ToInt32(Session["PatientVisitId"]) > 0)
+                {
+                    DrugDataBinding(theBtn.ID, DrugType);
+                }
 
-            //theLabel.Text = Label + " - " + theDVName.ToTable().Rows[0]["DrugTypeName"].ToString();
-            //theLabel.Font.Bold = true;
-            //if (SetBusinessrule(FieldId, Column) == true)
-            //{
-            //    DIVCustomItem.Controls.Add(new LiteralControl("<label class='required' align='left' id='lbl" + Label + "-" + FieldId + "'>" + Label + " - " + theDVName.ToTable().Rows[0]["DrugTypeName"].ToString() + " :</label>"));
-            //    //ARLHeader.Add(theLabel.Text);
-            //}
-            //else
-            //{
-            //    DIVCustomItem.Controls.Add(new LiteralControl("<label align='left' id='lbl" + Label + "-" + FieldId + "'>" + Label + " - " + theDVName.ToTable().Rows[0]["DrugTypeName"].ToString() + " :</label>"));
-            //}
-            //theHF.Value = Label + " - " + theDVName.ToTable().Rows[0]["DrugTypeName"].ToString();
-            //DIVCustomItem.Controls.Add(theHF);
-            DIVCustomItem.Controls.Add(new LiteralControl("<label align='left' id='lbl" + Label + "-" + FieldId + "'>Drug:</label>"));
-            DIVCustomItem.Controls.Add(new LiteralControl("</td>"));
-            DIVCustomItem.Controls.Add(new LiteralControl("</tr>"));
-            DIVCustomItem.Controls.Add(new LiteralControl("<tr>"));
-            DIVCustomItem.Controls.Add(new LiteralControl("<td style='width:100%' align='center'>"));
-            Button theBtn = new Button();
-            theBtn.Width = 130;
-            theBtn.ID = "BtnDrg-" + Column + "-" + Table + "-" + FieldId + "-" + TabID;
-            theBtn.Text = "Drug Selection";
-            theBtn.CssClass = "btn btn-primary";
-            theBtn.Style.Add("height", "30px");
-            theBtn.Style.Add("text-align", "left");
-            //if (Session["Selected" + DrugType + ""] == null)
-            //{
-            //    DataView theDV = new DataView((DataTable)Session["MasterCustomfrmReg"]);
-            //    theDV.RowFilter = "DrugTypeId=" + DrugType + " and Generic=0";
-            //    DataTable theDT = theUtils.CreateTableFromDataView(theDV);
-            //    Session["" + DrugType + ""] = theDT;
-            //}
-            theBtn.Enabled = theEnable;
-            theBtn.Attributes.Add("onclick", "javascript:OpenPharmacyDialog('" + DrugType + "'); return false");
-            DIVCustomItem.Controls.Add(theBtn);
-            DIVCustomItem.Controls.Add(new LiteralControl("<span class='glyphicon glyphicon-erase' style='margin-left:-2.5%; vertical-align: sub; color: #fff; margin-right:2%;'></span>"));
-            DIVCustomItem.Controls.Add(new LiteralControl("</td>"));
-            DIVCustomItem.Controls.Add(new LiteralControl("</tr>"));
-            DIVCustomItem.Controls.Add(new LiteralControl("<tr>"));
-            DIVCustomItem.Controls.Add(new LiteralControl("<td style='width:100%' align='left'>"));
-            //DrugsHeading(DrugType);
-            //ApplyBusinessRules(theBtn, theBtn.ID, theEnable);
-            //if (Convert.ToInt32(Session["PatientVisitId"]) > 0)
-            //{
-            //    DrugDataBinding(theBtn.ID, DrugType);
-            //}
+                if ((DataTable)Session["Selected" + DrugType + ""] != null)
+                {
+                    DataTable theDT = (DataTable)Session["Selected" + DrugType + ""];
+                    LoadNewDrugs(theDT);
+                }
 
-            //if ((DataTable)Session["Selected" + DrugType + ""] != null)
-            //{
-            //    DataTable theDT = (DataTable)Session["Selected" + DrugType + ""];
-            //    LoadNewDrugs(theDT);
-            //}
-
-            DIVCustomItem.Controls.Add(new LiteralControl("</td>"));
-            DIVCustomItem.Controls.Add(new LiteralControl("</tr>"));
-            DIVCustomItem.Controls.Add(new LiteralControl("</table>"));
-            //}
+                DIVCustomItem.Controls.Add(new LiteralControl("</td>"));
+                DIVCustomItem.Controls.Add(new LiteralControl("</tr>"));
+                DIVCustomItem.Controls.Add(new LiteralControl("</table>"));
+            }
 
         }
 

@@ -153,20 +153,20 @@ public partial class ClinicalForms_frmAllergy : LogPage
             }
         }
 
-        if (Session["lblpntstatus"].ToString() == "1")
-        {
-            btnadd.Enabled = false;
-            btnSubmit.Enabled = false;
-        }
-        else
-        {
-            btnadd.Enabled = true;
-        }
-        if (Session["CareEndFlag"].ToString() == "1")
-        {
-            btnadd.Enabled = true;
-            btnSubmit.Enabled = true;
-        }
+        //if (Session["lblpntstatus"].ToString() == "1")
+        //{
+        //    btnadd.Enabled = false;
+        //    btnSubmit.Enabled = false;
+        //}
+        //else
+        //{
+        //    btnadd.Enabled = true;
+        //}
+        //if (Session["CareEndFlag"].ToString() == "1")
+        //{
+        //    btnadd.Enabled = true;
+        //    btnSubmit.Enabled = true;
+        //}
 
         if (Request.QueryString["opento"] == "popup")
         {
@@ -410,14 +410,14 @@ public partial class ClinicalForms_frmAllergy : LogPage
                     grdAllergy.Columns.Clear();
                     grdAllergy.DataSource = (DataTable)Session["GridData"];
                 }
-                if (((DataTable)Session["GridData"]).Rows.Count == 0)
-                    btnSubmit.Enabled = false;
-                else
-                    btnSubmit.Enabled = true;
+                //if (((DataTable)Session["GridData"]).Rows.Count == 0)
+                //    btnSubmit.Enabled = false;
+                //else
+                //    btnSubmit.Enabled = true;
                 BindGrid();
                 Refresh();
                 btnadd.Text = "Add Allergy";
-                btnSubmit.Enabled = true;
+                //btnSubmit.Enabled = true;
             }
         }
         catch (Exception ex)
@@ -570,10 +570,10 @@ public partial class ClinicalForms_frmAllergy : LogPage
     {
         if (Request.QueryString["back"] != null)
         {
-            if (((DataTable)Session["GridData"]).Rows.Count == 0)
-                btnSubmit.Enabled = false;
-            else
-                btnSubmit.Enabled = true;
+            //if (((DataTable)Session["GridData"]).Rows.Count == 0)
+            //    btnSubmit.Enabled = false;
+            //else
+            //    btnSubmit.Enabled = true;
             grdAllergy.DataSource = (DataTable)Session["GridData"];
             grdAllergy.DataBind();
             BindGrid();
@@ -585,14 +585,14 @@ public partial class ClinicalForms_frmAllergy : LogPage
             if (Session["Ptn_Pk"].ToString() != "0")
             {
                 DataSet theDS = PatientManager.GetAllAllergyData(Convert.ToInt32(Session["Ptn_Pk"]));
-                if (theDS.Tables[0].Rows.Count > 0)
-                {
-                    btnSubmit.Enabled = true;
-                }
-                else
-                {
-                    btnSubmit.Enabled = false;
-                }
+                //if (theDS.Tables[0].Rows.Count > 0)
+                //{
+                //    btnSubmit.Enabled = true;
+                //}
+                //else
+                //{
+                //    btnSubmit.Enabled = false;
+                //}
                 Session["GridData"] = theDS.Tables[0];
                 grdAllergy.DataSource = (DataTable)Session["GridData"];
                 BindGrid();
@@ -782,6 +782,10 @@ public partial class ClinicalForms_frmAllergy : LogPage
                     objlink.OnClientClick = "if(!confirm('Are you sure you want to delete this?')) return false;";
                     e.Row.Cells[11].ID = e.Row.RowIndex.ToString();
                 }
+            }
+            if (Session["CareEndFlag"].ToString() == "1")
+            {
+                e.Row.Cells[11].Visible = false;
             }
         }
     }
@@ -1035,10 +1039,10 @@ public partial class ClinicalForms_frmAllergy : LogPage
                 BindGrid();               
                 IQCareMsgBox.Show("DeleteSuccess", this);
                 Refresh();
-                if (((DataTable)Session["GridData"]).Rows.Count == 0)
-                    btnSubmit.Enabled = false;
-                else
-                    btnSubmit.Enabled = true;
+                //if (((DataTable)Session["GridData"]).Rows.Count == 0)
+                //    btnSubmit.Enabled = false;
+                //else
+                //    btnSubmit.Enabled = true;
                 Refresh();
             }
             else

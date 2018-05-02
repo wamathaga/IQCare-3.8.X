@@ -81,6 +81,8 @@ namespace Interface.Laboratory
         public DateTime LabReportByDate { get; set; }
         public int SystemId { get; set; }
         public int UrgentId { get; set; }
+        public int Confirmed { get; set; }
+        public int Confirmedby { get; set; }
         private int _arvTypeID = 0;
         private int _MutationID = 0;
         private string _OtherMutation = "";

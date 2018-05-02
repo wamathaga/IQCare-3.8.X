@@ -329,7 +329,7 @@ public partial class ClinicalForms_frmClinical_ARTHistory : LogPage
             theDR["VisitId"] = VisitId;
             theDR["Purpose"] = ddlpurpose.SelectedItem.Text;
             theDR["Regimen"] = txtRegimen.Text;
-            theDR["RegLastUsed"] = ""+txtLastUsed.Text+"";
+            theDR["RegLastUsed"] = ""+String.Format("{0:dd-MMM-yyyy}",txtLastUsed.Text)+"";
             theDR["PurposeId"] = ddlpurpose.SelectedValue;
             theDT.Rows.Add(theDR);
             GrdPriorART.Columns.Clear();
@@ -353,7 +353,7 @@ public partial class ClinicalForms_frmClinical_ARTHistory : LogPage
                     rows[i]["PurposeId"] = ddlpurpose.SelectedValue;
                     rows[i]["Purpose"] = ddlpurpose.SelectedItem.Text;
                     rows[i]["Regimen"] = txtRegimen.Text;
-                    rows[i]["RegLastUsed"] = "" + txtLastUsed.Text + "";
+                    rows[i]["RegLastUsed"] = "" + String.Format("{0:dd-MMM-yyyy}",txtLastUsed.Text) + "";
                     theDT.AcceptChanges();} 
                 GrdPriorART.Columns.Clear();
                 BindGrid();
@@ -371,7 +371,7 @@ public partial class ClinicalForms_frmClinical_ARTHistory : LogPage
                 theDR["VisitId"] = VisitId;
                 theDR["Purpose"] = ddlpurpose.SelectedItem.Text;
                 theDR["Regimen"] = txtRegimen.Text;
-                theDR["RegLastUsed"] = "" + txtLastUsed.Text + ""; 
+                theDR["RegLastUsed"] = "" + String.Format("{0:dd-MMM-yyyy}",txtLastUsed.Text) + ""; 
                 theDR["PurposeId"] = ddlpurpose.SelectedValue;
                 theDT.Rows.Add(theDR);
                 GrdPriorART.Columns.Clear();
@@ -387,6 +387,7 @@ public partial class ClinicalForms_frmClinical_ARTHistory : LogPage
     {
         string theScript;
         Application.Add("MasterData", ViewState["MasterARVData"]);
+        Session["DrugData"] = ViewState["MasterARVData"];
         Application.Add("SelectedDrug", (DataTable)ViewState["SelectedData"]);
         theScript = "<script language='javascript' id='DrgPopup'>\n";
         theScript += "window.open('../Pharmacy/frmDrugSelector.aspx?DrugType=37&btnreg=" + btnRegimen.ID + "' ,'DrugSelection','toolbars=no,location=no,directories=no,dependent=yes,top=10,left=30,maximize=no,resize=no,width=700,height=350,scrollbars=yes');\n";
@@ -587,11 +588,11 @@ public partial class ClinicalForms_frmClinical_ARTHistory : LogPage
                 btncomplete.Enabled = false;
             }
             //Privilages for Care End
-            if (Convert.ToString(Session["CareEndFlag"]) == "1" && Convert.ToString(Session["CareendedStatus"]) == "1")
-            {
-                btnsave.Enabled = true;
-                btncomplete.Enabled = true;
-            }
+            //if (Convert.ToString(Session["CareEndFlag"]) == "1" && Convert.ToString(Session["CareendedStatus"]) == "1")
+            //{
+            //    btnsave.Enabled = true;
+            //    btncomplete.Enabled = true;
+            //}
         }
     }
     private Boolean ValidateLastUsed()
@@ -632,7 +633,7 @@ public partial class ClinicalForms_frmClinical_ARTHistory : LogPage
 
         else if (Convert.ToDateTime(Application["AppCurrentDate"]) < Convert.ToDateTime(theUtil.MakeDate(txtTransferInDate.Value)))
         {
-            if (dateconstraint)
+            if (!dateconstraint)
             {
                 IQCareMsgBox.Show("CmpTransfInDate", this);
                 txtTransferInDate.Focus();
@@ -642,7 +643,7 @@ public partial class ClinicalForms_frmClinical_ARTHistory : LogPage
 
         else if (Convert.ToDateTime(Application["AppCurrentDate"]) < Convert.ToDateTime(theUtil.MakeDate(txtDateARTStarted.Value)))
         {
-            if (dateconstraint)
+            if (!dateconstraint)
             {
                 IQCareMsgBox.Show("CmpStartART", this);
                 txtDateARTStarted.Focus();
@@ -652,7 +653,7 @@ public partial class ClinicalForms_frmClinical_ARTHistory : LogPage
 
         else if (Convert.ToDateTime(Application["AppCurrentDate"]) < Convert.ToDateTime(theUtil.MakeDate(txtHIVConfirmHIVPosDate.Value)))
         {
-            if (dateconstraint)
+            if (!dateconstraint)
             {
                 IQCareMsgBox.Show("CmpConHIVPositive", this);
                 txtHIVConfirmHIVPosDate.Focus();

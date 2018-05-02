@@ -890,8 +890,11 @@ namespace IQCare.Web.Billing
             }
             // int.TryParse(System.Web.HttpContext.Current.Session["ConsumableTypeID"].ToString(), out consumableItemTypeID);
             DataTable dataTable = _iMGR.FindItems(prefixText, null, consumableItemTypeID, DateTime.Now, true, SCMFlag);
+            DataTable distinctTable = dataTable.AsEnumerable()
+                       .GroupBy(x => x.Field<string>("ItemName"))
+                       .Select(g => g.First()).CopyToDataTable();           
             string custItem = string.Empty;
-            foreach (DataRow theRow in dataTable.Rows)//.Select("ItemTypeName <> 'Consumables'"))
+            foreach (DataRow theRow in ((DataTable)distinctTable).Rows)//.Select("ItemTypeName <> 'Consumables'"))
             {
                 custItem = AutoCompleteExtender.CreateAutoCompleteItem(theRow[1].ToString(), String.Format("{0};{1};{2};{3}", theRow["ItemID"], theRow["ItemTypeID"], theRow["SellingPrice"], theRow["ItemTypeName"]));
                 //theRow[0], theRow[2], theRow[3]));

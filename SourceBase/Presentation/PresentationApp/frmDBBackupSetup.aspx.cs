@@ -60,11 +60,11 @@ public partial class frmDBBackupSetup : BasePage
         try
         {
             IQCareUtils theUtils = new IQCareUtils();
-            DateTime theTime;
+            string theTime;
             if(ddBackupTime.SelectedValue != "0")
-                 theTime = Convert.ToDateTime(ddBackupTime.SelectedItem.ToString());
+                 theTime = ddBackupTime.SelectedItem.ToString();
             else
-                 theTime = Convert.ToDateTime("1900-01-01");
+                 theTime = "0";
 
             IFacilitySetup BackupManger = (IFacilitySetup)ObjectFactory.CreateInstance("BusinessProcess.Administration.BFacility, BusinessProcess.Administration");
             int noRows = BackupManger.SaveBackupSetup(ddBackupDrive.SelectedItem.ToString(), theTime);

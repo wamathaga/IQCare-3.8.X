@@ -507,6 +507,24 @@ public partial class frmAdmin_FacilitySetup {
     protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkwards;
     
     /// <summary>
+    /// divLMIS control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLMIS;
+    
+    /// <summary>
+    /// chkLMIS control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkLMIS;
+    
+    /// <summary>
     /// PMTCTdiv control.
     /// </summary>
     /// <remarks>

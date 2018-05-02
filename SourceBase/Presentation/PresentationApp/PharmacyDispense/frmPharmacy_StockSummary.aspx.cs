@@ -21,11 +21,18 @@ namespace PresentationApp.PharmacyDispense
         protected void Page_Load(object sender, EventArgs e)
         {
             (Master.FindControl("pnlExtruder") as Panel).Visible = false;
+            (Master.FindControl("level2Navigation") as Control).Visible = true;
             (Master.FindControl("levelTwoNavigationUserControl1").FindControl("lblformname") as Label).Text = "Stock Summary";
             (Master.FindControl("levelTwoNavigationUserControl1").FindControl("patientLevelMenu") as Menu).Visible = false;
             (Master.FindControl("levelTwoNavigationUserControl1").FindControl("PharmacyDispensingMenu") as Menu).Visible = true;
             (Master.FindControl("levelTwoNavigationUserControl1").FindControl("UserControl_Alerts1") as UserControl).Visible = false;
             (Master.FindControl("levelTwoNavigationUserControl1").FindControl("PanelPatiInfo") as Panel).Visible = false;
+            (Master.FindControl("facilityBanner") as Control).Visible = false;
+            (Master.FindControl("patientBanner") as Control).Visible = false;
+            (Master.FindControl("username1") as Control).Visible = false;
+            (Master.FindControl("currentdate1") as Control).Visible = false;
+            (Master.FindControl("facilityName") as Control).Visible = false;
+            (Master.FindControl("imageFlipLevel2") as Control).Visible = false;
 
             if (txtSearch.Text == "")
             {
@@ -95,17 +102,17 @@ namespace PresentationApp.PharmacyDispense
         {
             DataSet theDS = (DataSet)HttpContext.Current.Session["theStocks"];
             List<string> Drugsdetail = new List<string>();
-
-            var drugs = from DataRow tmp in theDS.Tables[0].AsEnumerable()
-                        where tmp["DrugName"].ToString().ToLower().Contains(prefixText.ToLower())
-                        select tmp; // new { drugName = tmp["DrugName"].ToString(), drugID = tmp["Drug_pk"].ToString() };
-
-            foreach (DataRow c in drugs)
+            if (theDS != null)
             {
-                Drugsdetail.Add(AutoCompleteExtender.CreateAutoCompleteItem(c[2].ToString(), c[1].ToString()));
+                var drugs = from DataRow tmp in theDS.Tables[0].AsEnumerable()
+                            where tmp["DrugName"].ToString().ToLower().Contains(prefixText.ToLower())
+                            select tmp; // new { drugName = tmp["DrugName"].ToString(), drugID = tmp["Drug_pk"].ToString() };
+
+                foreach (DataRow c in drugs)
+                {
+                    Drugsdetail.Add(AutoCompleteExtender.CreateAutoCompleteItem(c[2].ToString(), c[1].ToString()));
+                }
             }
-
-
             return Drugsdetail;
         }
 
@@ -172,7 +179,7 @@ namespace PresentationApp.PharmacyDispense
             if (ddlStore.SelectedValue == "0")
             {
                 MsgBuilder theBuilder = new MsgBuilder();
-                theBuilder.DataElements["MessageText"] =  "Store is not selected";
+                theBuilder.DataElements["MessageText"] = "Store is not selected";
                 IQCareMsgBox.Show("#C1", theBuilder, this);
                 Label lblError = new Label();
                 lblError.Text = (Master.FindControl("lblError") as Label).Text;
@@ -216,11 +223,11 @@ namespace PresentationApp.PharmacyDispense
         protected void grdStockSummary_RowCommand(object sender, GridViewCommandEventArgs e)
         {
 
-            
+
             int storeid = Convert.ToInt32(ddlStore.SelectedValue.ToString());
             int index = Convert.ToInt32(e.CommandArgument.ToString());
             grdStockSummary.SelectedIndex = index;
-            int itemid =  Convert.ToInt32(grdStockSummary.SelectedDataKey["ItemId"].ToString());
+            int itemid = Convert.ToInt32(grdStockSummary.SelectedDataKey["ItemId"].ToString());
             DateTime dateFrom = Convert.ToDateTime(Convert.ToDateTime(dtFrom.Text).ToString("yyyy-MM-dd"));
             DateTime dateTo = Convert.ToDateTime(Convert.ToDateTime(dtTo.Text).ToString("yyyy-MM-dd"));
 
@@ -237,9 +244,9 @@ namespace PresentationApp.PharmacyDispense
             //Response.Redirect("BinCard.aspx?storeid=" + storeid.ToString() + "&itemid=" + itemid.ToString() + "&dtFrom=" + dateFrom.ToString()
             //    + "&dtTo=" + dateTo.ToString() + "");
 
-            
-            
-            
+
+
+
         }
 
         protected void btnExportToExcel_Click(object sender, EventArgs e)
@@ -264,21 +271,21 @@ namespace PresentationApp.PharmacyDispense
                 }
                 foreach (GridViewRow row in grdStockSummary.Rows)
                 {
-                    
-                        row.BackColor = Color.White;
-                        foreach (TableCell cell in row.Cells)
+
+                    row.BackColor = Color.White;
+                    foreach (TableCell cell in row.Cells)
+                    {
+                        if (row.RowIndex % 2 == 0)
                         {
-                            if (row.RowIndex % 2 == 0)
-                            {
-                                //cell.BackColor = grdStockSummary.AlternatingRowStyle.BackColor;
-                                cell.BackColor = ColorTranslator.FromHtml("#CCCCFF");
-                            }
-                            else
-                            {
-                                cell.BackColor = grdStockSummary.RowStyle.BackColor;
-                            }
-                            cell.CssClass = "textmode";
+                            //cell.BackColor = grdStockSummary.AlternatingRowStyle.BackColor;
+                            cell.BackColor = ColorTranslator.FromHtml("#CCCCFF");
                         }
+                        else
+                        {
+                            cell.BackColor = grdStockSummary.RowStyle.BackColor;
+                        }
+                        cell.CssClass = "textmode";
+                    }
                 }
                 grdStockSummary.Columns[8].Visible = false;
                 grdStockSummary.RenderControl(hw);
@@ -297,6 +304,6 @@ namespace PresentationApp.PharmacyDispense
             /* Verifies that the control is rendered */
         }
 
-       
+
     }
 }

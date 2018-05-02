@@ -118,6 +118,7 @@
   <ItemGroup>
     <Compile Include="BindFunctions.cs" />
     <Compile Include="CustomFieldClinical.cs" />
+    <Compile Include="EnumUtil.cs" />
     <Compile Include="GblIQCare.cs" />
     <Compile Include="IQCareMsgBox.cs" />
     <Compile Include="IQCareUtils.cs">
@@ -133,7 +134,7 @@
       <VersionMajor>2</VersionMajor>
       <VersionMinor>5</VersionMinor>
       <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
+      <WrapperTool>tlbimp</WrapperTool>
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>

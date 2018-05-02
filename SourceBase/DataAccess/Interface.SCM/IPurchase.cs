@@ -30,5 +30,6 @@ namespace Interface.SCM
                                             int Updatestock, int UserID);
         int SaveGoodreceivedNotes_Web(DataTable DtMasterGRN, DataTable dtGRNItems, int IsPOorIST);
         int SaveUpdateOpeningStockWeb(DataTable theDTOPStock, Int32 UserID, string TransactionDate);
+        DataTable GetStoreSourceDestination(int StoreId);
     }
 }

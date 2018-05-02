@@ -727,14 +727,14 @@ namespace BusinessProcess.Clinical
                 ClsUtility.AddParameters("@Ptn_Pk", SqlDbType.Int, theHT["PatientId"].ToString());
                 ClsUtility.AddParameters("@VisitId", SqlDbType.Int, theHT["VisitId"].ToString());
                 ClsUtility.AddParameters("@LocationId", SqlDbType.Int, theHT["LocationId"].ToString());
-                ClsUtility.AddParameters("@TransferInDate", SqlDbType.DateTime, theHT["TransferInDate"].ToString());
+                ClsUtility.AddParameters("@TransferInDate", SqlDbType.VarChar, theHT["TransferInDate"].ToString());
                 ClsUtility.AddParameters("@TransferInFrom", SqlDbType.VarChar, theHT["ddfacility"].ToString());
                 ClsUtility.AddParameters("@dddistrict", SqlDbType.Int, theHT["dddistrict"].ToString());
-                ClsUtility.AddParameters("@DateARTStarted", SqlDbType.DateTime, theHT["DateARTStarted"].ToString());
+                ClsUtility.AddParameters("@DateARTStarted", SqlDbType.VarChar, theHT["DateARTStarted"].ToString());
                 ClsUtility.AddParameters("@PriorART", SqlDbType.Int, theHT["priorART"].ToString());
-                ClsUtility.AddParameters("@ConfirmHIVPosDate", SqlDbType.DateTime, theHT["ConfirmHIVPosDate"].ToString());
+                ClsUtility.AddParameters("@ConfirmHIVPosDate", SqlDbType.VarChar, theHT["ConfirmHIVPosDate"].ToString());
                 ClsUtility.AddParameters("@Where", SqlDbType.VarChar, theHT["Where"].ToString());
-                ClsUtility.AddParameters("@EnrolledinHIVCare", SqlDbType.DateTime, theHT["EnrolledinHIVCare"].ToString());
+                ClsUtility.AddParameters("@EnrolledinHIVCare", SqlDbType.VarChar, theHT["EnrolledinHIVCare"].ToString());
                 ClsUtility.AddParameters("@WHOStage", SqlDbType.Int, theHT["WHOStage"].ToString());
                 ClsUtility.AddParameters("@DrugAllergy", SqlDbType.Int, theHT["AreaAllergy"].ToString());
                 ClsUtility.AddParameters("@UserId", SqlDbType.Int, theHT["UserID"].ToString());
@@ -752,7 +752,8 @@ namespace BusinessProcess.Clinical
                     ReturnDT = (DataTable)ARTHistoryMgr.ReturnObjectNewImpl(ClsUtility.theParams, "pr_Clinical_SaveARTHistory_Futures", ClsDBUtility.ObjectEnum.DataTable);
                 }
 
-                if (theDT.Rows.Count > 0 && theHT["priorART"].ToString() == "1")
+                //if (theDT.Rows.Count > 0 && theHT["priorART"].ToString() == "1")
+                if (theDT.Rows.Count > 0 )
                 {
                     foreach (DataRow theDR in theDT.Rows)
                     {
@@ -762,7 +763,7 @@ namespace BusinessProcess.Clinical
                         ClsUtility.AddParameters("@LocationId", SqlDbType.Int, theHT["LocationId"].ToString());
                         ClsUtility.AddParameters("@PurposeId", SqlDbType.Int, theDR["PurposeId"].ToString());
                         ClsUtility.AddParameters("@Regimen", SqlDbType.Int, theDR["Regimen"].ToString());
-                        ClsUtility.AddParameters("@RegLastUsed", SqlDbType.DateTime, theDR["RegLastUsed"].ToString());
+                        ClsUtility.AddParameters("@RegLastUsed", SqlDbType.VarChar, theDR["RegLastUsed"].ToString());
                         ClsUtility.AddParameters("@UserId", SqlDbType.Int, theHT["UserID"].ToString());
                         int retval = (Int32)ARTHistoryMgr.ReturnObjectNewImpl(ClsUtility.theParams, "pr_Clinical_SavePatientBlueCardPriorART_Constella", ClsDBUtility.ObjectEnum.ExecuteNonQuery);
                         if (retval == 0)

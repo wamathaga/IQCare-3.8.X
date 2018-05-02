@@ -12,7 +12,7 @@ namespace Interface.Administration
         DataSet GetFacility(int SystemId);
         int SaveNewFacility(string FacilityName, string CountryID, string PosID, string SatelliteID, string NationalID, int ProvinceId, int DistrictId, string image, int currency, int AppGracePeriod, string dateformat, DateTime PepFarStartDate, int SystemId, int thePreferred, int Paperless, int UserID, DataTable dtModule, Hashtable ht, DataTable dtStore = null);
         int UpdateFacility(int FacilityId, string FacilityName, string CountryID, string PosID, string SatelliteID, string NationalID, int ProvinceId, int DistrictId, string image, int currency, int AppGracePeriod, string dateformat, DateTime PepFarStartDate, int Status, int SystemId, int thePreferred, int Paperless, int UserID, DataTable dtModule, Hashtable ht, DataTable dtStore = null);
-        int SaveBackupSetup(string theDrive, DateTime theTime);
+        int SaveBackupSetup(string theDrive, string theTime);
         DataTable GetBackupSetup();
         DataSet GetModuleName();
         DataSet GetDrugStores();

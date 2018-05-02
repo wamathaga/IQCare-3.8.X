@@ -642,7 +642,7 @@ namespace PresentationApp.ClinicalForms
             #region Check Visit Date
             if (Session["RegDate"] != null && txtVisitDate.Text != "")
             {
-                if (dateconstraint)
+                if (!dateconstraint)
                 {
                     if (Convert.ToDateTime(txtVisitDate.Text) < Convert.ToDateTime(Session["RegDate"]))
                     {
@@ -674,7 +674,7 @@ namespace PresentationApp.ClinicalForms
                 }
                 else if (theCurrentDate.Date < Convert.ToDateTime(iQCareUtils.MakeDate(txtVisitDate.Text)))
                 {
-                    if (dateconstraint)
+                    if (!dateconstraint)
                     {
                         validateMessage += "-" + IQCareMsgBox.GetMessage("CompareDate5", this) + "</br>";
                         txtVisitDate.Focus();
@@ -697,7 +697,7 @@ namespace PresentationApp.ClinicalForms
                     }
                     else if (theCurrentDate.Date >= Convert.ToDateTime(iQCareUtils.MakeDate(txtEDD.Value)))
                     {
-                        if (dateconstraint)
+                        if (!dateconstraint)
                         {
                             validateMessage += "-" + IQCareMsgBox.GetMessage("EDDDate", this) + "</br>";
                             txtEDD.Focus();
@@ -729,7 +729,7 @@ namespace PresentationApp.ClinicalForms
 
             if (ddlsubsituationInterruption.SelectedValue.ToString() == "99" && txtARTEndeddate.Value == "")
             {
-                if (dateconstraint)
+                if (!dateconstraint)
                 {
                     MsgBuilder theBuilder = new MsgBuilder();
                     theBuilder.DataElements["Control"] = "-Date ART Ended";
@@ -740,7 +740,7 @@ namespace PresentationApp.ClinicalForms
             }
             if (ddlsubsituationInterruption.SelectedValue.ToString() == "99" && (theCurrentDate.Date < Convert.ToDateTime(iQCareUtils.MakeDate(txtARTEndeddate.Value))))
             {
-                if (dateconstraint)
+                if (!dateconstraint)
                 {
                     MsgBuilder theBuilder = new MsgBuilder();
                     validateMessage += "-" + IQCareMsgBox.GetMessage("ARTEndDATE", this) + "</br>";
@@ -1122,7 +1122,7 @@ namespace PresentationApp.ClinicalForms
                             if (y.GetType() == typeof(System.Web.UI.WebControls.CheckBox))
                             {
                                 
-                                if (((CheckBox)y).ID == thePnl.ID + "-" + DR["ValueID"].ToString() && FieldName == DR["FieldName"].ToString())
+                                if (((CheckBox)y).ID.Contains(thePnl.ID + "-" + DR["ValueID"].ToString()) && FieldName == DR["FieldName"].ToString())
                                     ((CheckBox)y).Checked = true;
 
                                 else if ("other"+((CheckBox)y).ID == thePnl.ID +"-"+ DR["ValueID"].ToString() && FieldName == DR["FieldName"].ToString())

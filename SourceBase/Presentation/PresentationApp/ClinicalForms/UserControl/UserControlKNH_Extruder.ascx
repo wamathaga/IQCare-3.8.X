@@ -10,7 +10,10 @@
     TagPrefix="uc4" %>
 <%@ Register Src="UserControlKNH_WorkPlanExtruder.ascx" TagName="UserControlKNH_WorkPlanExtruder"
     TagPrefix="uc5" %>
-<%@ Register Src="UserControl_Nutrition.ascx" TagName="UserControl_Nutrition" TagPrefix="uc6" %>
+<%@ Register Src="UserControlKNH_MotherProfileExtruder.ascx" TagName="UserControlKNH_MotherProfileExtruder"
+    TagPrefix="uc6" %>
+<%@ Register Src="UserControlKNH_NeonatalExtruder.ascx" TagName="UserControlKNH_NeonatalExtruder"
+    TagPrefix="uc7" %>
 <style type="text/css">
     body
     {
@@ -121,6 +124,15 @@
     {
         background: #A62241;
     }
+    .extruder.left.a3 .flap
+    {
+        background: #52D017;
+    }
+    .extruder.left.a3 .flapLabel
+    {
+        background: #52D017;
+    }
+   
 </style>
 <script type="text/javascript">
 //    $(document).ready(function () {
@@ -133,16 +145,6 @@
             //extruderOpacity: .8,
             hidePanelsOnClose: true,
             accordionPanels: true,
-            onExtOpen: function () { },
-            onExtContentLoad: function () { },
-            onExtClose: function () { }
-        });
-
-        $("#extruderLeft3").buildMbExtruder({
-            position: "left",
-            width: 600,
-            height:"auto",
-            //extruderOpacity: .8,
             onExtOpen: function () { },
             onExtContentLoad: function () { },
             onExtClose: function () { }
@@ -171,11 +173,52 @@
                 onExtClose: function () { }
             });
         }
+
         else
         {
             document.getElementById("extruderLeft2").style.display = "none";
         }
-             
+          
+        var b_ISMEI = "<%=Session["isMEIVisible"]%>";
+        //debugger;
+        if (b_ISMEI=="True") {
+            $("#extruderLeft3").buildMbExtruder({
+                position: "left",
+                width: 800,
+                height:"auto",
+                //extruderOpacity: 1,
+                onExtOpen: function () { },
+                onExtContentLoad: function () { },
+                onExtClose: function () { }
+            });
+
+        }
+
+        else
+        {
+            document.getElementById("extruderLeft3").style.display = "none";
+        }   
+       
+        
+        var b_ISHEI = "<%=Session["isHEIVisible"]%>";
+        //debugger;
+        if (b_ISHEI=="True") {
+            $("#extruderLeft4").buildMbExtruder({
+                position: "left",
+                width: 800,
+                height:"auto",
+                //extruderOpacity: 1,
+                onExtOpen: function () { },
+                onExtContentLoad: function () { },
+                onExtClose: function () { }
+            });
+
+        }
+
+        else
+        {
+            document.getElementById("extruderLeft4").style.display = "none";
+        }   
     });
 
 </script>
@@ -196,8 +239,15 @@
                 <uc5:UserControlKNH_WorkPlanExtruder ID="UserControlKNH_WorkPlanExtruder1" runat="server" />
             </div>
         </div>
-        <%--<div id="extruderLeft3" class="a {title:'Nutrition'}">
-            <uc6:UserControl_Nutrition ID="UserControl_Nutrition1" runat="server" />
-        </div>--%>
+        <div id="extruderLeft3" class="a3 {title:'Mother Profile'}" style="background-color: #5461BE;">
+            <div>
+                <uc6:UserControlKNH_MotherProfileExtruder ID="UserControlKNH_MotherProfile" runat="server" />
+            </div>
+        </div>
+         <div id="extruderLeft4" class="a3 {title:'Neontal and Maternal History'}" style="background-color: #5461BE;">
+            <div>
+                <uc7:UserControlKNH_NeonatalExtruder ID="UserControlKNH_NeonatalExtruder" runat="server" />
+            </div>
+        </div>
     </div>
 </div>

@@ -170,6 +170,8 @@ public partial class frmAdmin_UserList : LogPage
         //(Master.FindControl("lblMark") as Label).Visible = false;
         (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblRoot") as Label).Visible = false;
         (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblheader") as Label).Text = "User Administration";
+        IQWebUtils Utils = new IQWebUtils();
+        Utils.HidePatientLevelheader();
         if (Page.IsPostBack == false)
         {
            Init_Form();

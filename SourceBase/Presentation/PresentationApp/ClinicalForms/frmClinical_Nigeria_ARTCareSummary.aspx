@@ -10,12 +10,12 @@
             document.forms[0].submit();
         }
     </script>
-    <div style="padding-left: 8px; padding-right: 8px;">
+    <div style="padding-left: 8px; padding-right: 8px; width:100%;" class="container">
         <div class="border center formbg">
             <br />
-            <h2 class="forms" align="left">
-                Cohort</h2>
-            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+            <h4 class="forms" align="left">
+                Cohort</h4>
+            <table cellspacing="6" cellpadding="0" width="100%" border="0" class="table-condensed">
                 <tbody>
                     <tr>
                         <td class="border whitebg formcenter pad5">
@@ -36,9 +36,9 @@
         <br />
         <div class="border center formbg">
             <br />
-            <h2 class="forms" align="left">
-                ART Start at Another Facility(Status at Start of ART)</h2>
-            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+            <h4 class="forms" align="left">
+                ART Start at Another Facility(Status at Start of ART)</h4>
+            <table cellspacing="6" cellpadding="0" width="100%" border="0"  class="table-condensed">
                 <tbody>
                     <tr>
                         <td class="border whitebg formcenter pad5">
@@ -96,9 +96,9 @@
         <br />
         <div class="border center formbg">
             <br />
-            <h2 class="forms" align="left">
-                ART Start at This Facility(Status of Start of ART)</h2>
-            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+            <h4 class="forms" align="left">
+                ART Start at This Facility(Status of Start of ART)</h4>
+            <table cellspacing="6" cellpadding="0" width="100%" border="0"  class="table-condensed">
                 <tbody>
                     <tr>
                         <td class="border whitebg formcenter pad5">
@@ -160,11 +160,11 @@
                                     <div class="top-outer">
                                         <div class="top-inner">
                                             <div class="top">
-                                                <h2>
+                                                <h4>
                                                     <center>
                                                         Substitutions and Switches
                                                     </center>
-                                                </h2>
+                                                </h4>
                                             </div>
                                         </div>
                                     </div>
@@ -203,7 +203,7 @@
         </div>
         <br />
         <div class="border center formbg">
-            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+            <table cellspacing="6" cellpadding="0" width="100%" border="0"  class="table-condensed">
                 <tbody>
                     <tr>
                         <td class="pad5 formbg border">
@@ -212,10 +212,10 @@
                                     <div class="top-outer">
                                         <div class="top-inner">
                                             <div class="top">
-                                                <h2>
+                                                <h4>
                                                     <center>
                                                         ART Treatment Interruptions</center>
-                                                </h2>
+                                                </h4>
                                             </div>
                                         </div>
                                     </div>
@@ -251,10 +251,10 @@
                     <tr>
                         <td class="form pad5 center" colspan="2">
                             <br />
-                            <asp:Button ID="btn_save" Text="Save" runat="server" OnClick="btn_save_Click" />
-                            <asp:Button ID="DQ_Check" Text="Data Quality check" runat="server" OnClick="DQ_Check_Click" />
-                            <asp:Button ID="btn_close" Text="Close" runat="server" OnClick="btn_close_Click" />
-                            <asp:Button ID="btn_print" Text="Print" runat="server" OnClientClick="WindowPrint()" />
+                            <asp:Button ID="btn_save" Text="Save" runat="server" OnClick="btn_save_Click" CssClass="btn btn-primary" Height="26px" />
+                            <asp:Button ID="DQ_Check" Text="Data Quality check" runat="server" OnClick="DQ_Check_Click" CssClass="btn btn-primary" Height="26px" />
+                            <asp:Button ID="btn_close" Text="Close" runat="server" OnClick="btn_close_Click" CssClass="btn btn-primary" Height="26px" />
+                            <asp:Button ID="btn_print" Text="Print" runat="server" OnClientClick="WindowPrint()" CssClass="btn btn-primary" Height="26px" />
                         </td>
                     </tr>
                 </tbody>

@@ -38,5 +38,23 @@ namespace PresentationApp.ClinicalForms.UserControl {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::PresentationApp.ClinicalForms.UserControl.UserControlKNH_WorkPlanExtruder UserControlKNH_WorkPlanExtruder1;
+        
+        /// <summary>
+        /// UserControlKNH_MotherProfile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::PresentationApp.ClinicalForms.UserControl.UserControlKNH_MotherProfileExtruder UserControlKNH_MotherProfile;
+        
+        /// <summary>
+        /// UserControlKNH_NeonatalExtruder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::PresentationApp.ClinicalForms.UserControl.UserControlKNH_NeonatalExtruder UserControlKNH_NeonatalExtruder;
     }
 }

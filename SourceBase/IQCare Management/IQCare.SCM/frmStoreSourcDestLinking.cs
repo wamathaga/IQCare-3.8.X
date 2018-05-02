@@ -100,7 +100,19 @@ namespace IQCare.SCM
             }
             return true;
         }
+        private string Removestring(string sourceString)
+        {  
+            if (sourceString.Length > 4)
+            {
+                string contains = sourceString.Substring(0, 4);
+                if (contains == "8888" || contains == "9999")
+                {
+                    sourceString = sourceString.Remove(0, 4);
+                }                
+            }
 
+            return sourceString;
+        }
         private void btnSubmit_Click(object sender, EventArgs e)
         {
             
@@ -110,12 +122,20 @@ namespace IQCare.SCM
 
                 try
                 {
-                    DTLinkStore.PrimaryKey = new DataColumn[] { DTLinkStore.Columns["SourceStore"], DTLinkStore.Columns["DestinationStore"] };
+                    DTLinkStore.PrimaryKey = new DataColumn[] { DTLinkStore.Columns["SourceStore"], DTLinkStore.Columns["DestinationStore"], DTLinkStore.Columns["SupplierFlag"] };
                     DataRow theDR = DTLinkStore.NewRow();
-                    theDR["SourceStore"] = cmbSourceStore.SelectedValue;
+                    string sourcestring = Removestring(cmbSourceStore.SelectedValue.ToString());
+                    theDR["SourceStore"] = Removestring(cmbSourceStore.SelectedValue.ToString());
                     theDR["SourceStoreName"] = cmbSourceStore.Text;
-                    theDR["DestinationStore"] = cmbDestinationStore.SelectedValue;
+                    theDR["DestinationStore"] = Removestring(cmbDestinationStore.SelectedValue.ToString());
                     theDR["DestStoreName"] = cmbDestinationStore.Text;
+                    if (cmbSourceStore.SelectedValue.ToString().StartsWith("9999"))
+                    {
+                        theDR["SupplierFlag"] = 1;
+                    }
+                    else
+                        theDR["SupplierFlag"] = 0;
+
                     DTLinkStore.Rows.Add(theDR);
                     DTLinkStore.AcceptChanges();
                     showgrid(DTLinkStore);
@@ -185,7 +205,7 @@ namespace IQCare.SCM
                 IMasterList objItemCommonlist = (IMasterList)ObjectFactory.CreateInstance("BusinessProcess.SCM.BMasterList,BusinessProcess.SCM");
                 IQCareUtils theUtils = new IQCareUtils();
                 theDS = objItemCommonlist.GetStoreDetail();
-                BindDropdown(theDS.Tables[0]);
+                BindDropdown(theDS.Tables[3]);
                 showgrid(theDS.Tables[1]);
                 objItemCommonlist = null;
             }

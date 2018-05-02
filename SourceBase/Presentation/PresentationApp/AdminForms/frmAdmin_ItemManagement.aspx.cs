@@ -86,7 +86,9 @@ namespace PresentationApp.AdminForms
         private void AddAttribute()
         {
             (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblRoot") as Label).Text = "Administration >> ";
-            (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblheader") as Label).Text = "Item Management";            
+            (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblheader") as Label).Text = "Item Management";
+            IQWebUtils Utils = new IQWebUtils();
+            Utils.HidePatientLevelheader();
             txtMornDose.Attributes.Add("onkeyup", "chkDecimal('" + txtMornDose.ClientID + "');");
             txtMidDayDose.Attributes.Add("onkeyup", "chkDecimal('" + txtMidDayDose.ClientID + "');");
             txtEvenDose.Attributes.Add("onkeyup", "chkDecimal('" + txtEvenDose.ClientID + "');");
@@ -751,7 +753,7 @@ namespace PresentationApp.AdminForms
                 }
                 
             }
-            if (txtsellingprice.Text != "" && txtEffectiveDate.Text=="")
+            if (txtEffectiveDate.Text=="")
             {
                 MsgBuilder theBuilder = new MsgBuilder();
                 EventArgs e = new EventArgs();

@@ -3384,11 +3384,11 @@ public partial class frmClinical_ARTFollowup : BasePage, ICallbackEventHandler
                 btndataquality.Enabled = false;
             }
             //Privilages for Care End
-            if (Convert.ToString(Session["CareEndFlag"]) == "1" && Convert.ToString(Session["CareendedStatus"]) == "1")
-            {
-                btnsave.Enabled = true;
-                btndataquality.Enabled = true;
-            }
+            //if (Convert.ToString(Session["CareEndFlag"]) == "1" && Convert.ToString(Session["CareendedStatus"]) == "1")
+            //{
+            //    btnsave.Enabled = true;
+            //    btndataquality.Enabled = true;
+            //}
         }
 
 

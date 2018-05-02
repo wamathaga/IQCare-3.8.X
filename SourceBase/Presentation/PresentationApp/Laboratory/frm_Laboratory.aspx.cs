@@ -107,12 +107,20 @@ namespace PresentationApp.Laboratory
                             RadGridLabTest_ItemCommand(sender, evarg);
                             griditem.Expanded = true;
                         }
-                        if (Request.QueryString["name"] != "Delete")
+                        //if (Request.QueryString["name"] != "Delete")
+                        //{
+                        //    if ((Session["LabOrderStatus"].ToString() == "Completed") || (Session["LabOrderStatus"].ToString() == "Partial"))
+                        //    {
+                        //        btntr.Visible = false;
+                        //    }
+                        //}
+                    }
+                    if (!string.IsNullOrEmpty(Session["LMIS"].ToString()))
+                    {
+                        if (Session["LMIS"].ToString() == "1")
                         {
-                            if ((Session["LabOrderStatus"].ToString() == "Completed") || (Session["LabOrderStatus"].ToString() == "Partial"))
-                            {
-                                btntr.Visible = false;
-                            }
+                            btntr.Visible = false;
+                            trReported.Visible = false;
                         }
                     }
                 }
@@ -925,7 +933,7 @@ namespace PresentationApp.Laboratory
                 objLabFields.UserId = Convert.ToInt32(Session["AppUserId"].ToString());
                 objLabFields.OrderedByName = Convert.ToInt32(ddlaborderedbyname.SelectedValue.ToString());
                 objLabFields.OrderedByDate = Convert.ToDateTime(theUtils.MakeDate(txtlaborderedbydate.Text));
-
+                objLabFields.LabReportByDate = Convert.ToDateTime(theUtils.MakeDate(txtlaborderedbydate.Text));
                 objLabFields.LabTestID = 0;
                 objLabFields.ReportedByDate = DateGiven(txtrepordtedbydate.Text);
                 objLabFields.ReportedByName = Convert.ToInt32(ddlreportedby.SelectedValue);
@@ -1083,7 +1091,11 @@ namespace PresentationApp.Laboratory
                             objLabFields1.LabTestID = 0;
                             objLabFields1.SubTestID = Convert.ToInt32(lblLabSubTestId.Text.ToString());
                             objLabFields1.PreClinicLabDate = DateGiven("");
-                            objLabFields1.UrgentId = Convert.ToInt32(chkUrgent.Checked ? "1" : "0");
+                            if (chkUrgent != null)
+                                objLabFields1.UrgentId = Convert.ToInt32(chkUrgent.Checked ? "1" : "0");
+                            else
+                                objLabFields1.UrgentId = 0;
+
                             objLabFields1.LabOrderId = Convert.ToInt32(Session["LabOrderID"].ToString());
                             objLabFields1.ReportedByDate = DateGiven(txtrepordtedbydate.Text);
                             objLabFields1.ReportedByName = Convert.ToInt32(ddlreportedby.SelectedValue);
@@ -1541,7 +1553,7 @@ namespace PresentationApp.Laboratory
                         }
 
                         btnradRadioButtonList.Visible = true;
-                        btnradRadioButtonList.Enabled = false;
+                        //btnradRadioButtonList.Enabled = false;
 
                     }
                     else if (lblControlType.Text == "Combo Box")
@@ -1553,7 +1565,7 @@ namespace PresentationApp.Laboratory
                         }
 
                         ddlList.Visible = true;
-                        ddlList.Enabled = false;
+                        //ddlList.Enabled = false;
                     }
                     else if (lblControlType.Text == "Check box")
                     {
@@ -1563,7 +1575,7 @@ namespace PresentationApp.Laboratory
                             chkBoxList.SelectedValue = lblTestResultId.Text;
                         }
                         chkBoxList.Visible = true;
-                        chkBoxList.Enabled = false;
+                        //chkBoxList.Enabled = false;
                     }
                     else if (lblControlType.Text == "GridView")
                     {
@@ -1636,7 +1648,7 @@ namespace PresentationApp.Laboratory
                         }
                         txtRadValue.Text = "";
                         txtRadValue.Text = lblresult.Text;
-                        txtRadValue.Enabled = false;
+                        //txtRadValue.Enabled = false;
 
                     }
                 }

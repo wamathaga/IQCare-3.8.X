@@ -9,7 +9,7 @@
             <table class="table-condensed" width="100%">
                 <tbody>
                     <tr>
-                        <td class="border pad5 formbg">
+                        <td class="border pad5 formbg" >
                             <div class="grid">
                                 <div class="rounded">
                                     <div class="top-outer">
@@ -45,8 +45,15 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr>                        
                         <td class="pad5 center">
+                        <asp:Button ID="btnAddLabGroup" Text="Add" runat="server" 
+                                CssClass="btn btn-primary" Height="30px" Width="8%" 
+                                Style="text-align: left;" onclick="btnAddLabGroup_Click" />
+                            <label class="glyphicon glyphicon-open" style="margin-left: -3%; vertical-align: sub;
+                                color: #fff;">
+                            </label>
+                            &nbsp;&nbsp;&nbsp;
                             <asp:Button ID="btnCancel" runat="server" Text="Close" OnClick="btnCancel_Click"
                                 CssClass="btn btn-primary" Height="30px" Width="8%" Style="text-align: left;" />
                             <label class="glyphicon glyphicon-remove-circle" style="margin-left: -3%; margin-right: 2%;

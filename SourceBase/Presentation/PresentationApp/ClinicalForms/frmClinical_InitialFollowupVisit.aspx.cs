@@ -48,7 +48,7 @@ public partial class ClinicalForms_frmClinical_InitialFollowupVisit : LogPage
         if (Session["AppLocation"] == null || Session.Count == 0 || Session["AppUserID"].ToString() == "")
         {
             IQCareMsgBox.Show("SessionExpired", this);
-            Response.Redirect("~/frmlogin.aspx",true);
+            Response.Redirect("~/frmlogin.aspx", true);
         }
         if (Request.QueryString["status"] == "0")
         {
@@ -190,7 +190,7 @@ public partial class ClinicalForms_frmClinical_InitialFollowupVisit : LogPage
         //Height Weight 
         DtBindControl = ds.Tables[3];
         if (DtBindControl.Rows.Count != 0)
-        {            
+        {
             double theWeight = 0;
             double theHeight = 0;
             if (DtBindControl.Rows[0]["height"] != DBNull.Value)
@@ -574,22 +574,22 @@ public partial class ClinicalForms_frmClinical_InitialFollowupVisit : LogPage
             }
         }
 
-        if (Session["CEndedStatus"] != null)
-        {
-            if (((DataTable)Session["CEndedStatus"]).Rows.Count > 0)
-            {
-                if (((DataTable)Session["CEndedStatus"]).Rows[0]["CareEnded"].ToString() == "1")
-                {
-                    btnSave.Enabled = false;
-                    btnDataQualityCheck.Enabled = false;
-                }
-            }
-        }
-        if (Convert.ToString(Session["CareEndFlag"]) == "1" && Convert.ToString(Session["CareendedStatus"]) == "1")
-        {
-            btnSave.Enabled = true;
-            btnDataQualityCheck.Enabled = true;
-        }
+        //if (Session["CEndedStatus"] != null)
+        //{
+        //    if (((DataTable)Session["CEndedStatus"]).Rows.Count > 0)
+        //    {
+        //        if (((DataTable)Session["CEndedStatus"]).Rows[0]["CareEnded"].ToString() == "1")
+        //        {
+        //            btnSave.Enabled = false;
+        //            btnDataQualityCheck.Enabled = false;
+        //        }
+        //    }
+        //}
+        //if (Convert.ToString(Session["CareEndFlag"]) == "1" && Convert.ToString(Session["CareendedStatus"]) == "1")
+        //{
+        //    btnSave.Enabled = true;
+        //    btnDataQualityCheck.Enabled = true;
+        //}
 
         if (age <= 14)
         {
@@ -1259,7 +1259,7 @@ public partial class ClinicalForms_frmClinical_InitialFollowupVisit : LogPage
             }
             else if (theCurrentDate.Date < Convert.ToDateTime(iQCareUtils.MakeDate(txtVisitDate.Text)))
             {
-                if (dateconstraint)
+                if (!dateconstraint)
                 {
                     validateMessage += "-" + IQCareMsgBox.GetMessage("CompareDate5", this) + "</br>";
                     txtVisitDate.Focus();
@@ -1271,31 +1271,37 @@ public partial class ClinicalForms_frmClinical_InitialFollowupVisit : LogPage
         #endregion
 
         #region Date of next appointment
-
-        if (txtdatenextappointment.Value.Trim() != "")
-            if (!DateTime.TryParseExact(txtdatenextappointment.Value, "dd-MMM-yyyy", null, System.Globalization.DateTimeStyles.AllowWhiteSpaces, out temp))
+        if (Session["PaperLess"].ToString() == "1")
+        {
+            if (txtdatenextappointment.Value.Trim() != "")
             {
-                MsgBuilder msgBuilder = new MsgBuilder();
-                msgBuilder.DataElements["Control"] = " -Follow Up Date";
-                validateMessage += IQCareMsgBox.GetMessage("WrongDateFormat", msgBuilder, this) + "</br>";
-                txtdatenextappointment.Focus();
-                validationCheck = false;
-            }
-            else if (Convert.ToDateTime(iQCareUtils.MakeDate(txtVisitDate.Text)) >= Convert.ToDateTime(iQCareUtils.MakeDate(txtdatenextappointment.Value)))
-            {
-                if (dateconstraint)
+                if (!DateTime.TryParseExact(txtdatenextappointment.Value, "dd-MMM-yyyy", null, System.Globalization.DateTimeStyles.AllowWhiteSpaces, out temp))
                 {
+                    MsgBuilder msgBuilder = new MsgBuilder();
+                    msgBuilder.DataElements["Control"] = " -Follow Up Date";
+                    validateMessage += IQCareMsgBox.GetMessage("WrongDateFormat", msgBuilder, this) + "</br>";
+                    txtdatenextappointment.Focus();
+                    validationCheck = false;
+                }
+                else if (Convert.ToDateTime(iQCareUtils.MakeDate(txtVisitDate.Text)) >= Convert.ToDateTime(iQCareUtils.MakeDate(txtdatenextappointment.Value)))
+                {
+                    if (dateconstraint)
+                    {
+                        validateMessage += "-" + IQCareMsgBox.GetMessage("Initialfollowupvisitnextappointment", this) + "</br>";
+                        txtdatenextappointment.Focus();
+                        validationCheck = false;
+                    }
+                }
+
+                else if (theCurrentDate.Date >= Convert.ToDateTime(iQCareUtils.MakeDate(txtdatenextappointment.Value)))
+                {
+
                     validateMessage += "-" + IQCareMsgBox.GetMessage("Initialfollowupvisitnextappointment", this) + "</br>";
                     txtdatenextappointment.Focus();
                     validationCheck = false;
                 }
             }
-        //else if (theCurrentDate.Date >= Convert.ToDateTime(iQCareUtils.MakeDate(txtdatenextappointment.Value)))
-        //{
-        //    validateMessage += "-" + IQCareMsgBox.GetMessage("Initialfollowupvisitnextappointment", this) + "\\n";
-        //    txtdatenextappointment.Focus();
-        //    validationCheck = false;
-        //} 
+        }
 
         #endregion
 
@@ -2247,54 +2253,56 @@ public partial class ClinicalForms_frmClinical_InitialFollowupVisit : LogPage
             }
         }
         #endregion
-
-        #region Weight
-        if (idVitalSign.txtWeight.Text.Trim() == "")
+        if (ddlvisittype.SelectedItem.Text != "TS - Treatment Supporter")
         {
-            MsgBuilder msgBuilder = new MsgBuilder();
-            msgBuilder.DataElements["Control"] = " -Weight";
-            validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
-            idVitalSign.txtWeight.Focus();
-            qualityCheck = false;
-            idVitalSign.lblWeight.Style.Add("color", "red");
-        }
-        #endregion
+            #region Weight
+            if (idVitalSign.txtWeight.Text.Trim() == "")
+            {
+                MsgBuilder msgBuilder = new MsgBuilder();
+                msgBuilder.DataElements["Control"] = " -Weight";
+                validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
+                idVitalSign.txtWeight.Focus();
+                qualityCheck = false;
+                idVitalSign.lblWeight.Style.Add("color", "red");
+            }
+            #endregion
 
-        #region Height
-        if (idVitalSign.txtHeight.Text.Trim() == "")
-        {
-            MsgBuilder msgBuilder = new MsgBuilder();
-            msgBuilder.DataElements["Control"] = " -Height";
-            validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
-            idVitalSign.txtHeight.Focus();
-            qualityCheck = false;
-            idVitalSign.lblHeight.Style.Add("color", "red");
-        }
-        #endregion
+            #region Height
+            if (idVitalSign.txtHeight.Text.Trim() == "")
+            {
+                MsgBuilder msgBuilder = new MsgBuilder();
+                msgBuilder.DataElements["Control"] = " -Height";
+                validateMessage += IQCareMsgBox.GetMessage("BlankTextBox", msgBuilder, this) + "</br>";
+                idVitalSign.txtHeight.Focus();
+                qualityCheck = false;
+                idVitalSign.lblHeight.Style.Add("color", "red");
+            }
+            #endregion
 
-        #region WHOStage
-        if (ddlWHOStage.SelectedItem.Text == "Select")
-        {
-            MsgBuilder msgBuilder = new MsgBuilder();
-            msgBuilder.DataElements["Control"] = " -WHO Stage";
-            validateMessage += IQCareMsgBox.GetMessage("BlankList", msgBuilder, this) + "</br>";
-            ddlWHOStage.Focus();
-            qualityCheck = false;
-            lblWHOStage.Style.Add("color", "red");
-        }
-        #endregion
+            #region WHOStage
+            if (ddlWHOStage.SelectedItem.Text == "Select")
+            {
+                MsgBuilder msgBuilder = new MsgBuilder();
+                msgBuilder.DataElements["Control"] = " -WHO Stage";
+                validateMessage += IQCareMsgBox.GetMessage("BlankList", msgBuilder, this) + "</br>";
+                ddlWHOStage.Focus();
+                qualityCheck = false;
+                lblWHOStage.Style.Add("color", "red");
+            }
+            #endregion
 
-        #region ARVDrugsAdhere
-        if (ddlarvdrugadhere.SelectedItem.Text == "Select")
-        {
-            MsgBuilder msgBuilder = new MsgBuilder();
-            msgBuilder.DataElements["Control"] = " -ARV Drugs Adhere";
-            validateMessage += IQCareMsgBox.GetMessage("BlankList", msgBuilder, this) + "</br>";
-            ddlarvdrugadhere.Focus();
-            qualityCheck = false;
-            lblARVDrugsAdhere.Style.Add("color", "red");
+            #region ARVDrugsAdhere
+            if (ddlarvdrugadhere.SelectedItem.Text == "Select")
+            {
+                MsgBuilder msgBuilder = new MsgBuilder();
+                msgBuilder.DataElements["Control"] = " -ARV Drugs Adhere";
+                validateMessage += IQCareMsgBox.GetMessage("BlankList", msgBuilder, this) + "</br>";
+                ddlarvdrugadhere.Focus();
+                qualityCheck = false;
+                lblARVDrugsAdhere.Style.Add("color", "red");
+            }
+            #endregion
         }
-        #endregion
         if (!qualityCheck)
         {
             MsgBuilder totalMsgBuilder = new MsgBuilder();
@@ -2395,6 +2403,11 @@ public partial class ClinicalForms_frmClinical_InitialFollowupVisit : LogPage
         hashTable.Add("HR", idVitalSign.txtHR.Text.ToString());
         hashTable.Add("RR", this.idVitalSign.txtRR.Text.ToString());
         hashTable.Add("Headcircumference", this.idVitalSign.txtheadcircumference.Text.ToString());
+        hashTable.Add("WeightForAge", this.idVitalSign.lblWA.Text);
+        hashTable.Add("WeightForHeight", this.idVitalSign.lblWH.Text);
+        hashTable.Add("BMIz", this.idVitalSign.lblBMIz.Text);
+        hashTable.Add("NursesComments", this.idVitalSign.txtnursescomments.Text);
+
         //Pegnancy
         hashTable.Add("pregnant", ddlpregnancy.SelectedValue);
         if (ddlpregnancy.SelectedValue.ToString() == "89")

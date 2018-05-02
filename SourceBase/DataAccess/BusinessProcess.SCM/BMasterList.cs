@@ -643,9 +643,9 @@ namespace BusinessProcess.SCM
                 foreach (DataRow theDR in dtStoreList.Rows)
                 {
                     theSB.Append("Insert into " + TableName +
-                                 "(SourceStore, DestinationStore, UserId, CreateDate, UpdateDate) ");
+                                 "(SourceStore, DestinationStore, UserId, CreateDate, UpdateDate,SupplierFlag) ");
                     theSB.Append("values (" + theDR["SourceStore"].ToString() + "," + theDR["DestinationStore"].ToString() +
-                                 "," + UserID + ", getdate(), getdate())");
+                                 "," + UserID + ", getdate(), getdate()," + theDR["SupplierFlag"].ToString() + ")");
                 }
                 ClsUtility.AddParameters("@Str", SqlDbType.VarChar, theSB.ToString());
                 ClsUtility.AddParameters("@TableName", SqlDbType.VarChar, TableName.ToString());

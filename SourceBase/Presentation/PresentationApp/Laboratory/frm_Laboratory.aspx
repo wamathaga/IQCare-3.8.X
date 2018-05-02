@@ -104,7 +104,7 @@
         <asp:UpdatePanel ID="Updatepanel" runat="server">
             <ContentTemplate>
                 <div class="center border formbg">
-                    <table class="table-condensed">
+                    <table class="table-condensed" width="100%">
                         <tbody>
                             <tr>
                                 <td class="form" align="center" valign="middle" width="50%">

@@ -488,9 +488,17 @@ public partial class Scheduler_frmScheduler_ContactCareTracking : BasePage
             {
                 //ddinterviewer.DataSource = null;
                 //theBindManager.BindCombo(ddinterviewer, theDT, "EmployeeName", "EmployeeId"); Bug Id 384
-                BindUserDropdown(ddinterviewer, string.Empty);
+                /*
+                 * comment by - bhupendra
+                 * date - 4 Aug 2016
+                 * reason - due to deleteflag = 0 of user in mst_employee
+                 * bug id - 1312
+                 */
+                //BindUserDropdown(ddinterviewer, string.Empty);
                 theDV.Dispose();
             }
+            //Add the below code to resolve the bug id 1312
+            BindUserDropdown(ddinterviewer, string.Empty);
             //theDT.Clear();
         }
 

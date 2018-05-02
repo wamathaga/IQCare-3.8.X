@@ -674,12 +674,13 @@ public partial class frmAddTechnicalArea : BasePage
 
     protected void btnSaveContinue_Click(object sender, EventArgs e)
     {
+        if (FieldValidation() == false)
+            return;
+
+
         SavePatientRegistration();
         ClientScript.RegisterStartupScript(this.GetType(), "Changingextruder", "<script language = 'javascript' defer ='defer' id = 'confirmextrufalse'>document.getElementById('extruderLeftmain').style.display = 'none';</script>");
-        if (FieldValidation() == false)
-        {
-            return;
-        }
+
         string msg = ValidationMessage();
         if (msg.Length > 52)
         {
@@ -771,12 +772,13 @@ public partial class frmAddTechnicalArea : BasePage
             return;
         }
         //VY added in case of records this would go back to find add patients
-        if (Session["TechnicalAreaName"] == "Records")
+        if (Session["TechnicalAreaName"].ToString() == "Records" && Convert.ToInt32(Session["TechnicalAreaId"]) == 0)
         {
+
             int patientID = Convert.ToInt32(Session["PatientId"]);
-            String theUrl = String.Format("./frmFindAddCustom.aspx?srvNm={0}&mod={1}", "Records", 0);
             string strSrvName = ddlTecharea.SelectedItem.Text;
             string moduleid = ddlTecharea.SelectedItem.Value;
+            String theUrl = String.Format("./frmFindAddCustom.aspx?srvNm={0}&mod={1}", "Records", 0);
 
             String theOrdScript;
             theOrdScript = "<script language='javascript' id='PrintReciept'>\n";
@@ -951,17 +953,21 @@ public partial class frmAddTechnicalArea : BasePage
     {
         //flag=0 for continue & flag=1 for save and continue 
         int Blankstatus = 0;
-
+        DataRow DTPatientIndefiersRow = null;
         DataTable DTPatientIndefiers = (DataTable)ViewState["PatientIdentdata"];
-        DataRow DTPatientIndefiersRow = DTPatientIndefiers.Rows[0];
+
+        if (DTPatientIndefiers.Rows.Count > 0)
+        {
+            DTPatientIndefiersRow = DTPatientIndefiers.Rows[0];
+        }
         DataTable DTModuleIdents = (DataTable)ViewState["ModuleIdentifiers"];
+
         if (ViewState["AutoPopulated"].ToString() == "True")
         {
             Blankstatus++;
         }
         for (int j = 0; j <= DTModuleIdents.Rows.Count - 1; j++)
         {
-
             foreach (Control x in pnlIdentFields.Controls)
             {
                 if (x.GetType() == typeof(System.Web.UI.WebControls.TextBox))
@@ -969,10 +975,12 @@ public partial class frmAddTechnicalArea : BasePage
 
                     if (flag == 0)
                     {
-
-                        if (((TextBox)x).Text != "" && DTPatientIndefiersRow[DTModuleIdents.Rows[j]["FieldName"].ToString()] != System.DBNull.Value)
+                        if (DTPatientIndefiersRow != null)
                         {
-                            Blankstatus++;
+                            if (((TextBox)x).Text != "" && DTPatientIndefiersRow[DTModuleIdents.Rows[j]["FieldName"].ToString()] != System.DBNull.Value)
+                            {
+                                Blankstatus++;
+                            }
                         }
                     }
                     else

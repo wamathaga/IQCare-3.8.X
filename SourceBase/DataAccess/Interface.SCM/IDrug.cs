@@ -30,10 +30,11 @@ namespace Interface.SCM
         DataSet GetPharmacyDrugList_Web(int StoreID, string scmOn, string serviceArea);
         DataTable ReturnDatatableQuery(string theQuery);
         DataTable SavePharmacyDispense_Web(Int32 PatientId, Int32 LocationId, Int32 StoreId, Int32 UserId, int dispensedBy, string DispDate,
-          Int32 OrderType, Int32 ProgramId, string Regimen, Int32 OrderId, DataTable theDT, string PharmacyRefillDate, Int32 DataStatus, int orderedBy, string orderDate, string deleteScript, int regimenLine, int regimenCode);
+          Int32 OrderType, Int32 ProgramId, string Regimen, Int32 OrderId, DataTable theDT, string PharmacyRefillDate, Int32 DataStatus, int orderedBy, string orderDate, string deleteScript, int regimenLine, int regimenCode, int therapyPlan);
         DataSet GetPharmacyExistingRecordDetails_Web(Int32 VisitID);
         DataSet GetDrugBatchDetails(int DrugID, int StoreID);
         DataSet GetSelectedDrugDetails(int DrugID, int StoreID);
         DataSet GetPriorPrescription(Int32 thePatientId);
+        void SaveUpdateIPTData(Int32 PatientID, int visitId, DateTime INHStartDate, DateTime INHEndDate);
     }
 }

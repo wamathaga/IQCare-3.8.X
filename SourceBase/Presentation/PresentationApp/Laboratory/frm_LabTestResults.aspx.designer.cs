@@ -13,15 +13,6 @@ namespace PresentationApp.Laboratory {
     public partial class frm_LabTestResults {
         
         /// <summary>
-        /// RadAjaxManager1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadAjaxManager RadAjaxManager1;
-        
-        /// <summary>
         /// tabControl control.
         /// </summary>
         /// <remarks>

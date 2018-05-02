@@ -868,6 +868,33 @@ namespace PresentationApp.ClinicalForms {
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtDateImmunised;
         
         /// <summary>
+        /// Label23 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label23;
+        
+        /// <summary>
+        /// rdoHasVitaminGivenYes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton rdoHasVitaminGivenYes;
+        
+        /// <summary>
+        /// rdoHasVitaminGivenNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton rdoHasVitaminGivenNo;
+        
+        /// <summary>
         /// btnAddImmunization control.
         /// </summary>
         /// <remarks>
@@ -929,6 +956,24 @@ namespace PresentationApp.ClinicalForms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::PresentationApp.ClinicalForms.UserControl.UserControlKNHPresentingComplaints UcHEIPcomplaints;
+        
+        /// <summary>
+        /// Label22 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label22;
+        
+        /// <summary>
+        /// cblTBAssesment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList cblTBAssesment;
         
         /// <summary>
         /// Pnl1Examination control.
@@ -1111,51 +1156,6 @@ namespace PresentationApp.ClinicalForms {
         protected global::System.Web.UI.WebControls.Panel Pnl2ManagementPlan;
         
         /// <summary>
-        /// Label22 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label22;
-        
-        /// <summary>
-        /// cblTBAssesment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList cblTBAssesment;
-        
-        /// <summary>
-        /// Label23 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label23;
-        
-        /// <summary>
-        /// rdoHasVitaminGivenYes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton rdoHasVitaminGivenYes;
-        
-        /// <summary>
-        /// rdoHasVitaminGivenNo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton rdoHasVitaminGivenNo;
-        
-        /// <summary>
         /// Label24 control.
         /// </summary>
         /// <remarks>
@@ -1208,6 +1208,15 @@ namespace PresentationApp.ClinicalForms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtTreatmentDate;
+        
+        /// <summary>
+        /// txtAreaWorkPlan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea txtAreaWorkPlan;
         
         /// <summary>
         /// btnAddTB control.

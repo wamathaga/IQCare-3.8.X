@@ -256,6 +256,7 @@ public partial class frmAdmin_FacilitySetup : LogPage
             }
             //Wards
             chkwards.Checked = (theDV[0]["Wards"].ToString() == "1");
+            chkLMIS.Checked = (theDV[0]["LMIS"].ToString() == "1");
 
             //PMTCT Binding
             string strExpr;
@@ -653,6 +654,7 @@ public partial class frmAdmin_FacilitySetup : LogPage
         htFacilityParameters.Add("PMSCM", this.chkpmscm.Checked == true ? 1 : 0);
         // htFacilityParameters.Add("Records", chkrecords.Checked == true ? 1 : 0);
         htFacilityParameters.Add("Wards", chkwards.Checked == true ? 1 : 0);
+        htFacilityParameters.Add("LMIS", chkLMIS.Checked == true ? 1 : 0);        
         return htFacilityParameters;
     }
     protected void btnSave_Click(object sender, EventArgs e)

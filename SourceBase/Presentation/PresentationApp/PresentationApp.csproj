@@ -210,6 +210,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
@@ -227,10 +228,6 @@
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Xml.Serialization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\System.Xml.Serialization.dll</HintPath>
-    </Reference>
     <Reference Include="Telerik.Web.Design, Version=2014.1.403.45, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\External Dlls\Telerik.Web.Design.dll</HintPath>
@@ -1047,6 +1044,13 @@
     <Compile Include="ClinicalForms\jsonGetDebitNoteSummary.aspx.designer.cs">
       <DependentUpon>jsonGetDebitNoteSummary.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ClinicalForms\UserControl\UserControlKNH_MotherProfileExtruder.ascx.cs">
+      <DependentUpon>UserControlKNH_MotherProfileExtruder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClinicalForms\UserControl\UserControlKNH_MotherProfileExtruder.ascx.designer.cs">
+      <DependentUpon>UserControlKNH_MotherProfileExtruder.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ClinicalForms\UserControl\UserControlKNHPresentingComplaints.ascx.cs">
       <DependentUpon>UserControlKNHPresentingComplaints.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1102,6 +1106,13 @@
     </Compile>
     <Compile Include="ClinicalForms\UserControl\UserControlKNH_Allergies.ascx.designer.cs">
       <DependentUpon>UserControlKNH_Allergies.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ClinicalForms\UserControl\UserControlKNH_NeonatalExtruder.ascx.cs">
+      <DependentUpon>UserControlKNH_NeonatalExtruder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClinicalForms\UserControl\UserControlKNH_NeonatalExtruder.ascx.designer.cs">
+      <DependentUpon>UserControlKNH_NeonatalExtruder.ascx</DependentUpon>
     </Compile>
     <Compile Include="ClinicalForms\UserControl\UserControlKNH_NextAppointment.ascx.cs">
       <DependentUpon>UserControlKNH_NextAppointment.ascx</DependentUpon>
@@ -1857,9 +1868,6 @@
       <DependentUpon>usrctrlprintpharmacy.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reports\Billing\BillingSalesSummary.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Reports\Billing\BillingSalesSummary1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1872,16 +1880,10 @@
       <DependentUpon>CDCReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\Billing\DailyCashierSummary.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Reports\Billing\DailyCashierSummary2.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DailyCashierSummary.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\Billing\DailyCollectionSummary.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\Billing\DailyCollectionSummary1.cs">
@@ -1890,25 +1892,16 @@
       <DependentUpon>DailyCollectionSummary.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\Billing\DailyDepartmentalCollection.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Reports\Billing\DailyDepartmentalCollection1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DailyDepartmentalCollection.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\Billing\DepartmentalCashCollection.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Reports\Billing\DepartmentalCashCollection2.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DepartmentalCashCollection.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\Billing\FacilityMonthlyCollection.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\Billing\FacilityMonthlyCollection2.cs">
@@ -1926,16 +1919,10 @@
       <DependentUpon>OtherFacilityMonthlyIncome.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\Billing\rptBillingReciept.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Reports\Billing\rptBillingReciept1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>rptBillingReciept.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\Billing\rptBillingRecieptThermal.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\Billing\rptBillingRecieptThermal1.cs">
@@ -1944,19 +1931,10 @@
       <DependentUpon>rptBillingRecieptThermal.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\Billing\rptInvoice.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\Billing\rptInvoice1.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Reports\Billing\rptInvoice2.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>rptInvoice.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\Billing\rptRevenueSummary.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\Billing\rptRevenueSummary3.cs">
@@ -2457,7 +2435,9 @@
     <Content Include="ClinicalForms\frmClinical_RevisedAdultfollowup.aspx" />
     <Content Include="ClinicalForms\frmPatientConsumables.aspx" />
     <Content Include="ClinicalForms\frmPatientWaitingList.aspx" />
+    <Content Include="ClinicalForms\UserControl\UserControlKNH_MotherProfileExtruder.ascx" />
     <Content Include="ClinicalForms\UserControl\mbExtruder.css" />
+    <Content Include="ClinicalForms\UserControl\UserControlKNH_NeonatalExtruder.ascx" />
     <Content Include="ClinicalForms\UserControl\UserControlNigeria_PhysicalExamination.ascx" />
     <Content Include="ClinicalForms\UserControl\UserControlNigeria_VitalSigns.ascx" />
     <Content Include="ClinicalForms\UserControl\UserControlNigeria_WHOStaging.ascx" />
@@ -2474,6 +2454,7 @@
     <Content Include="Images\bincard.jpg" />
     <Content Include="Images\caution_urgent.png" />
     <Content Include="Images\closeButton1.png" />
+    <Content Include="Images\downknh.png" />
     <Content Include="Images\evening1.jpg" />
     <Content Include="Images\FGI_old.jpg" />
     <Content Include="Images\img_tooltip.jpg" />
@@ -2484,6 +2465,7 @@
     <Content Include="Images\morning1.jpg" />
     <Content Include="Images\night2.jpg" />
     <Content Include="Images\partial.png" />
+    <Content Include="Images\upknh.png" />
     <Content Include="Incl\jquery-1.10.1.js" />
     <Content Include="Incl\jquery.hoverIntent.min.js" />
     <Content Include="Incl\jquery.mb.flipText.js" />
@@ -3547,7 +3529,9 @@
     <Content Include="XMLFiles\ARVRegimenReport.xml" />
     <Content Include="XMLFiles\CDCRep.xml" />
     <Content Include="XMLFiles\Currency.xml" />
-    <Content Include="XMLFiles\customizelist.xml" />
+    <Content Include="XMLFiles\customizelist.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="XMLFiles\CustomReport.xml" />
     <Content Include="XMLFiles\Export.xml" />
     <Content Include="XMLFiles\Frequency.xml" />

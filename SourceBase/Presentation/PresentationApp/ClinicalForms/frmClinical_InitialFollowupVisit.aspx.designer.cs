@@ -516,6 +516,15 @@ public partial class ClinicalForms_frmClinical_InitialFollowupVisit {
     protected global::System.Web.UI.WebControls.Panel pnlprewithpositive;
     
     /// <summary>
+    /// pnlCustomList control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Panel pnlCustomList;
+    
+    /// <summary>
     /// lblNextAppointment control.
     /// </summary>
     /// <remarks>
@@ -541,15 +550,6 @@ public partial class ClinicalForms_frmClinical_InitialFollowupVisit {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.DropDownList ddlattendingclinician;
-    
-    /// <summary>
-    /// pnlCustomList control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.Panel pnlCustomList;
     
     /// <summary>
     /// btnSave control.

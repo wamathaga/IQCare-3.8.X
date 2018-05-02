@@ -17,6 +17,8 @@ using Interface.Security;
 using System.Configuration;
 using Interface.Laboratory;
 using Interface.Clinical;
+using System.Security;
+using System.Security.Permissions;
 
 namespace Application.Presentation
 {
@@ -654,118 +656,126 @@ namespace Application.Presentation
             }
             catch (Exception ex)
             {
-                //throw ex;
+                throw ex;
             }
         }
         private static void GenerateCacheImpl(string path)
         {
-            string allMaster = path + "AllMasters.con";
-            string drugMaster = path + "DrugMasters.con";
-            string labMaster = path + "LabMasters.con";
-            string frequency = path + "Frequency.xml";
-            string Querybuilder = path + "QueryBuilderReports.con";
+            try
+            {
+                string allMaster = path + "AllMasters.con";
+                string drugMaster = path + "DrugMasters.con";
+                string labMaster = path + "LabMasters.con";
+                string frequency = path + "Frequency.xml";
+                string Querybuilder = path + "QueryBuilderReports.con";
 
-            System.IO.FileInfo theFileInfo1 = new System.IO.FileInfo(allMaster);
-            System.IO.FileInfo theFileInfo2 = new System.IO.FileInfo(drugMaster);
-            System.IO.FileInfo theFileInfo3 = new System.IO.FileInfo(labMaster);
-            System.IO.FileInfo theFileInfo4 = new System.IO.FileInfo(frequency);
-            System.IO.FileInfo theFileInfo5 = new System.IO.FileInfo(Querybuilder);
+                System.IO.FileInfo theFileInfo1 = new System.IO.FileInfo(allMaster);
+                System.IO.FileInfo theFileInfo2 = new System.IO.FileInfo(drugMaster);
+                System.IO.FileInfo theFileInfo3 = new System.IO.FileInfo(labMaster);
+                System.IO.FileInfo theFileInfo4 = new System.IO.FileInfo(frequency);
+                System.IO.FileInfo theFileInfo5 = new System.IO.FileInfo(Querybuilder);
 
-            if (theFileInfo1.Exists)
-                theFileInfo1.Delete();
-            if (theFileInfo2.Exists)
-                theFileInfo2.Delete();
-            if (theFileInfo3.Exists)
-                theFileInfo3.Delete();
-            if (theFileInfo4.Exists)
-                theFileInfo4.Delete();
-            if (theFileInfo5.Exists)
-                theFileInfo5.Delete();
+                if (theFileInfo1.Exists)
+                    theFileInfo1.Delete();
+                if (theFileInfo2.Exists)
+                    theFileInfo2.Delete();
+                if (theFileInfo3.Exists)
+                    theFileInfo3.Delete();
+                if (theFileInfo4.Exists)
+                    theFileInfo4.Delete();
+                if (theFileInfo5.Exists)
+                    theFileInfo5.Delete();
 
-            IIQCareSystem theCacheManager = (IIQCareSystem)ObjectFactory.CreateInstance("BusinessProcess.Security.BIQCareSystem,BusinessProcess.Security");
-            DataSet theMainDS = theCacheManager.GetSystemCache();
-            DataSet WriteXMLDS = new DataSet();
+                IIQCareSystem theCacheManager = (IIQCareSystem)ObjectFactory.CreateInstance("BusinessProcess.Security.BIQCareSystem,BusinessProcess.Security");
+                DataSet theMainDS = theCacheManager.GetSystemCache();
+                DataSet WriteXMLDS = new DataSet();
 
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Provider"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Ward"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Division"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_District"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Reason"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Education"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Designation"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Employee"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Occupation"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Province"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Village"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Code"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_HIVAIDSCareTypes"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_ARTSponsor"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_HivDisease"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Assessment"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Symptom"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Decode"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Feature"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Function"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_HivDisclosure"].Copy());
-            //WriteXMLDS.Tables.Add(theMainDS.Tables["mst_Satellite"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_LPTF"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_StoppedReason"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["mst_facility"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_HIVCareStatus"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_RelationshipType"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_TBStatus"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_ARVStatus"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_LostFollowreason"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Regimen"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_CouncellingType"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_CouncellingTopic"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_ReferredFrom"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_pmtctDeCode"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Module"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_ModDecode"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_ARVSideEffects"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_ModCode"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Country"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Town"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["VWDiseaseSymptom"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["VW_ICDList"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["mst_RegimenLine"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["mst_Store"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["mst_BlueCode"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["mst_BlueDecode"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_FormBuilderTab"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["VW_UserDesignationTransaction"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Supplier"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["mst_LabDepartment"].Copy());
-            WriteXMLDS.WriteXml(allMaster, XmlWriteMode.WriteSchema);
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Provider"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Ward"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Division"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_District"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Reason"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Education"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Designation"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Employee"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Occupation"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Province"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Village"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Code"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_HIVAIDSCareTypes"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_ARTSponsor"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_HivDisease"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Assessment"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Symptom"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Decode"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Feature"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Function"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_HivDisclosure"].Copy());
+                //WriteXMLDS.Tables.Add(theMainDS.Tables["mst_Satellite"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_LPTF"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_StoppedReason"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["mst_facility"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_HIVCareStatus"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_RelationshipType"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_TBStatus"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_ARVStatus"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_LostFollowreason"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Regimen"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_CouncellingType"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_CouncellingTopic"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_ReferredFrom"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_pmtctDeCode"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Module"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_ModDecode"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_ARVSideEffects"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_ModCode"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Country"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Town"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["VWDiseaseSymptom"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["VW_ICDList"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["mst_RegimenLine"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["mst_Store"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["mst_BlueCode"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["mst_BlueDecode"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_FormBuilderTab"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["VW_UserDesignationTransaction"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Supplier"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["mst_LabDepartment"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["mst_Batch"].Copy());
+               WriteXMLDS.WriteXml(allMaster, XmlWriteMode.WriteSchema);
 
-            WriteXMLDS.Tables.Clear();
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Strength"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_FrequencyUnits"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Drug"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Generic"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_DrugType"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Frequency"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_DrugSchedule"].Copy());
-            WriteXMLDS.WriteXml(drugMaster, XmlWriteMode.WriteSchema);
+                 WriteXMLDS.Tables.Clear();
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Strength"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_FrequencyUnits"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Drug"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Generic"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_DrugType"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Frequency"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_DrugSchedule"].Copy());
+                WriteXMLDS.WriteXml(drugMaster, XmlWriteMode.WriteSchema);
 
-            WriteXMLDS.Tables.Clear();
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_LabTest"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Lnk_TestParameter"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Lnk_LabValue"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Lnk_ParameterResult"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["LabTestOrder"].Copy());
-            WriteXMLDS.Tables.Add(theMainDS.Tables["mst_PatientLabPeriod"].Copy());
-            WriteXMLDS.WriteXml(labMaster, XmlWriteMode.WriteSchema);
+                WriteXMLDS.Tables.Clear();
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_LabTest"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Lnk_TestParameter"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Lnk_LabValue"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Lnk_ParameterResult"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["LabTestOrder"].Copy());
+                WriteXMLDS.Tables.Add(theMainDS.Tables["mst_PatientLabPeriod"].Copy());
+                WriteXMLDS.WriteXml(labMaster, XmlWriteMode.WriteSchema);
 
-            WriteXMLDS.Tables.Clear();
-            WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Frequency"].Copy());
-            WriteXMLDS.WriteXml(frequency, XmlWriteMode.WriteSchema);
+                WriteXMLDS.Tables.Clear();
+                WriteXMLDS.Tables.Add(theMainDS.Tables["Mst_Frequency"].Copy());
+                WriteXMLDS.WriteXml(frequency, XmlWriteMode.WriteSchema);
 
-            WriteXMLDS.Tables.Clear();
-            WriteXMLDS = new DataSet("QBReportList");
-            WriteXMLDS.Tables.Add(theMainDS.Tables["QueryBuilderReports"].Copy());
-            WriteXMLDS.WriteXml(Querybuilder, XmlWriteMode.WriteSchema);
+                WriteXMLDS.Tables.Clear();
+                WriteXMLDS = new DataSet("QBReportList");
+                WriteXMLDS.Tables.Add(theMainDS.Tables["QueryBuilderReports"].Copy());
+                WriteXMLDS.WriteXml(Querybuilder, XmlWriteMode.WriteSchema);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         #endregion

@@ -56,9 +56,13 @@ namespace PresentationApp.PharmacyDispense
         {
            (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblheader") as Label).Text = "Pharmacy Dispense";
            (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblRoot") as Label).Visible = false;
+           (Master.FindControl("levelTwoNavigationUserControl1").FindControl("UserControl_Alerts1") as UserControl).Visible = false;
+           (Master.FindControl("levelTwoNavigationUserControl1").FindControl("PanelPatiInfo") as Panel).Visible = false;
+           (Master.FindControl("patientBanner") as Control).Visible = false;
+           (Master.FindControl("level2Navigation") as Control).Visible = false;
+           (Master.FindControl("imageFlipLevel2") as Control).Visible = false;
            Session["PatientId"] = 0;
-           Session["TechnicalAreaId"] = 206;
-        
+           Session["TechnicalAreaId"] = 206;        
            ViewState["Facility"] = null;
            if (!IsPostBack)
            {

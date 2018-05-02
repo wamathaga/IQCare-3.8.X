@@ -85,12 +85,12 @@
                                                     <asp:ListBox ID="lstSelectedDrug" runat="server" Height="180px" Width="300px"></asp:ListBox>
                                                 </td>
                                                 <td valign="middle">
-                                                    <asp:ImageButton ID="btn_Up" Width="35px" Height="35px" runat="server" ImageUrl="../Touch/images/upknh.png"
+                                                    <asp:ImageButton ID="btn_Up" Width="35px" Height="35px" runat="server" ImageUrl="~/Images/upknh.png"
                                                         OnClick="btn_Up_Click" />
                                                     <%--<img class="link" onclick="MoveItemUpDown(true)" src="../Touch/images/upknh.png"
                                                 alt="Up" style="cursor: hand; width: 52px; height: 52px;" />--%>
                                                     <br />
-                                                    <asp:ImageButton ID="btn_down" Width="35px" Height="35px" runat="server" ImageUrl="../Touch/images/downknh.png"
+                                                    <asp:ImageButton ID="btn_down" Width="35px" Height="35px" runat="server" ImageUrl="~/Images/downknh.png"
                                                         OnClick="btn_down_Click" />
                                                     <%--<img class="link" onclick="MoveItemUpDown(false)" src="../Touch/images/downknh.png"
                                                 alt="Down" style="cursor: hand; width: 52px; height: 52px;" />--%>&nbsp;

@@ -85,7 +85,8 @@ namespace PresentationApp.AdminForms
                     foreach (DataRow r in thePharmacyDS.Tables[0].Rows)
                     {
                         DataRow[] theDR1 = theDT1.Select("drug_pk=" + r[0].ToString());
-                        theDT1.Rows.Remove(theDR1[0]);
+                        if(theDR1.Length >0)
+                            theDT1.Rows.Remove(theDR1[0]);
 
                     }
                     Session["DrugTable"] = theDT1;

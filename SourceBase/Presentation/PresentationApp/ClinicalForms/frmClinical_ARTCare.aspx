@@ -1,10 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage/IQCare.master" AutoEventWireup="true" Inherits="ClinicalForms_frmClinical_ARTCare" Codebehind="frmClinical_ARTCare.aspx.cs" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage/IQCare.master" AutoEventWireup="true"
+    Inherits="ClinicalForms_frmClinical_ARTCare" CodeBehind="frmClinical_ARTCare.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="IQCareContentPlaceHolder" runat="Server">
-    
     <script language="javascript" type="text/javascript">
         function WindowPrint() {
-            window.print(); 
+            window.print();
         }
 
         function GetControl() {
@@ -42,105 +42,100 @@
             }
         }   
     </script>
-    
-    <br />
-    <div style="padding-left: 8px; padding-right: 8px;">
+    <div style="padding-left: 8px; padding-right: 8px; width: 100%;" class="container">
         <div class="border center formbg">
-            <br />
-            <h2 class="forms" align="left">
-                Cohort</h2>
-            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+            <h4 class="forms" align="left">
+                Cohort</h4>
+            <table cellspacing="6" cellpadding="0" width="100%" border="0" class="table-condensed">
                 <tbody>
                     <tr>
-                        <td class="form center">
+                        <td class="form left">
                             <label>
                                 Cohort Month:</label>
-                            <input id="txtcohortmnth" size="10" name="CohortMonth" runat="server" readonly="readonly"/>
+                            <input id="txtcohortmnth" size="10" name="CohortMonth" runat="server" readonly="readonly" />
                         </td>
-                        <td class="form center">
+                        <td class="form left">
                             <label>
                                 Cohort Year:</label>
-                            <input id="txtcohortyear" size="10" name="CohortYear" runat="server" readonly="readonly"/>
+                            <input id="txtcohortyear" size="10" name="CohortYear" runat="server" readonly="readonly" />
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <br/>
+            <br />
         </div>
         <br />
         <div class="border center formbg">
-            <br/>
-            <h2 class="forms" align="left">
-                Transfer in on ART</h2>
-            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+            <br />
+            <h4 class="forms" align="left">
+                Transfer in on ART</h4>
+            <table cellspacing="6" cellpadding="0" width="100%" border="0" class="table-condensed">
                 <tbody>
                     <tr>
                         <td class="border whitebg formcenter">
-
-                            <label id="Label2" class="right15">
+                            <label id="Label2" class="left">
                                 ART Transfer in Date:</label>
                             <input id="txtarttransdate" runat="server" maxlength="11" size="10" name="txtarttransdate" />
                             <img id="img2" onclick="w_displayDatePicker('<%=txtarttransdate.ClientID%>');" height="22"
                                 alt="Date Helper" hspace="3" src="../images/cal_icon.gif" width="22" border="0" /><span
-                                    class="smallerlabel">(DD-MMM-YYYY)</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <label class="right15">
+                                    class="smallerlabel">(DD-MMM-YYYY)</span>
+                            <label class="left">
                                 ART Transfer in From:</label>
                             <asp:DropDownList ID="ddlarttransferinfrom" runat="Server" Font-Size="10px">
-                            </asp:DropDownList>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <label class="right10">
+                            </asp:DropDownList>
+                            <label class="left">
                                 ARVs:</label>
-                            <input id="txttransferARVs" size="16" name="transferARVs" readonly="readonly" runat="server"/>
+                            <input id="txttransferARVs" size="10" name="transferARVs" readonly="readonly" runat="server" />
                             <asp:Button ID="btntransferARVs" runat="server" Text="..." OnClick="btnRegimen_Click" />
-                        
-                        
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <br/>
+          
         </div>
         <br />
         <div class="border center formbg">
-            <br/>
-            <h2 class="forms" align="left">
-                ART Start at Another Facility</h2>
-            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+            <br />
+            <h4 class="forms" align="left">
+                ART Start at Another Facility</h4>
+            <table cellspacing="6" cellpadding="0" width="100%" border="0" class="table-condensed">
                 <tbody>
                     <tr>
-                        <td class="border whitebg formcenter pad5">
+                        <td class="border whitebg formcenter">
                             <label id="lblrARTdate">
                                 Start ART 1st Line Regimen Date:</label>
                             <input id="txtanotherRegimendate" runat="server" maxlength="11" size="10" name="txtanotherRegimendate"
                                 onmouseout="setMonthYear();" />
                             <img id="imgdate" onclick="w_displayDatePicker('<%=txtanotherRegimendate.ClientID%>');"
                                 height="22" alt="Date Helper" hspace="3" src="../images/cal_icon.gif" width="22"
-                                border="0" /><span class="smallerlabel">(DD-MMM-YYYY)</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <label class="right10">
+                                border="0" /><span class="smallerlabel">(DD-MMM-YYYY)</span>
+                            <label class="left">
                                 Regimen:</label>
                             <input id="txtanotherregimen" size="16" name="anotherregimen" readonly="readonly"
-                                runat="server"/>
-                            <asp:Button ID="btnanotherRegimen" runat="server" Text="..." OnClick="btnTransRegimen_Click" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <label class="right10">
+                                runat="server" />
+                            <asp:Button ID="btnanotherRegimen" runat="server" Text="..." OnClick="btnTransRegimen_Click" />
+                            <label class="left">
                                 Weight :</label>
-                            <input id="txtanotherwght" size="6" name="anotherwght" runat="server"/>
-                            <label>
+                            <input id="txtanotherwght" size="6" name="anotherwght" runat="server" />
+                            <label class="smallerlabel">
                                 Kgs</label>
                         </td>
                     </tr>
                     <tr>
-                        <td class="border whitebg formcenter pad5">
+                        <td class="border whitebg formcenter">
                             <label>
                                 Clinical Stage:</label>
                             <asp:DropDownList ID="lstanotherClinicalStage" runat="server" Style="width: 100px">
-                            </asp:DropDownList>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <label class="right15">
+                            </asp:DropDownList>
+                           
+                            <label class="left">
                                 CD4:</label>
-                            <input id="txtanotherCD4" size="6" name="CD4" runat="server"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <label class="right5">
+                            <input id="txtanotherCD4" size="6" name="CD4" runat="server" />
+                            <label class="left">
                                 CD4 %:</label>
-                            <input id="txtanotherCD4percent" size="6" name="CD4percent" runat="server"/>
+                            <input id="txtanotherCD4percent" size="6" name="CD4percent" runat="server" />
                             <span id="divanothpreg" runat="server">
-                                <label class="right15">
+                                <label class="left">
                                     Pregnant:</label>
                                 <asp:DropDownList ID="ddlpregnantanother" runat="Server">
                                 </asp:DropDownList>
@@ -149,48 +144,49 @@
                     </tr>
                 </tbody>
             </table>
-            <br/>
+            <br />
         </div>
         <br />
         <div class="border center formbg">
-            <br/>
-            <h2 class="forms" align="left">
-                ART Start at This Facility</h2>
-            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+            <br />
+            <h4 class="forms" align="left">
+                ART Start at This Facility</h4>
+            <table cellspacing="6" cellpadding="0" width="100%" border="0" class="table-condensed">
                 <tbody>
                     <tr>
-                        <td class="border whitebg formcenter pad5">
+                        <td class="border whitebg formcenter">
                             <label id="lblthisregi">
                                 Start ART 1st Line Regimen Date:</label>
                             <input id="txtthisRegimendate" runat="server" maxlength="11" size="10" name="txtthisRegimendate"
-                                readonly="readonly" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                readonly="readonly" />
                             <%--<img id="img1" onclick="w_displayDatePicker('<%=txtthisRegimendate.ClientID%>');"
                                 height="22" alt="Date Helper" hspace="3" src="../images/cal_icon.gif" width="22"
                                 border="0" /><span class="smallerlabel">(DD-MMM-YYYY)</span>--%>
-                            <label class="right10">
+                            <label class="left">
                                 Regimen:</label>
-                            <input id="txtthisregimen" size="16" name="thisregimen" readonly="readonly" runat="server"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <label class="right10">
+                            <input id="txtthisregimen" size="16" name="thisregimen" readonly="readonly" runat="server" />
+                            <label class="left">
                                 Weight :</label>
-                            <input id="txtthiswght" size="6" name="CohortYear" runat="server" readonly="readonly"/>
-                            <label>
+                            <input id="txtthiswght" size="6" name="CohortYear" runat="server" readonly="readonly" />
+                            <label class="smallerlabel">
                                 Kgs</label>
                         </td>
                     </tr>
                     <tr>
-                        <td class="border whitebg formcenter pad5">
+                        <td class="border whitebg formcenter">
                             <label>
                                 Clinical Stage:</label>
                             <asp:DropDownList ID="lstthisClinicalStage" runat="server" Style="width: 100px" Enabled="false">
-                            </asp:DropDownList>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <label class="right15">
+                            </asp:DropDownList>
+                            
+                            <label class="left">
                                 CD4:</label>
-                            <input id="txtthisCD4" size="6" name="CD4this" runat="server" readonly="readonly"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <label class="right5">
+                            <input id="txtthisCD4" size="6" name="CD4this" runat="server" readonly="readonly" />
+                            <label class="left">
                                 CD4 %:</label>
-                            <input id="txtthisCD4percent" size="6" name="CD4percentthis" runat="server" readonly="readonly"/>
+                            <input id="txtthisCD4percent" size="6" name="CD4percentthis" runat="server" readonly="readonly" />
                             <span id="spnthispreg" runat="server">
-                                <label class="right15">
+                                <label class="left">
                                     Pregnant:</label>
                                 <asp:DropDownList ID="ddlpregthis" runat="Server" Enabled="false">
                                 </asp:DropDownList>
@@ -199,11 +195,11 @@
                     </tr>
                 </tbody>
             </table>
-            <br/>
+            <br />
         </div>
         <br />
         <div class="border center formbg">
-            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+            <table cellspacing="6" cellpadding="0" width="100%" border="0" class="table-condensed">
                 <tbody>
                     <tr>
                         <td class="pad5 formbg border">
@@ -255,7 +251,7 @@
         </div>
         <br />
         <div class="border center formbg">
-            <table cellspacing="6" cellpadding="0" width="100%" border="0">
+            <table cellspacing="6" cellpadding="0" width="100%" border="0" class="table-condensed">
                 <tbody>
                     <tr>
                         <td class="pad5 formbg border">
@@ -311,11 +307,14 @@
                     <tr>
                         <td class="form pad5 center" colspan="2">
                             <br />
-                            <asp:Button ID="btn_save" Text="Save" runat="server" OnClick="btn_save_Click" />
-                            <asp:Button ID="DQ_Check" Text="Data quality check" runat="server" OnClick="DQ_Check_Click" />
-                            <asp:Button ID="btn_close" Text="Close" runat="server" OnClick="btn_close_Click" />
+                            <asp:Button ID="btn_save" Text="Save" runat="server" OnClick="btn_save_Click" CssClass="btn btn-primary"
+                                Height="26px" />
+                            <asp:Button ID="DQ_Check" Text="Data quality check" runat="server" OnClick="DQ_Check_Click"
+                                CssClass="btn btn-primary" Height="26px" />
+                            <asp:Button ID="btn_close" Text="Close" runat="server" OnClick="btn_close_Click"
+                                CssClass="btn btn-primary" Height="26px" />
                             <asp:Button ID="btn_print" Text="Print" runat="server" OnClientClick="WindowPrint()"
-                                OnClick="btn_print_Click" />
+                                CssClass="btn btn-primary" Height="26px" OnClick="btn_print_Click" />
                         </td>
                     </tr>
                 </tbody>

@@ -41,10 +41,12 @@
             return true;
         }
 
-        function chkQtyDispGreaterQtyPres(qtyDisp, qtyPres) {
+        function chkQtyDispGreaterQtyPres(qtyPres, qtyDisp, qtyRefillQty) {
             var disp = document.getElementById(qtyDisp).value;
             var pres = document.getElementById(qtyPres).value;
-            if (parseFloat(disp) > parseFloat(pres)) {
+            var rfill = document.getElementById(qtyRefillQty).value;
+            var totalDesp = parseFloat(disp) + parseFloat(rfill);
+            if (parseFloat(totalDesp) > parseFloat(pres)) {
                 alert('Quantity dispensed is greater than quantity prescribed.');
             }
         }
@@ -151,6 +153,20 @@
                 return [oElement.x, oElement.y];
             }
         }
+
+        function AlertRegimen(txtLastReg) {
+            //var retVal = confirm("You have picked a different regimen. This patient is currently on " + txtLastReg + "");
+            var retVal = confirm("The regimen prescribed is different from the one previously dispensed would you like to continue?");
+            if (retVal == true) {
+                document.getElementById('btnHidAddDrug').click();
+            }
+            else {
+                return false;
+            }
+        }
+
+
+
     </script>
     <div class="container-fluid">
         <table class="table-condensed" width="100%">
@@ -313,7 +329,7 @@
                                                             </td>
                                                             <td>
                                                                 <asp:TextBox ID="txtIPTStartDate" runat="server" Width="110px"></asp:TextBox>
-                                                                <img id="appDateimg3" onclick="w_displayDatePicker('<%=txtIPTStartDate.ClientID%>');"
+                                                               <img id="appDateimg3" onclick="w_displayDatePicker('<%=txtIPTStartDate.ClientID%>');"
                                                                     height="22" alt="Date Helper" hspace="5" src="../images/cal_icon.gif" width="22"
                                                                     border="0" name="appDateimg0" /><span class="smallerlabel" id="appDatespan3">(DD-MMM-YYYY)</span>
                                                             </td>
@@ -393,7 +409,7 @@
                                                                 <asp:Label ID="Label27" runat="server" Font-Bold="True" Text="Treatment Plan:"></asp:Label>
                                                             </td>
                                                             <td>
-                                                                <asp:DropDownList ID="ddlTreatmentPlan" runat="server" Width="224px" Enabled="False"
+                                                                <asp:DropDownList ID="ddlTreatmentPlan" runat="server" Width="224px" Enabled="True"
                                                                     Font-Bold="True">
                                                                 </asp:DropDownList>
                                                             </td>
@@ -430,12 +446,13 @@
                                             <asp:DropDownList ID="ddlTreatmentProg" runat="server" Width="225px">
                                             </asp:DropDownList>
                                         </td>
-                                         <td>
+                                        <td>
                                             <asp:Label ID="lblregimenCode" runat="server" Font-Bold="True" Text="Regimen Code:"
                                                 CssClass="required" Style="visibility: hidden;"></asp:Label>
                                         </td>
                                         <td>
-                                            <asp:DropDownList ID="ddlRegimenCode" runat="server" Width="120px" Style="visibility: hidden;">
+                                            <asp:DropDownList ID="ddlRegimenCode" runat="server" Width="120px" Style="visibility: hidden;"
+                                             OnSelectedIndexChanged="ddlRegimenCode_SelectedIndexChanged" AutoPostBack="true">
                                             </asp:DropDownList>
                                             <asp:HiddenField ID="hdnregimenCode" runat="server" Value="hidden" />
                                         </td>
@@ -541,18 +558,17 @@
                                                         <table class="table-condensed">
                                                             <tr>
                                                                 <br />
-                                                                <td style="width:100px;">
+                                                                <td style="width: 100px;">
                                                                     &nbsp;<asp:Label ID="Label30" runat="server" Text="Drug Name:" Font-Bold="true" Style="vertical-align: top"></asp:Label>
                                                                 </td>
                                                                 <td style="width: 570px">
                                                                     <asp:TextBox ID="txtDrug" runat="server" Width="100%" OnTextChanged="txtDrug_TextChanged"
-                                                                        AutoPostBack="true"></asp:TextBox>
+                                                                        AutoPostBack="True"></asp:TextBox>
                                                                     <asp:Panel ID="divwidth" runat="server" ScrollBars="Vertical" Height="200px" />
                                                                 </td>
-                                                                <td style="width:10%;" align="left">
-                                                                <asp:CheckBox ID="chkAvailDrugs" runat="server" Text="Available Only" 
-                                                                        TextAlign="Right" Checked="true" 
-                                                                        oncheckedchanged="chkAvailDrugs_CheckedChanged" AutoPostBack="true"/>
+                                                                <td style="width: 10%;" align="left">
+                                                                    <asp:CheckBox ID="chkAvailDrugs" runat="server" Text="Available Only" TextAlign="Right"
+                                                                        Checked="true" OnCheckedChanged="chkAvailDrugs_CheckedChanged" AutoPostBack="true" />
                                                                 </td>
                                                                 <td width="41%" align="right">
                                                                     <asp:Button ID="btnPriorPrescription" runat="server" Font-Bold="True" Text="Copy Prior Prescription"
@@ -570,6 +586,8 @@
                                                             OnClientItemSelected="ace1_itemSelected">
                                                         </act:AutoCompleteExtender>
                                                         <asp:HiddenField ID="hdCustID" runat="server" />
+                                                        <asp:Button ID="btnHidAddDrug" runat="server" ClientIDMode="Static" Style="visibility: hidden;
+                                                            display: none;" OnClick="btnHidAddDrug_Click" />
                                                         <hr />
                                                     </div>
                                                     <div class="mid" style="height: 300px; overflow: auto">

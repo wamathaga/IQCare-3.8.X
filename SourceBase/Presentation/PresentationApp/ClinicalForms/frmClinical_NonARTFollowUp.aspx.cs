@@ -169,7 +169,7 @@ public partial class frmClinical_NonARTFollowUp : BasePage, ICallbackEventHandle
                 }
             }
         }
-        if (dateconstraint)
+        if (!dateconstraint)
         {
             if (txtLMP.Value != "")
             {
@@ -234,7 +234,7 @@ public partial class frmClinical_NonARTFollowUp : BasePage, ICallbackEventHandle
                     IQCareMsgBox.Show("BlankDropDown", theMsg, this);
                     return false;
                 }
-                if (dateconstraint)
+                if (!dateconstraint)
                 {
                     if (txtpharmReportedbyDate.Value != "")
                     {
@@ -255,7 +255,7 @@ public partial class frmClinical_NonARTFollowUp : BasePage, ICallbackEventHandle
                     IQCareMsgBox.Show("BlankDropDown", theMsg, this);
                     return false;
                 }
-                if (dateconstraint)
+                if (!dateconstraint)
                 {
                     if (txtpharmReportedbyDate.Value == "")
                     {
@@ -280,7 +280,7 @@ public partial class frmClinical_NonARTFollowUp : BasePage, ICallbackEventHandle
                 IQCareMsgBox.Show("BlankDropDown", theMsg, this);
                 return false;
             }
-            if (dateconstraint)
+            if (!dateconstraint)
             {
                 if (txtpharmReportedbyDate.Value == "")
                 {
@@ -305,7 +305,7 @@ public partial class frmClinical_NonARTFollowUp : BasePage, ICallbackEventHandle
                     IQCareMsgBox.Show("BlankDropDown", theMsg, this);
                     return false;
                 }
-                if (dateconstraint)
+                if (!dateconstraint)
                 {
                     if (txtpharmOrderedbyDate.Value != "")
                     {
@@ -325,7 +325,7 @@ public partial class frmClinical_NonARTFollowUp : BasePage, ICallbackEventHandle
                     IQCareMsgBox.Show("BlankDropDown", theMsg, this);
                     return false;
                 }
-                if (dateconstraint)
+                if (!dateconstraint)
                 {
                     if (txtpharmOrderedbyDate.Value == "")
                     {
@@ -348,7 +348,7 @@ public partial class frmClinical_NonARTFollowUp : BasePage, ICallbackEventHandle
                 IQCareMsgBox.Show("BlankDropDown", theMsg, this);
                 return false;
             }
-            if (dateconstraint)
+            if (!dateconstraint)
             {
                 if (txtpharmOrderedbyDate.Value == "")
                 {
@@ -373,7 +373,7 @@ public partial class frmClinical_NonARTFollowUp : BasePage, ICallbackEventHandle
                 return false;
             }
         }
-        if (dateconstraint)
+        if (!dateconstraint)
         {
             if (txtpharmOrderedbyDate.Value != "")
             {
@@ -394,7 +394,7 @@ public partial class frmClinical_NonARTFollowUp : BasePage, ICallbackEventHandle
             }
         }
 
-        if (dateconstraint)
+        if (!dateconstraint)
         {
             if (txtpharmReportedbyDate.Value != "")
             {
@@ -463,7 +463,7 @@ public partial class frmClinical_NonARTFollowUp : BasePage, ICallbackEventHandle
                 }
             }
         }
-        if (dateconstraint)
+        if (!dateconstraint)
         {
             if (txtLMP.Value != "")
             {
@@ -478,7 +478,7 @@ public partial class frmClinical_NonARTFollowUp : BasePage, ICallbackEventHandle
             }
         }
 
-        if (dateconstraint)
+        if (!dateconstraint)
         {
             if (txtSpecifyDate.Value != "")
             {
@@ -531,7 +531,7 @@ public partial class frmClinical_NonARTFollowUp : BasePage, ICallbackEventHandle
                     IQCareMsgBox.Show("BlankDropDown", theMsg, this);
                     return false;
                 }
-                if (dateconstraint)
+                if (!dateconstraint)
                 {
                     if (txtpharmReportedbyDate.Value != "")
                     {
@@ -553,7 +553,7 @@ public partial class frmClinical_NonARTFollowUp : BasePage, ICallbackEventHandle
                         IQCareMsgBox.Show("BlankDropDown", theMsg, this);
                         return false;
                     }
-                    if (dateconstraint)
+                    if (!dateconstraint)
                     {
                         if (txtpharmReportedbyDate.Value == "")
                         {
@@ -579,7 +579,7 @@ public partial class frmClinical_NonARTFollowUp : BasePage, ICallbackEventHandle
                     IQCareMsgBox.Show("BlankDropDown", theMsg, this);
                     return false;
                 }
-                if (dateconstraint)
+                if (!dateconstraint)
                 {
                     if (txtpharmReportedbyDate.Value == "")
                     {
@@ -604,7 +604,7 @@ public partial class frmClinical_NonARTFollowUp : BasePage, ICallbackEventHandle
                     IQCareMsgBox.Show("BlankDropDown", theMsg, this);
                     return false;
                 }
-                if (dateconstraint)
+                if (!dateconstraint)
                 {
                     if (txtpharmOrderedbyDate.Value != "")
                     {
@@ -624,7 +624,7 @@ public partial class frmClinical_NonARTFollowUp : BasePage, ICallbackEventHandle
                     IQCareMsgBox.Show("BlankDropDown", theMsg, this);
                     return false;
                 }
-                if (dateconstraint)
+                if (!dateconstraint)
                 {
                     if (txtpharmOrderedbyDate.Value == "")
                     {
@@ -647,7 +647,7 @@ public partial class frmClinical_NonARTFollowUp : BasePage, ICallbackEventHandle
                 IQCareMsgBox.Show("BlankDropDown", theMsg, this);
                 return false;
             }
-            if (dateconstraint)
+            if (!dateconstraint)
             {
                 if (txtpharmOrderedbyDate.Value == "")
                 {
@@ -672,7 +672,7 @@ public partial class frmClinical_NonARTFollowUp : BasePage, ICallbackEventHandle
                 return false;
             }
         }
-        if (dateconstraint)
+        if (!dateconstraint)
         {
             if (txtpharmOrderedbyDate.Value != "")
             {
@@ -693,7 +693,7 @@ public partial class frmClinical_NonARTFollowUp : BasePage, ICallbackEventHandle
             }
         }
 
-        if (dateconstraint)
+        if (!dateconstraint)
         {
             if (txtpharmReportedbyDate.Value != "")
             {
@@ -930,7 +930,7 @@ public partial class frmClinical_NonARTFollowUp : BasePage, ICallbackEventHandle
                     strmsg += IQCareMsgBox.GetMessage("BlankDropDown", theBuilder, this);
                     strmsg = strmsg + "</br>";
                 }
-                if (dateconstraint)
+                if (!dateconstraint)
                 {
                     if (txtpharmOrderedbyDate.Value != "")
                     {

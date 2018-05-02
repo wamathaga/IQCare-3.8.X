@@ -395,7 +395,7 @@ public partial class frmPatientCustomRegistration : LogPage
                 TextBox theNumberText = new TextBox();
                 theNumberText.ID = "TXTNUM-" + Column + "-" + Table + "-" + FieldId;
                 theNumberText.Width = 100;
-                theNumberText.MaxLength = 9;
+                theNumberText.MaxLength = 10;
                 theNumberText.Enabled = theEnable;
                 PnlDynamicElements.Controls.Add(theNumberText);
                 theNumberText.Attributes.Add("onkeyup", "chkInteger('" + theNumberText.ClientID + "')");
@@ -1539,8 +1539,14 @@ public partial class frmPatientCustomRegistration : LogPage
                         theMstPatientDT = (DataTable)ViewState["themstpatient"];
                         GetValue = "";
                     }
+                    else if ((Convert.ToString(TempDR["TableName"]).ToUpper() == "DTL_RURALRESIDENCE") || (Convert.ToString(TempDR["TableName"]).ToUpper() == "DTL_PATIENTHOUSEHOLDINFO"))
+                    {
+                        theMstPatientDT = new DataTable();
+                        GetValue = "Select * from [" + TempDR["TableName"] + "] where Ptn_pk=" + PatientID + " and Visit_Pk=" + VisitID + " and LocationId=" + LocationID + "";
+                    }
                     else
                     {
+
                         theMstPatientDT = new DataTable();
                         GetValue = "Select * from [" + TempDR["TableName"] + "] where Ptn_pk=" + PatientID + " and VisitID=" + VisitID + " and LocationId=" + LocationID + "";
                     }

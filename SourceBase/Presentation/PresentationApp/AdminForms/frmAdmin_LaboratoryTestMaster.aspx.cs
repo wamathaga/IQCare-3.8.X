@@ -210,12 +210,14 @@ public partial class AdminLaboratoryTest_Master : LogPage
                         else
                         {
                           //  ddlDataType.SelectedIndex = 0; //Text
-
-                            if (theDS.Tables[2].Rows.Count > 0)
+                            if (theDS.Tables[0].Rows[0]["DataType"].ToString() == "Numeric")
+                            {
+                                ddlDataType.SelectedIndex = 1; // Numeric
+                            }
+                            else if (theDS.Tables[0].Rows[0]["DataType"].ToString() == "Select List")
                             {
                                 ddlDataType.SelectedIndex = 2; //select list
                                 getselectlist(theDS.Tables[2]);
-
                                 LabIdforselectList = Convert.ToInt32(Request.QueryString["LabId"]);
                             }
                             else
@@ -231,7 +233,11 @@ public partial class AdminLaboratoryTest_Master : LogPage
                     }
                     else
                     {
-                        if (theDS.Tables[2].Rows.Count > 0)
+                        if (theDS.Tables[0].Rows[0]["DataType"].ToString() == "Numeric")
+                        {
+                            ddlDataType.SelectedIndex = 1; // Numeric
+                        }
+                        else if (theDS.Tables[0].Rows[0]["DataType"].ToString() == "Select List")
                         {
                             ddlDataType.SelectedIndex = 2; //select list
                             getselectlist(theDS.Tables[2]);

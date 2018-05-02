@@ -137,31 +137,42 @@ public partial class MasterPage_levelTwoNavigationUserControl : System.Web.UI.Us
     #region "Disable Menu Items"
     private void disableMenuItem()
     {
-        patientLevelMenu.Items[0].Enabled = false;
-        for (int i = 0; i < patientLevelMenu.Items[0].ChildItems.Count; i++)
-        {
-            patientLevelMenu.Items[0].ChildItems[i].Selectable = false;
-        }
+        //patientLevelMenu.Items[0].Enabled = false;
+        //for (int i = 0; i < patientLevelMenu.Items[0].ChildItems.Count; i++)
+        //{
+        //    patientLevelMenu.Items[0].ChildItems[i].Selectable = false;
+        //}
         patientLevelMenu.Items[1].Selectable = false;
-        patientLevelMenu.Items[2].Enabled = false;
-        patientLevelMenu.Items[3].Enabled = false;
-        patientLevelMenu.Items[4].Enabled = false;
-        for (int i = 0; i < patientLevelMenu.Items[4].ChildItems.Count; i++)
-        {
-            patientLevelMenu.Items[4].ChildItems[i].Selectable = false;
-        }
+        patientLevelMenu.FindItem("mnuClinicalDeleteForm").Selectable = false;
+        patientLevelMenu.FindItem("mnuClinicalDeleteForm").Enabled = false;
+        //patientLevelMenu.Items[2].Enabled = false;
+        //patientLevelMenu.Items[3].Enabled = false;
+        //patientLevelMenu.Items[4].Enabled = false;
+        //for (int i = 0; i < patientLevelMenu.Items[1].ChildItems.Count; i++)
+        //{
+        //    patientLevelMenu.Items[1].ChildItems[i].Selectable = false;
+        //}
         if (Convert.ToString(Session["CareEndFlag"]) == "1")
         {
             patientLevelMenu.Items[4].Enabled = true;
-            for (int i = 0; i < patientLevelMenu.Items[4].ChildItems.Count; i++)
+            for (int i = 0; i < patientLevelMenu.Items[1].ChildItems.Count; i++)
             {
-                patientLevelMenu.Items[4].ChildItems[i].Selectable = true;
+                var values = new[] { "mnuPharmacy", "mnuLabOrderDynm", "mnuLabTest" };
+                if(values.Any(patientLevelMenu.Items[1].ChildItems[i].Value.Contains))
+                //if (patientLevelMenu.Items[1].ChildItems[i].Value.ContainsAny("mnuPharmacy") || patientLevelMenu.Items[1].ChildItems[i].Value.Equals("mnuLabOrderDynm"))
+                {
+                    patientLevelMenu.Items[1].ChildItems[i].Selectable = true;
+                }
+                else
+                {
+                    patientLevelMenu.Items[1].ChildItems[i].Selectable = false;
+                }
             }
         }
-        patientLevelMenu.Items[5].Enabled = false;
-        patientLevelMenu.Items[7].Enabled = false;
+        //patientLevelMenu.Items[5].Enabled = false;
+        //patientLevelMenu.Items[7].Enabled = false;
         //VY Disable Waiting Lsit 2015-03-31
-        patientLevelMenu.FindItem("mnuWaitingList").Enabled = false;
+        //patientLevelMenu.FindItem("mnuWaitingList").Enabled = false;
     }
     #endregion
 
@@ -248,6 +259,12 @@ public partial class MasterPage_levelTwoNavigationUserControl : System.Web.UI.Us
             if (Authentication.HasFeatureRight(ApplicationAccess.Laboratory, theDT) == false)
             {
                 RemoveMenuItemByValue(patientLevelMenu.Items, "mnuLabOrderDynm");
+                //mnuLabOrder.Visible = false;
+                //mnuLabOrderPMTCT.Visible = false;
+            }
+            if ((Authentication.HasFeatureRight(ApplicationAccess.OrderLabTest, theDT) == false) || (Session["LMIS"].ToString() != "1"))
+            {
+                RemoveMenuItemByValue(patientLevelMenu.Items, "mnuLabTest");
                 //mnuLabOrder.Visible = false;
                 //mnuLabOrderPMTCT.Visible = false;
             }
@@ -477,6 +494,7 @@ public partial class MasterPage_levelTwoNavigationUserControl : System.Web.UI.Us
                         CareEnded = Convert.ToString(theCEntedStatusDT.Rows[0]["CareEnded"]);
                         if (CareEnded == "1")
                         {
+                            Session["CareEndFlag"] = "1";
                             disableMenuItem();
                         }
                     }
@@ -1292,10 +1310,16 @@ public partial class MasterPage_levelTwoNavigationUserControl : System.Web.UI.Us
         if (dtPatientInfo != null && dtPatientInfo.Rows.Count > 0)
         {
             if (Session["SystemId"].ToString() == "1")
+            {
                 lblpatientname.Text = dtPatientInfo.Rows[0]["LastName"].ToString() + ", " + dtPatientInfo.Rows[0]["FirstName"].ToString();
+                Session["PatientAge"] = dtPatientInfo.Rows[0]["AGE"].ToString();
+            }
             else
+            {
                 lblpatientname.Text = dtPatientInfo.Rows[0]["LastName"].ToString() + ", " + dtPatientInfo.Rows[0]["MiddleName"].ToString() + " , " + dtPatientInfo.Rows[0]["FirstName"].ToString();
-            lblIQnumber.Text = dtPatientInfo.Rows[0]["IQNumber"].ToString();
+                lblIQnumber.Text = dtPatientInfo.Rows[0]["IQNumber"].ToString();
+                Session["PatientAge"] = dtPatientInfo.Rows[0]["AGE"].ToString();
+            }
 
 
             PMTCTNos = dtPatientInfo.Rows[0]["ANCNumber"].ToString() + dtPatientInfo.Rows[0]["PMTCTNumber"].ToString() + dtPatientInfo.Rows[0]["AdmissionNumber"].ToString() + dtPatientInfo.Rows[0]["OutpatientNumber"].ToString();
@@ -1350,6 +1374,7 @@ public partial class MasterPage_levelTwoNavigationUserControl : System.Web.UI.Us
                 Session["CareendedStatus"] = CareEnded;
                 if (CareEnded == "1")
                 {
+                    Session["CareEndFlag"] = "1";
                     disableMenuItem();
                 }
             }

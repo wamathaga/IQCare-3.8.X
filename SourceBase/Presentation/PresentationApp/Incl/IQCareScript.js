@@ -2638,20 +2638,24 @@ function CalculateDrugsPrescribed(txtMorning, txtMidday, txtEvening, txtNight, t
     document.getElementById(txtEvening).value = evening;
     document.getElementById(txtNight).value = night;
 
-    if ((morning + midday + evening + night) > 0 && duration != "") {
+    //alert((morning + midday + evening + night));
+
+    if ((parseFloat(morning) + parseFloat(midday) + parseFloat(evening) + parseFloat(night)) > -1 && duration != "") {
+        
         if (valSyrup == "1") {
-            //alert(valQtyUnitDisp);
+            
             var qty = 0;
             if (valQtyUnitDisp > 0) {
-                qty = ((1 * morning + 1 * midday + 1 * evening + 1 * night) * duration) / valQtyUnitDisp;
+                qty = ((1 * parseFloat(morning) + 1 * parseFloat(midday) + 1 * parseFloat(evening) + 1 * parseFloat(night)) * duration) / valQtyUnitDisp;
             }
             else {
-                qty = duration * (1 * morning + 1 * midday + 1 * evening + 1 * night);
+                qty = duration * (1 * parseFloat(morning) + 1 * parseFloat(midday) + 1 * parseFloat(evening) + 1 * parseFloat(night));
             }
             document.getElementById(txtQtyPrescribed).value = Math.ceil(qty);
         }
         else {
-            var qty = duration * (1 * morning + 1 * midday + 1 * evening + 1 * night);
+            
+            var qty = duration * (1 * parseFloat(morning) + 1 * parseFloat(midday) + 1 * parseFloat(evening) + 1 * parseFloat(night));  
             document.getElementById(txtQtyPrescribed).value = qty;
         }
     }

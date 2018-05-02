@@ -29,7 +29,8 @@ public partial class frmDBBackup : BasePage
         //(Master.FindControl("lblheader") as Label).Text = "Back up/Restore";
         (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblRoot") as Label).Visible = false;
         (Master.FindControl("levelOneNavigationUserControl1").FindControl("lblheader") as Label).Text = "Back up/Restore";
-
+        IQWebUtils Utils = new IQWebUtils();
+        Utils.HidePatientLevelheader();
         if (!IsPostBack)
         {
             if (!String.IsNullOrEmpty(Session["BackupDrive"].ToString()))

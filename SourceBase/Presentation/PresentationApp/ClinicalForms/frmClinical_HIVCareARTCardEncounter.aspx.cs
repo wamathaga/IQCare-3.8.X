@@ -571,11 +571,11 @@ public partial class frmClinical_HIVCareARTCardEncounter : LogPage
             }
         }
         //Privilages for Care End
-        if (Convert.ToString(Session["CareEndFlag"]) == "1" && Convert.ToString(Session["CareendedStatus"]) == "1")
-        {
-            btnSave.Enabled = true;
-            btnDataQualityCheck.Enabled = true;
-        }
+        //if (Convert.ToString(Session["CareEndFlag"]) == "1" && Convert.ToString(Session["CareendedStatus"]) == "1")
+        //{
+        //    btnSave.Enabled = true;
+        //    btnDataQualityCheck.Enabled = true;
+        //}
         IQCareUtils iQCareUtils = new IQCareUtils();
         BindFunctions bindFunctions = new BindFunctions();       
 
